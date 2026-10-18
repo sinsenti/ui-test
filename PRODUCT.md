@@ -15,7 +15,8 @@ application or scaffold.
 
 Implementation defaults selected within the user's delegated scope: TypeScript,
 CSS Modules with CSS custom properties, a `POST /api/lead` Route Handler, Zod,
-`libphonenumber-js/max`, the standard `pg` PostgreSQL client, and versioned SQL migrations.
+`libphonenumber-js/max`, the standard `pg` PostgreSQL client, and versioned SQL
+migrations.
 These are implementation choices rather than unresolved business requirements.
 
 Local development must work offline after dependencies and the database image
@@ -24,6 +25,17 @@ host and PostgreSQL through Docker Compose, with a named volume for persistent
 local data. Use the same PostgreSQL major version locally and on Neon. The `pg`
 client replaces the earlier Neon-specific driver default so application SQL and
 database access work against both environments.
+
+Use Node.js 24 and npm for local development. Keep fonts and image assets local.
+Cloud account setup, hosted configuration, and real Telegram bot connection are
+deferred until the final release feature. Local development and integration
+tests use Docker PostgreSQL and a simulated Telegram transport.
+
+Development is organized into feature briefs and the role sequence
+`task -> data-modeler -> builder -> test -> review`. Each feature carries its
+acceptance criteria, data/API decisions, implementation notes, test evidence,
+and review outcome through the whole sequence. See `AGENTS.md` and
+`features/README.md` for the repository workflow.
 
 ## Users
 
@@ -70,7 +82,11 @@ customers receive beans 1–3 days after roasting. Freshness is the central bene
 - Show submission progress, success, duplicate acknowledgement, and recoverable
   failure without losing entered values.
 - Include social link-preview metadata and an image. Keep motion restrained.
-- Telegram forwarding is optional and follows the required working flow.
+- Telegram notifications are required by the user's expanded scope. Persist
+  each new lead and one pending notification atomically, then attempt delivery.
+  Telegram failures must not discard the lead or turn a saved lead into a failed
+  form submission. Persist delivery state for retries. Duplicate submissions
+  must not create another lead or notification job.
 - Unknown business details are confirmed by the manager: the delivery charge
   below 50 BYN and the composition of the subscription.
 - No phone number, email, or social account was supplied. Use the supplied
