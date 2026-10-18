@@ -31,11 +31,33 @@ Cloud account setup, hosted configuration, and real Telegram bot connection are
 deferred until the final release feature. Local development and integration
 tests use Docker PostgreSQL and a simulated Telegram transport.
 
-Development is organized into feature briefs and the role sequence
-`task -> data-modeler -> builder -> test -> review`. Each feature carries its
+Development follows `task -> data-modeler -> builder -> test -> review`. Keep
 acceptance criteria, data/API decisions, implementation notes, test evidence,
-and review outcome through the whole sequence. See `AGENTS.md` and
-`features/README.md` for the repository workflow.
+and review outcomes in the conversation and agent handoffs. Per-feature files
+are not required; optional scratch notes under `features/` stay local and are
+ignored by Git. The shared workflow and implementation order live in `AGENTS.md`.
+
+Telegram delivery uses a durable `notification_outbox`: create a lead and its
+notification job atomically with the duplicate guard, then attempt delivery
+after commit. Claim jobs atomically, recover abandoned claims, and persist
+attempts, next eligible attempt, delivery state, and safe error details. Retry
+transient failures with backoff and honor Telegram's `retry_after`; retain
+terminal failures for operator correction and retry.
+
+Send a readable message containing the stable lead ID, contact fields, interest,
+product context, comment, and useful attribution, with correct escaping and a
+bounded length. An ambiguous external timeout can cause a repeated message;
+delivery is at least once, not an exactly-once guarantee across both systems.
+
+The current default is a prompt first attempt through Next.js `after()`, retries
+of due jobs on subsequent lead requests, a protected manual retry path, and a
+daily recovery cron at release. Keep per-invocation work bounded and unfinished
+jobs persisted. The recorded Vercel Hobby cron limit is once per day with
+imprecise timing (checked 2026-10-18); recheck at release. Normal delivery is
+prompt, while outage recovery has no rapid delivery guarantee under this plan.
+See the [Telegram API](https://core.telegram.org/bots/api#sendmessage),
+[Next.js after](https://nextjs.org/docs/app/api-reference/functions/after), and
+[Vercel cron limits](https://vercel.com/docs/cron-jobs/usage-and-pricing).
 
 ## Users
 
@@ -63,6 +85,9 @@ customers receive beans 1–3 days after roasting. Freshness is the central bene
 - Submission includes the live site, repository with incremental commits,
   authentic AI work log or key screenshots, mobile Lighthouse measurement, and
   a concise README describing choices, assumptions, contributions, and limits.
+- The final release phase includes environment separation, migrations, real
+  bot/chat configuration, and a real test notification with synthetic lead data.
+  Preview checks must not write production leads or message the production chat.
 
 ## Capabilities and Constraints
 

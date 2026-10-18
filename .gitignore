@@ -12,3 +12,6 @@ test-results/
 .impeccable/config.local.json
 .impeccable/references/
 .impeccable/mocks/worlds/
+
+# Optional local feature notes; the shared workflow lives in AGENTS.md.
+/features/
