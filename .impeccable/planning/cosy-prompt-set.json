@@ -1,0 +1,58 @@
+{
+  "generator": "built-in image_gen",
+  "purpose": "User-requested cozier revisions with #FCEDE3 and more visual forms",
+  "status": "awaiting-user-selection",
+  "businessSource": "PRODUCT.md",
+  "comps": [
+    {
+      "id": "cosy-note",
+      "image": ".impeccable/mocks/decision/cosy-note.png",
+      "promptFile": ".impeccable/planning/prompts/cosy-note.txt",
+      "references": [
+        ".impeccable/mocks/decision/white-dispatch.png",
+        "assets/screen.png"
+      ],
+      "prompt": "Redesign the attached Kvarta mobile landing-page mockup to feel noticeably cozier and more visually welcoming. Image 1 is the previous concept to revise; image 2 is typography inspiration only. Preserve the fictional Minsk roastery's business facts and readable Cyrillic, not the previous rigid composition. Render a 390×844 mobile viewport at 2×, edge to edge, no device frame.\n\nUse peach #FCEDE3 as the main canvas, warm cream surfaces, cocoa-brown text and soft warm-orange actions. Keep the broad geometric wordmark character from the typography reference, but soften the headline hierarchy with sentence case and breathing room. Never copy RANAK's name, trademark or food offerings.\n\nComposition: a warm invitation, not a giant headline followed by an exposed form. A softly arched photo window shows hands around an imperfect ceramic coffee cup in gentle daylight, with a Kvarta pack nearby. Let one generous cream shape and the peach canvas create depth; add a small hand-drawn steam curve rather than scattered decorations. Use the headline «Кофе для ваших тёплых утр». A small friendly note says «В четверг обжариваем — в пятницу привозим» and «Партиями по 5 кг». A rounded cream callback note belongs naturally to the composition.\n\nKeep a real compact callback panel with labelled «Имя» and «Телефон» (mask «+375 (__) ___-__-__»), one interest group «Разовый заказ / Подписка / Вопрос», an expandable «Комментарий (необязательно)» row, and clearly clickable «Оставить заявку». Use «Перезвоним и поможем с выбором». Show «Кофе от 26 BYN», «Подписка — 54 BYN / месяц», «2 пачки по 250 г, доставка включена». The wordmark and menu frame the top; the next section begins «Кофе на выбор» and «Эфиопия Иргачеффе · 250 г · 32 BYN». No invented reviews, discounts or contacts.",
+      "approved": false,
+      "dimensions": [
+        853,
+        1844
+      ]
+    },
+    {
+      "id": "cosy-pack",
+      "image": ".impeccable/mocks/decision/cosy-pack.png",
+      "promptFile": ".impeccable/planning/prompts/cosy-pack-v2.txt",
+      "references": [
+        ".impeccable/mocks/decision/white-pack.png",
+        "assets/screen.png"
+      ],
+      "prompt": "Redesign the attached Kvarta mobile landing-page mockup into a noticeably cozier working webpage. Image 1 is the previous UI to redesign; image 2 inspires typography only. Preserve fictional Minsk roastery facts and readable Cyrillic, not the rigid prior layout. Render a 390×844 mobile viewport at 2×, edge to edge, no device frame.\n\nUse peach #FCEDE3 canvas, warm cream shapes, cocoa text and soft warm-orange actions. Keep the reference's broad geometric wordmark character, with a gentler sentence-case headline. Never copy RANAK's name, trademark or offerings.\n\nBuild ONE vertical reading path in distinct full-width rows. Compact wordmark and menu; welcoming headline «Ваше утро начинается с кофе»; ONE dominant soft cream oval containing a natural ceramic coffee cup, Kvarta coffee bag and a little linen in gentle daylight; quiet offer text; compact rounded cream callback panel; catalog beginning. The still life occupies its own full-width row with no text inside or beside it. Show the oval's complete organic boundary against peach. The bag label reads «КВАРТА / БРАЗИЛИЯ СЕРРАДО / 250 г». No split hero, photo backdrop behind copy, side columns, icon benefits or equal offer cards.\n\nState «Кофе от 26 BYN», «Подписка — 54 BYN / месяц», «2 пачки по 250 г, доставка включена», «В четверг обжариваем — в пятницу привозим», «Партиями по 5 кг» in quiet readable text.\n\nThe compact panel has persistent labels «Имя», «Телефон» with mask «+375 (__) ___-__-__», ONE mutually exclusive interest group «Разовый заказ / Подписка / Вопрос», and a CLOSED disclosure row «+ Комментарий (необязательно)». No comment textarea is visible. Include «Оставить заявку» and «Перезвоним и поможем с выбором». Below starts «Кофе на выбор» and «Эфиопия Иргачеффе · 250 г · 32 BYN». No invented claims, reviews, discounts or contacts.\n",
+      "approved": false,
+      "dimensions": [
+        853,
+        1844
+      ]
+    },
+    {
+      "id": "cosy-rhythm",
+      "image": ".impeccable/mocks/decision/cosy-rhythm.png",
+      "promptFile": ".impeccable/planning/prompts/cosy-rhythm-v2.txt",
+      "references": [
+        ".impeccable/mocks/exploration/cosy-rhythm-v1.png",
+        "assets/screen.png"
+      ],
+      "prompt": "Revise this Kvarta mobile landing-page mockup with one focused correction: quiet the supporting hierarchy beneath the bean-to-cup journey. Image 1 is the current cozy UI to refine; image 2 is typography inspiration only. Keep the peach #FCEDE3 canvas, cocoa text, cream/apricot shapes, natural roasted beans, ceramic cup, broad geometric Cyrillic wordmark, smaller «ЧТ»/«ПТ» markers and relaxed curved orange path. Keep a 390×844 mobile portrait viewport at 2×, edge to edge without a device frame. Never copy RANAK, its registered mark or food content.\n\nMake «Из обжарки — к вашему утру» a friendly sentence-case heading with visibly smaller scale and lighter weight than the wordmark. The bean-to-cup journey remains the one dominant visual move. Preserve «В четверг обжариваем», «Партиями по 5 кг», «В пятницу привозим по Минску» within that welcoming asymmetric journey.\n\nReplace the two matching offer cards with one calm, unboxed text band on the peach canvas: «Кофе от 26 BYN», then «Подписка — 54 BYN / месяц», «2 пачки по 250 г, доставка включена». No separate tiles, icons, equal cards or copy/photo split. Leave breathing room between these readable offers and the callback panel.\n\nPreserve the real compact rounded cream callback panel: labelled «Имя» and «Телефон», mask «+375 (__) ___-__-__», one mutually exclusive group «Разовый заказ / Подписка / Вопрос», expandable «Комментарий (необязательно)» row and clear warm-orange «Оставить заявку» button. Include «Перезвоним и поможем с выбором». Keep wordmark/menu at the top and the distinct next section «Кофе на выбор», «Эфиопия Иргачеффе · 250 г · 32 BYN». All text readable. No invented reviews, discounts, tasting notes or contacts.\n",
+      "approved": false,
+      "dimensions": [
+        853,
+        1844
+      ]
+    }
+  ],
+  "review": {
+    "palette": "Peach #FCEDE3, warm cream, cocoa text and orange accents replace the white-only direction.",
+    "forms": "Organic photo windows, cream ovals and a curved roast-to-cup journey add visual warmth.",
+    "limitations": "These are generated visual studies. Responsive behavior, form interaction and accessibility will be verified in implementation; concept photography is illustrative."
+  }
+}

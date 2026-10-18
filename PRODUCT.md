@@ -76,9 +76,12 @@ asks for a distinctive design for this particular roastery without premium gloss
 or a generic generated appearance. A text wordmark is allowed. The user wants
 the local Impeccable skill to guide the UI work.
 
-The user requests a white color scheme with bright warm-tone accents. White is
-the main page surface; warm orange, coral, or amber may emphasize actions and
-selected details. The new concepts must preserve this preference.
+The latest user direction is a warmer, cozier design with more visual forms.
+Use the suggested peach `#FCEDE3` alongside warm cream and warm-tone accents;
+the previous white-only direction is superseded. Add purposeful rounded or
+organic shapes and inviting coffee imagery. Avoid a dry, austere, form-dominated
+opening. Retain readable controls and the typography reference below, with a
+gentler hierarchy and warmer overall expression.
 
 Typography reference: `assets/screen.png`, supplied by the user. Use its broad,
 bold geometric wordmark character and compact, tightly stacked plain sans-serif

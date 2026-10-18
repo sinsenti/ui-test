@@ -1,0 +1,75 @@
+{
+  "title": "Kvarta: a cozier coffee ritual",
+  "question": "Three warmer versions using your peach #FCEDE3, cream surfaces, softer orange, natural coffee imagery and more rounded visual forms. The typography keeps the character of your reference.",
+  "options": [
+    {
+      "id": "cosy-note",
+      "kind": "assigned",
+      "label": "A warm invitation",
+      "thesis": "A peach-and-cream welcome with a human coffee moment and a compact callback note.",
+      "palette": [
+        "#FCEDE3",
+        "#FFF8F1",
+        "#432D25",
+        "#E8724A",
+        "#E6B774"
+      ],
+      "materials": [
+        "peach surfaces",
+        "rounded cream note",
+        "soft daylight coffee photography"
+      ],
+      "viewport": "An organic photo window and a friendly headline lead into the real offers and a compact cream callback note.",
+      "risk": "The imagery and shapes need restraint so the simple offer remains easy to scan.",
+      "comp": ".impeccable/mocks/decision/cosy-note.png"
+    },
+    {
+      "id": "cosy-pack",
+      "kind": "dealt",
+      "label": "Your morning table",
+      "thesis": "A coffee pack, ceramic cup and soft morning light turn the product into an everyday ritual.",
+      "palette": [
+        "#FCEDE3",
+        "#FFF8F1",
+        "#432D25",
+        "#E8724A",
+        "#E6B774"
+      ],
+      "materials": [
+        "warm peach canvas",
+        "cream oval photo ground",
+        "ceramic and linen in imagery"
+      ],
+      "viewport": "One warm product still life rests on a soft cream shape; offers and a rounded request panel continue the vertical reading path.",
+      "risk": "The still life should leave enough space for comfortably sized mobile controls.",
+      "comp": ".impeccable/mocks/decision/cosy-pack.png"
+    },
+    {
+      "id": "cosy-rhythm",
+      "kind": "dealt",
+      "label": "From the roast to your cup",
+      "thesis": "A gentle curved path connects Thursday roasting with Friday coffee at home.",
+      "palette": [
+        "#FCEDE3",
+        "#FFF8F1",
+        "#432D25",
+        "#E8724A",
+        "#E6B774"
+      ],
+      "materials": [
+        "peach and cream fields",
+        "warm organic shapes",
+        "coffee detail photography"
+      ],
+      "viewport": "A soft flowing composition links the actual weekly steps, with smaller day markers, readable offers and a compact callback panel.",
+      "risk": "The curved visual story must support the schedule rather than become a decorative infographic.",
+      "comp": ".impeccable/mocks/decision/cosy-rhythm.png"
+    }
+  ],
+  "reroll": true,
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "steer": true
+}

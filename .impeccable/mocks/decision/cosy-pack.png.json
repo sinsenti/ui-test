@@ -1,0 +1,15 @@
+{
+  "prompt": "Redesign the attached Kvarta mobile landing-page mockup into a noticeably cozier working webpage. Image 1 is the previous UI to redesign; image 2 inspires typography only. Preserve fictional Minsk roastery facts and readable Cyrillic, not the rigid prior layout. Render a 390×844 mobile viewport at 2×, edge to edge, no device frame.\n\nUse peach #FCEDE3 canvas, warm cream shapes, cocoa text and soft warm-orange actions. Keep the reference's broad geometric wordmark character, with a gentler sentence-case headline. Never copy RANAK's name, trademark or offerings.\n\nBuild ONE vertical reading path in distinct full-width rows. Compact wordmark and menu; welcoming headline «Ваше утро начинается с кофе»; ONE dominant soft cream oval containing a natural ceramic coffee cup, Kvarta coffee bag and a little linen in gentle daylight; quiet offer text; compact rounded cream callback panel; catalog beginning. The still life occupies its own full-width row with no text inside or beside it. Show the oval's complete organic boundary against peach. The bag label reads «КВАРТА / БРАЗИЛИЯ СЕРРАДО / 250 г». No split hero, photo backdrop behind copy, side columns, icon benefits or equal offer cards.\n\nState «Кофе от 26 BYN», «Подписка — 54 BYN / месяц», «2 пачки по 250 г, доставка включена», «В четверг обжариваем — в пятницу привозим», «Партиями по 5 кг» in quiet readable text.\n\nThe compact panel has persistent labels «Имя», «Телефон» with mask «+375 (__) ___-__-__», ONE mutually exclusive interest group «Разовый заказ / Подписка / Вопрос», and a CLOSED disclosure row «+ Комментарий (необязательно)». No comment textarea is visible. Include «Оставить заявку» and «Перезвоним и поможем с выбором». Below starts «Кофе на выбор» and «Эфиопия Иргачеффе · 250 г · 32 BYN». No invented claims, reviews, discounts or contacts.\n",
+  "generator": "built-in image_gen",
+  "reference_paths": [
+    "/home/user/git/personal/ui-test/.impeccable/mocks/decision/white-pack.png",
+    "/home/user/git/personal/ui-test/assets/screen.png"
+  ],
+  "purpose": "surface-decision-comp",
+  "approved": false,
+  "prompt_file": ".impeccable/planning/prompts/cosy-pack-v2.txt",
+  "dimensions": [
+    853,
+    1844
+  ]
+}
