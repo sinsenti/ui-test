@@ -10,8 +10,9 @@ web
 
 Confirmed: Next.js for the application, Vercel for deployment, and Neon
 PostgreSQL for persistent lead storage. The user explicitly selected Vercel +
-Neon after comparing hosting and database options. There is no existing
-application or scaffold.
+Neon after comparing hosting and database options. The local foundation uses
+Next.js App Router with Node.js 24/npm and Docker PostgreSQL 17. The current home
+page is a development placeholder; the approved landing page is not built yet.
 
 Implementation defaults selected within the user's delegated scope: TypeScript,
 CSS Modules with CSS custom properties, a `POST /api/lead` Route Handler, Zod,
