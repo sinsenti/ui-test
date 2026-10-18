@@ -2,9 +2,19 @@
 
 ## Sources of truth
 
-- Read `PRODUCT.md` and the current task from the conversation before work.
-- `kvarta-brief.md` supplies business facts; `PRODUCT.md` records subsequent user
+- Read `docs/PRODUCT.md`, `docs/roadmap.md`, and the current task from the
+  conversation before work. `docs/README.md` is the documentation index.
+- `docs/kvarta-brief.md` supplies business facts; `docs/PRODUCT.md` records subsequent user
   decisions, including required Telegram notifications and cloud setup last.
+- Technical boundaries live in `docs/architecture.md`, local commands in
+  `docs/development.md`, and final release gates in `docs/release.md`.
+- Keep project documentation under `docs/`. Root `README.md` remains the entry
+  point and `AGENTS.md` remains discoverable agent guidance. Root `PRODUCT.md`
+  is a symbolic link to `docs/PRODUCT.md` for Impeccable compatibility; edit the
+  document in `docs/`, preserving the link. When the UI feature establishes
+  `DESIGN.md`, keep its content under `docs/` and provide the same root link if
+  required by Impeccable. Design-tool artifacts stay under `.impeccable/` and
+  assets keep their existing paths.
 - The approved design baseline is
   `.impeccable/mocks/decision/cosy-pack.png`. Preserve it when implementing UI;
   use the local Impeccable skill for frontend work.
@@ -51,20 +61,15 @@ findings back to the relevant role, then rerun the affected tests and review.
 Documentation-only changes can use task and review directly; mark data modeling
 and runtime tests not applicable when no runtime behavior changes.
 
-## Implementation order
+## Implementation plan and status
 
-1. Local foundation: Next.js, Docker PostgreSQL, migrations, and local checks.
-2. Lead intake: Belarusian phone validation, attribution, persistence, and
-   rolling ten-minute duplicate protection, including concurrent requests.
-3. Required Telegram delivery: durable notification jobs, simulated local
-   delivery, failures, and retries.
-4. Complete responsive landing page: approved design, required content, form
-   states, metadata, and mobile/desktop verification.
-5. Cloud connection and release: Vercel, Neon, the real Telegram bot, deployed
-   verification, and submission evidence.
-
-Track current progress in the conversation. This order does not imply that any
-implementation stage is already complete.
+Use `docs/roadmap.md` as the shared backlog and source of implementation order,
+dependencies, acceptance criteria, and completion status. Update it after a
+feature passes its completion checks, referencing the actual commit or evidence.
+Keep detailed task definitions, stage logs, and handoffs in the conversation;
+the roadmap does not require a committed file per feature. Keep architecture,
+development, and release docs aligned with the implemented changes and clearly
+label planned behavior.
 
 ## Local-first development
 
