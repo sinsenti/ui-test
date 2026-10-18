@@ -1,0 +1,47 @@
+{
+  "status": "awaiting-user-direction",
+  "seedReference": "seed:03d7cdf0accded6d",
+  "scope": "Visual concept exploration only; no application implementation yet.",
+  "review": {
+    "fridayEdition": {
+      "path": ".impeccable/mocks/decision/friday-edition.png",
+      "strength": "The actual roast/delivery cadence organizes the opening.",
+      "revision": "Replaced a conventional split hero and decorative benefit-icon list with chronological printed entries.",
+      "limits": [
+        "Generated serif supporting text and oversized pack placement need evaluation in the selected composition round.",
+        "Generated packaging, workshop and delivery imagery are illustrative concepts, not supplied client photographs."
+      ]
+    },
+    "neighborhoodBoard": {
+      "path": ".impeccable/mocks/decision/neighborhood-board.png",
+      "strength": "One coherent local notice contains a clear offer and readable single-column request form.",
+      "revision": "Removed a split hero, moved the product thumbnail to the catalog, and corrected invented tasting notes.",
+      "limits": [
+        "The requested 5 kg supporting line was omitted by the image generator and must remain in the implemented content."
+      ]
+    },
+    "fridayMorning": {
+      "path": ".impeccable/mocks/decision/friday-morning.png",
+      "strength": "One workshop illustration owns the scene; offer and request form remain legible.",
+      "revision": "Removed reference leakage (trees/mountains), a split hero and an incorrect interest-control grouping.",
+      "limits": [
+        "A larger illustration requires dedicated raster assets and responsive crops.",
+        "The scene is illustrative, not evidence of an actual client's premises or staff."
+      ]
+    },
+    "canon": {
+      "path": ".impeccable/mocks/decision/canon.png",
+      "role": "Subordinate conventional baseline, available for comparison.",
+      "revision": "Added persistent field labels and removed unsupported origin notes.",
+      "limits": [
+        "Generated subscription supporting copy is incomplete; the implemented offer remains two 250 g packs monthly with delivery included."
+      ]
+    }
+  },
+  "sharedLimits": [
+    "Concept images are visual studies, not functioning forms or verified responsive layouts.",
+    "The image generator returned differing portrait aspect ratios; the next selected composition round should use the chosen actual mobile viewport consistently.",
+    "No generated comp is approved yet. Exact generation prompts and rejected studies are preserved for the AI process record."
+  ],
+  "next": "Select or steer a direction before the selected world's compositional mockups and confirmed surface brief."
+}

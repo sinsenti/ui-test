@@ -1,0 +1,60 @@
+{
+  "seedReference": "seed:03d7cdf0accded6d",
+  "mechanism": "Small 5 kg batches roasted Thursday and delivered Friday in Minsk.",
+  "scene": "A Minsk customer opens an ad on a phone while thinking about coffee at home or in the office.",
+  "excludedDefaults": [
+    "Brown kraft-bag split hero with cream background and serif headline",
+    "Loud condensed-type brutalist coffee poster"
+  ],
+  "candidates": [
+    {
+      "position": 1,
+      "name": "Neighborhood noticeboard",
+      "family": "Neighborhood public notices",
+      "why": "An approachable local voice and immediately scannable offers fit visitors ordering from a nearby workshop.",
+      "world": "Bottle-green board, off-white notices, restrained melon ink, sturdy Cyrillic grotesque; the order slip is functional."
+    },
+    {
+      "position": 2,
+      "name": "Friday route",
+      "family": "Transit information graphics",
+      "why": "A simple Thursday-to-Friday sequence explains freshness without inventing delivery routes.",
+      "world": "Bright white, bus blue and leaf green; humanist wayfinding type, continuous schedule line, explicit stops."
+    },
+    {
+      "position": 3,
+      "name": "Kitchen cloth",
+      "family": "Domestic textiles",
+      "why": "A familiar home surface connects fresh beans with an everyday ritual.",
+      "world": "Butter yellow woven ground, cobalt checks, ink-blue Cyrillic sans; one textile grid carries quiet copy and ordering."
+    },
+    {
+      "position": 4,
+      "name": "Coffee shelf index",
+      "family": "Library shelf and catalog system",
+      "why": "Different origins and tasting notes become easy to compare through a small orderly catalog.",
+      "world": "Lilac dividers, deep plum ink, numbered shelf labels, practical book-jacket grotesque; origin tabs select real products."
+    },
+    {
+      "position": 5,
+      "name": "Friday edition",
+      "family": "Independent weekly neighborhood print",
+      "why": "The actual weekly roasting and delivery cadence becomes the organizing structure for a recurring coffee edition.",
+      "world": "Sunflower-yellow fields, indigo ink, cool pale paper, wide sturdy Cyrillic grotesque; weekly cadence owns the first screen, not a badge."
+    },
+    {
+      "position": 6,
+      "name": "Workshop door",
+      "family": "Enamel address signs and apartment directories",
+      "why": "The actual workshop address makes the roastery feel like a specific local place.",
+      "world": "Milk-white enamel, petrol blue lettering, small coral wayfinding; address-scale lettering and clearly separated request fields."
+    },
+    {
+      "position": 7,
+      "name": "Friday market",
+      "family": "Produce stalls and reusable wooden crates",
+      "why": "Weekly deliveries and an honest small assortment resonate with neighborhood shopping habits.",
+      "world": "Pale wood, tomato red painted identifiers, deep blue text; slatted rhythm organizes real packs and prices."
+    }
+  ]
+}

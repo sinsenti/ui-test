@@ -1,0 +1,9 @@
+Create a polished, high-fidelity conventional mobile coffee-roastery landing page for the fictional Minsk brand «Кварта». Render it edge to edge on a 9:16 portrait canvas with crisp readable Russian text, no browser window and no device frame. Show the first viewport and the beginning of the next section.
+
+This is a comparison baseline using familiar coffee-site conventions. Warm neutral surfaces, dark brown readable typography and carefully lit product photography support a straightforward vertical flow. Show real-looking generic coffee packaging without pretending it is supplied brand photography. Keep the main action and fields visually unmistakable.
+
+The visitor wants fresh beans at home and leaves a callback request; there is no cart or online payment. Facts: Kvarta roasts small 5 kg batches on Thursdays and delivers around Minsk on Fridays. The one-time assortment starts at 26 BYN; a monthly subscription of two 250 g packs costs 54 BYN with delivery included.
+
+Use the exact main copy «Кварта», «Свежая обжарка. Кофе домой.», «В четверг обжариваем — в пятницу привозим», «Кофе от 26 BYN» and «Подписка · 54 BYN / месяц». Include a product photograph, labelled form fields «Имя», «Телефон», interest choices «Разовый заказ», «Подписка», «Вопрос», optional «Комментарий», primary button «Оставить заявку» and supporting line «Перезвоним и поможем с выбором».
+
+The frame has navigation «Кофе», «Подписка», «Доставка». Begin the next section «Что обжариваем» with «Эфиопия Иргачеффе · 250 г · 32 BYN». Make every practical element readable and comfortably spaced. Do not invent testimonials, badges, discounts or contact details.

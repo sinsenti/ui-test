@@ -1,0 +1,9 @@
+Create a high-fidelity landing-page UI for the fictional Minsk coffee roastery «Кварта». This is a 390 CSS-pixel-wide mobile viewport rendered at retina resolution on a portrait canvas. Show the first viewport and a small start of the next section. Crisp readable Russian text, no device frame or browser chrome.
+
+The page is a continuous weekly neighborhood coffee edition. Its dominant structure is two chronological printed entries, Thursday roasting followed by Friday delivery; the order slip is the lower part of this same edition. Do not put headline copy beside a large product photo, do not add a benefit-icon list, and do not make a centred headline over equal cards. A small coffee pack is integrated into the printed sequence, subordinate to its text and controls. The visitor should see the actual callback form immediately.
+
+Sunflower yellow carries the main printed field with indigo ink, supported by cool pale matte paper. Use a warm sturdy Cyrillic grotesque, a clearly ranked reading order and generous mobile-sized text, with one dominant typographic move.
+
+Exact copy: «Кварта», «В четверг — обжарка.», «Партиями по 5 кг», «В пятницу — у вас.», «Доставка по Минску», «Разовый заказ — от 26 BYN», «Подписка — 54 BYN / месяц». A compact wordmark and menu control frame the top. Within the edition show single-column labelled fields «Имя», «Телефон», one mutually exclusive interest group «Разовый заказ / Подписка / Вопрос», optional «Комментарий», and button «Оставить заявку». Add «Перезвоним и поможем с выбором».
+
+The next section begins «Что обжариваем» and «Эфиопия Иргачеффе · 250 г · 32 BYN». No extra tasting notes, invented claims, contact numbers, badges or testimonials.

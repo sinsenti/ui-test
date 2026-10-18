@@ -1,0 +1,236 @@
+{
+  "title": "Kvarta: choose a design direction",
+  "question": "Compare the three directions for the same mobile landing page. Choose one, add a note, or ask for another set. These are design studies; the application's behavior and business facts stay fixed.",
+  "options": [
+    {
+      "id": "friday-edition",
+      "kind": "assigned",
+      "label": "Friday edition",
+      "thesis": "Kvarta's weekly rhythm becomes a fresh issue you can order from.",
+      "palette": [
+        "#F3D44C",
+        "#253B70",
+        "#F3F2ED",
+        "#1B2540"
+      ],
+      "materials": [
+        "two-ink neighborhood print",
+        "matte paper",
+        "honest product still life"
+      ],
+      "viewport": "Two chronological entries connect Thursday roasting to Friday delivery, followed by a visible callback slip and the beginning of the origin list.",
+      "risk": "Editorial styling must stay warm and usable rather than becoming a newspaper costume.",
+      "raised": [
+        {
+          "from": "Rendered console",
+          "raise": "Make selected, disabled, pending and successful request states unmistakable without explanatory decoration."
+        },
+        {
+          "from": "Flight instruments",
+          "raise": "Give every factual number one precise job; no decorative freshness meters or invented batch data."
+        },
+        {
+          "from": "Miniature room",
+          "raise": "Let one distinctive focal setting establish identity while every product remains directly orderable."
+        },
+        {
+          "from": "Tile hall",
+          "raise": "Carry a consistent underlying grid through story, catalog and form, including the quiet sections."
+        },
+        {
+          "from": "Luminous forest",
+          "raise": "Concentrate attention in one dominant move and keep secondary content calm and fully legible."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/friday-edition.png"
+    },
+    {
+      "id": "neighborhood-board",
+      "kind": "pick",
+      "label": "Around the corner",
+      "kicker": "IMPECCABLE’S PICK",
+      "thesis": "A local workshop's noticeboard makes coffee and ordering feel close to home.",
+      "palette": [
+        "#31554A",
+        "#F7F5ED",
+        "#F1AA8E",
+        "#203D34"
+      ],
+      "materials": [
+        "painted neighborhood board",
+        "uncoated notices",
+        "coffee packaging"
+      ],
+      "viewport": "One full-width workshop notice gathers the weekly schedule, actual offer and single-column callback slip; product imagery begins in the catalog below.",
+      "risk": "Familiar for a small roastery; needs distinctive type, composition and photography to earn its identity.",
+      "comp": ".impeccable/mocks/decision/neighborhood-board.png"
+    },
+    {
+      "id": "friday-morning",
+      "kind": "challenger",
+      "catalogId": "posters-covers-sleeves-wpa-park-poster",
+      "label": "A Friday morning",
+      "verdict": "competitive",
+      "thesis": "A four-ink illustration carries the journey from Thursday's roast to Friday's coffee.",
+      "palette": [
+        "#0E6E7A",
+        "#1E4F3A",
+        "#C96B2C",
+        "#F2E8CF"
+      ],
+      "materials": [
+        "flat silkscreen planes",
+        "paper stock",
+        "geometric display lettering"
+      ],
+      "viewport": "A coffee workshop scene leads into a visible offer and request form; the next illustrated plane introduces the actual origins and prices.",
+      "case": "Strong on approachable everyday ritual; the weekly edition states the commercial offer more directly.",
+      "risk": "The illustration must read as a roastery selling beans, not a café or a travel poster.",
+      "hero": ".impeccable/references/wpa-hero.webp",
+      "board": ".impeccable/references/wpa-board.webp",
+      "comp": ".impeccable/mocks/decision/friday-morning.png"
+    },
+    {
+      "id": "rendered-console",
+      "kind": "challenger",
+      "catalogId": "digital-design-canon-cdrom-chrome-navigation",
+      "label": "Rendered coffee console",
+      "verdict": "declined",
+      "thesis": "Coffee origins and requests occupy a tactile rendered console.",
+      "palette": [
+        "#B8BEC6",
+        "#557C82",
+        "#776383"
+      ],
+      "materials": [
+        "brushed panels",
+        "beveled toggles"
+      ],
+      "viewport": "A small product window changes through panel toggles, with the callback request in its control area.",
+      "case": "The technology nostalgia is less relatable to a neighborhood coffee purchase and the small window obscures a simple offer.",
+      "kept": "Unambiguous interaction states.",
+      "risk": "Too much interface framing for a small mobile catalog.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-cdrom-chrome-navigation-hero.webp"
+    },
+    {
+      "id": "flight-instruments",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-night-flight-six-pack",
+      "label": "Roast instruments",
+      "verdict": "declined",
+      "thesis": "Six ranked instruments present the supplied roast and delivery facts.",
+      "palette": [
+        "#151719",
+        "#F4F5E9",
+        "#93B78B"
+      ],
+      "materials": [
+        "matte instrument panel",
+        "luminous numerals"
+      ],
+      "viewport": "Gauges organize quantities, weekly cadence and the request action.",
+      "case": "An aircraft panel does not express the audience's daily coffee ritual and suggests live measurements the brief does not provide.",
+      "kept": "One precise role for every factual number.",
+      "risk": "Makes a human workshop feel like industrial telemetry.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp"
+    },
+    {
+      "id": "miniature-room",
+      "kind": "challenger",
+      "catalogId": "cyworld-minihompy-room",
+      "label": "A miniature coffee room",
+      "verdict": "declined",
+      "thesis": "An isometric kitchen makes the home coffee ritual explorable.",
+      "palette": [
+        "#D6C8E8",
+        "#D6E6DC",
+        "#F2C6AA"
+      ],
+      "materials": [
+        "pastel room surfaces",
+        "soft outlined furnishings"
+      ],
+      "viewport": "A whole room holds coffee choices while nearby panels hold the schedule and request.",
+      "case": "Room decoration adds an unfamiliar interaction for mobile ad visitors and gives furniture more emphasis than the offer.",
+      "kept": "One coherent focal setting rather than scattered motifs.",
+      "risk": "Exploration delays the straightforward callback request.",
+      "hero": "https://impeccable.style/worlds/cards/cyworld-minihompy-room-hero.webp"
+    },
+    {
+      "id": "tile-hall",
+      "kind": "challenger",
+      "catalogId": "architecture-places-azulejo-station-hall",
+      "label": "Cobalt workshop tiles",
+      "verdict": "declined",
+      "thesis": "Painted tile panels narrate roasting, delivery and brewing.",
+      "palette": [
+        "#224F9B",
+        "#FAFAF1",
+        "#C6A43C"
+      ],
+      "materials": [
+        "tin-glazed tiles",
+        "cobalt washes",
+        "grout seams"
+      ],
+      "viewport": "Narrative panels lead sequentially to the origin catalog and callback fields.",
+      "case": "The Portuguese station reference is weakly grounded in this Minsk workshop and the decorative seams complicate rapid mobile scanning.",
+      "kept": "Consistent structure across dense and quiet sections.",
+      "risk": "Ornament can overwhelm prices and practical delivery details.",
+      "hero": "https://impeccable.style/worlds/cards/architecture-places-azulejo-station-hall-hero.webp"
+    },
+    {
+      "id": "luminous-forest",
+      "kind": "challenger",
+      "catalogId": "dream-surreal-impossible-worlds-luminescent-alien-understory",
+      "label": "Luminous coffee forest",
+      "verdict": "declined",
+      "thesis": "A glowing botanical network reveals origins and the fresh-roast journey.",
+      "palette": [
+        "#11151B",
+        "#8ECBD3",
+        "#BB9BD4",
+        "#A9CC9B"
+      ],
+      "materials": [
+        "dark soil",
+        "luminous spores",
+        "branching light"
+      ],
+      "viewport": "A bright pack sits among branching paths that reveal origin details and ordering.",
+      "case": "The alien night scene distances the offer from ordinary home coffee and proximity reveals make prices harder to scan.",
+      "kept": "One dominant focal moment with quiet supporting content.",
+      "risk": "Fantasy effects overshadow the specific workshop and request form.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-luminescent-alien-understory-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "Familiar coffee landing page",
+    "thesis": "A conventional coffee landing page with careful typography and clear ordering.",
+    "palette": [
+      "#EEE7DB",
+      "#382A23",
+      "#8B5740"
+    ],
+    "materials": [
+      "warm neutral surfaces",
+      "product photography"
+    ],
+    "viewport": "A familiar stacked headline, product photo, request form and catalog in a vertical flow.",
+    "risk": "Clear and familiar, but less distinctive for Kvarta.",
+    "comp": ".impeccable/mocks/decision/canon.png"
+  },
+  "steer": true
+}

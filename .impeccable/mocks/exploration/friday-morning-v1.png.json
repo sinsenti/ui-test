@@ -1,0 +1,10 @@
+{
+  "prompt": "Create a high-fidelity mobile landing page for the fictional Minsk coffee roastery «Кварта», rendered edge to edge on a 9:16 portrait canvas with crisp readable Russian UI. Show the first viewport and the start of the following section, without a browser window or device frame. The two reference images are visual-system inspiration adapted into a working coffee landing page; do not copy their layout, names, outdoor subject matter or content.\n\nThe visitor buys fresh beans for home and leaves a callback request. The opening leads with one coherent four-ink illustration of a small coffee-roasting workshop and coffee packs, making the Thursday-to-Friday rhythm tangible. The page's own surfaces and text belong to that illustrated print world, but navigation, the offer, form fields and the primary action remain clearly usable UI. It must read as a roastery selling beans, not a café, travel poster or illustration with text sprinkled on top. Keep the supporting regions calm and legible.\n\nReal facts: small batches of 5 kg, roasted on Thursdays, delivery around Minsk on Fridays, one-time coffee from 26 BYN, subscription two 250 g packs monthly for 54 BYN including delivery. Principal copy: «Кварта», «Свежий кофе к пятнице», «В четверг обжариваем — в пятницу привозим», «Кофе от 26 BYN», «Подписка · 54 BYN / месяц».\n\nShow labelled controls «Имя», «Телефон», «Разовый заказ», «Подписка», «Вопрос», optional «Комментарий», the primary «Оставить заявку» button and «Перезвоним и поможем с выбором». The frame includes navigation «Кофе», «Подписка», «Доставка». At the lower edge, introduce «Что обжариваем» with «Эфиопия Иргачеффе · 250 г · 32 BYN». No invented testimonials, discounts, metrics or phone contacts.\n",
+  "generator": "built-in image_gen",
+  "referenced_image_paths": [
+    "/home/user/git/personal/ui-test/.impeccable/references/wpa-board.webp",
+    "/home/user/git/personal/ui-test/.impeccable/references/wpa-hero.webp"
+  ],
+  "purpose": "direction-decision-comp",
+  "approved": false
+}
