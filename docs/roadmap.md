@@ -10,16 +10,16 @@ in [AGENTS.md](../AGENTS.md).
 | ID | Feature | Status | Depends on |
 | --- | --- | --- | --- |
 | F1 | Local application and database foundation | Done — `f44feb7` | None |
-| F2 | Reliable lead intake | Next | F1 |
-| F3 | Required Telegram delivery | Planned | F2 and its atomic outbox |
+| F2 | Reliable lead intake | Done — evidence below | F1 |
+| F3 | Required Telegram delivery | Next | F2 and its atomic outbox |
 | F4 | Complete responsive landing page | Planned | F2–F3 for end-to-end local verification |
 | F5 | Cloud connection, release, and submission | Planned | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
 approved design. Vercel + Neon and Docker PostgreSQL for offline development
 are decided. Telegram is required. Cloud account setup and the real bot connection
-remain the final feature. The current home page is a placeholder and there is no
-working lead endpoint yet.
+remain the final feature. The current home page is a placeholder; the lead API
+is implemented with pending notification jobs, but no delivery attempt yet.
 
 Work on one feature at a time. The following sections can be broken into smaller
 implementation commits while retaining these dependency and completion gates.
@@ -50,21 +50,21 @@ even when visitors double-click or requests arrive concurrently.
 
 Work to do:
 
-- [ ] Data-modeler: define the lead/outbox schema, database duplicate coordination,
+- [x] Data-modeler: define the lead/outbox schema, database duplicate coordination,
   field bounds, attribution fields, API request/response contract, and migrations.
-- [ ] Implement `POST /api/lead` in the Node.js runtime with strict server
+- [x] Implement `POST /api/lead` in the Node.js runtime with strict server
   validation using Zod and `libphonenumber-js/max`.
-- [ ] Normalize Belarusian phone numbers; validate name, supported interest,
+- [x] Normalize Belarusian phone numbers; validate name, supported interest,
   optional comment, and bounded product context/attribution.
-- [ ] Persist a stable lead ID, accepted timestamp, contact, interest, context,
+- [x] Persist a stable lead ID, accepted timestamp, contact, interest, context,
   and available UTM/click identifiers, landing URL, and referrer.
-- [ ] Coordinate by normalized phone inside PostgreSQL and enforce the rolling
+- [x] Coordinate by normalized phone inside PostgreSQL and enforce the rolling
   ten-minute duplicate window across requests and application instances.
-- [ ] Create exactly one pending notification job in the same transaction as
+- [x] Create exactly one pending notification job in the same transaction as
   each accepted lead. Delivery itself belongs to F3.
-- [ ] Return clear saved, duplicate, validation-error, and recoverable-failure
+- [x] Return clear saved, duplicate, validation-error, and recoverable-failure
   results without exposing private lead data.
-- [ ] Extend the disposable-database harness for the new migrations and actual
+- [x] Extend the disposable-database harness for the new migrations and actual
   endpoint tests; complete independent testing and review.
 
 Acceptance criteria:
@@ -80,6 +80,19 @@ Acceptance criteria:
   leads survive an application restart. Tests use synthetic contact data.
 - Database failure produces a recoverable result, and no Telegram call is needed
   to accept a request. Exact response shapes/statuses are settled before building.
+
+Completion evidence (2026-10-18): `npm run check` passed lint, types, all 13
+PostgreSQL/real Next.js HTTP integration checks, and the production build.
+Independent testing verified an actual production-process restart, 24 concurrent
+requests across two production instances yielding one lead/job, three-second
+lock and five-second statement timeouts with rollback/retry, actual database
+unavailability and recovery without an app restart, Unicode/unknown-key behavior,
+and SIGINT/SIGTERM cleanup including repeated signals. Independent code review
+passed with no material findings. `npm audit --omit=dev` reported zero known
+vulnerabilities. Local `db:up`, `db:migrate`, and `db:check` passed.
+See the [API contract](api.md) for the implemented interface. The page remains
+a placeholder; browser form, Telegram delivery, and cloud verification are later
+features. Detailed role evidence stays in the conversation.
 
 ## F3 — Required Telegram delivery
 
@@ -185,15 +198,15 @@ survive a deployment; evidence and README describe what was actually verified.
 Submitting the prepared package to the assignment contact remains a user action
 unless the user explicitly asks us to send it.
 
-## Decisions to close during implementation
+## Decisions and remaining implementation choices
 
-There is no outstanding stack or visual-direction decision blocking F2. Resolve
+There is no outstanding stack or visual-direction decision blocking the next feature. Resolve
 routine technical details in the relevant role handoff and record durable changes
 in architecture/product docs. These remaining items have a planned home:
 
 | Item | When and default approach |
 | --- | --- |
-| API field limits, statuses, exact tables/indexes and lock strategy | F2 data-modeler; meet the existing validation, duplicate, and atomicity requirements. |
+| API field limits, statuses, tables/indexes and lock strategy | Resolved in F2; see [API](api.md), [architecture](architecture.md), and the lead-intake migration. |
 | Retry timing, lease durations, mock controls, protected-operation configuration | F3; bounded work and durable state, with exact values covered by tests. |
 | Exact Cyrillic font files, image assets, desktop composition, design tokens | F4; preserve the approved original design and local asset requirement. |
 | Delivery charge below 50 BYN and subscription composition | Do not invent them; page/form directs the visitor to manager confirmation. |

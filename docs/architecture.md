@@ -1,8 +1,8 @@
 # Architecture
 
-Status as of 2026-10-18: the local foundation is implemented in `f44feb7`.
-Business tables, lead API, Telegram delivery, and the full landing page below
-are planned. Use the [roadmap](roadmap.md) for progress and the
+Status as of 2026-10-18: the local foundation and lead intake are implemented,
+independently tested, and reviewed. Telegram delivery and the full landing page
+remain planned. Use the [roadmap](roadmap.md) for progress and the
 [product document](PRODUCT.md) for requirements.
 
 ## Stack and boundaries
@@ -11,12 +11,12 @@ are planned. Use the [roadmap](roadmap.md) for progress and the
 | --- | --- | --- |
 | Application | Next.js App Router, TypeScript, Node.js 24, npm | Implemented; placeholder page only. |
 | UI | CSS Modules, CSS custom properties, local Cyrillic fonts and imagery | Planned against the approved original `cosy-pack.png`. |
-| Lead endpoint | `POST /api/lead`, Node.js runtime, Zod, `libphonenumber-js/max` | Planned. |
+| Lead endpoint | `POST /api/lead`, Node.js runtime, Zod, `libphonenumber-js/max` | Implemented; see the [API contract](api.md). |
 | Database | PostgreSQL 17; `pg` with parameterized SQL | Docker and lazy server-only pool implemented. |
-| Migrations | Timestamped SQL through stable `node-pg-migrate` | Implemented; only the empty `app` schema exists. |
+| Migrations | Timestamped SQL through stable `node-pg-migrate` | Implemented; `app.leads` and `app.notification_outbox` persist accepted requests/jobs. |
 | Catalog | Typed source content and local assets | Planned; no catalog database or CMS needed. |
-| Notifications | PostgreSQL outbox and bounded Telegram delivery worker | Planned; local mock first. |
-| Verification | Node.js test runner and disposable real PostgreSQL; browser checks for the form | Database harness implemented; feature and browser coverage planned. |
+| Notifications | PostgreSQL outbox and bounded Telegram delivery worker | Atomic pending jobs implemented; delivery/mock/retries planned for F3. |
+| Verification | Node.js test runner, disposable real PostgreSQL, isolated Next.js HTTP server | Migration, validation, concurrency, boundary, and rollback checks implemented; browser form coverage planned. |
 | Hosting | Vercel application + Neon PostgreSQL | Selected; provision only in the final release feature. |
 
 One application serves the page and API. Server components can render the static
@@ -31,7 +31,11 @@ hot reload. It is capped at five connections. Builds of the current static page
 do not require a database. Reassess connection limits and the Vercel pool lifecycle
 at release; do not initialize migrations during a request or application build.
 
-## Planned lead flow
+## Lead flow
+
+Validation, duplicate coordination, and atomic lead/job persistence are
+implemented. Steps after commit that attempt delivery belong to F3; the visitor
+form belongs to F4.
 
 ```mermaid
 flowchart TD
@@ -51,14 +55,20 @@ Validation failures never create a lead or notification job. Normalize valid
 Belarusian phone numbers to one canonical representation before duplicate checks.
 Validate interest against the product's three supported choices. Bound accepted
 field sizes and product context; enforce validation on the server even when the
-browser also checks input. The data-modeler stage of lead intake will settle
-exact field limits, response shapes, and HTTP statuses before implementation.
+browser also checks input. The [API contract](api.md) records exact field limits,
+response shapes, and HTTP statuses.
 
 Coordinate same-phone writes in the database, including simultaneous requests
 across application instances. A transaction performs the duplicate decision and
 creates the lead plus its outbox job atomically. An application-only lookup
 followed by an uncoordinated insert is insufficient. Use database time for the
-decision. Accept a new lead when the previous accepted lead is at least ten
+decision. A READ COMMITTED transaction acquires a transaction-scoped advisory
+lock on `hashtextextended('kvarta:lead:' || normalized_phone, 0)`, then reads
+`clock_timestamp()::text` in a separate statement after the lock. The atomic
+lead/outbox SQL uses this full-precision timestamp for the comparison and inserts.
+A hash collision only serializes unrelated phones. Lock waits are limited to
+three seconds and statements to five seconds; failures roll back and return 503.
+Accept a new lead when the previous accepted lead is at least ten
 minutes old; rejected duplicates do not extend the window. Recheck this boundary
 under concurrent requests and with differently formatted versions of one number.
 
@@ -67,10 +77,14 @@ before commit is a recoverable submission failure. Duplicate responses should
 acknowledge the earlier request without exposing another lead's private fields.
 The browser preserves entered values on recoverable errors.
 
-## Planned data ownership
+## Data ownership
 
-These are logical responsibilities; exact columns and indexes are defined in the
-data-modeler handoff and implemented in migrations.
+The second SQL migration defines the lead and outbox tables. `accepted_at` and
+the outbox timestamps use PostgreSQL `timestamptz`; IDs are UUIDs. The lead lookup
+is indexed on `(phone, accepted_at DESC)`. The outbox has a unique `lead_id` foreign
+key and constraints for allowed status, lease, and sent-time combinations. Pending
+and processing indexes prepare for F3. The API creates only pending jobs with zero
+attempts; delivery-state transitions are not implemented yet.
 
 | Data | Owner and lifecycle |
 | --- | --- |
@@ -90,7 +104,7 @@ or log submitted phone numbers/comments for debugging.
 
 ## Planned Telegram reliability
 
-Lead intake introduces the outbox table and atomic job creation. The following
+Lead intake includes the outbox table and atomic job creation. The following
 feature adds delivery, so it does not have to retrofit reliable job creation
 onto an already working endpoint.
 

@@ -1,7 +1,7 @@
 # Local development
 
-These commands describe the implemented foundation. Lead API, Telegram, browser
-test commands, and release operations will be added with their features. The
+These commands describe the implemented foundation and [lead API](api.md).
+Telegram delivery, browser form checks, and release operations remain planned. The
 [roadmap](roadmap.md) records what is still planned.
 
 ## First setup
@@ -47,7 +47,7 @@ the database configuration.
 | `npm run db:check` | Confirm the application can access its database schema. |
 | `npm run lint` | Run ESLint. |
 | `npm run typecheck` | Generate Next.js types and run TypeScript checking. |
-| `npm run test:db` | Run integration tests in a separate temporary PostgreSQL instance. |
+| `npm run test:db` | Run migrations and real Next.js HTTP integration checks against separate temporary PostgreSQL. |
 | `npm run build` | Build the production application. |
 | `npm start` | Serve a previously built application locally. |
 | `npm run check` | Run lint, typecheck, database tests, and production build. |
@@ -78,16 +78,28 @@ The first migration creates the empty `app` schema and refuses to drop it when
 unexpected objects remain; it uses no `CASCADE`.
 
 `npm run test:db` uses `compose.test.yaml`, a generated Compose project name,
-a random loopback port, and temporary database storage. Cleanup removes only
-that generated project. It does not use the development database or a caller's
-production URL. Normal completion and SIGINT/SIGTERM cleanup were independently
-verified for the foundation; SIGKILL cannot run process cleanup.
+a random loopback port, and temporary database storage. It copies current source
+into a temporary application fixture, links the installed dependencies, and starts
+a separate Next.js development server on a random loopback port. Generated files
+and server locks are isolated, so your development server can remain running.
+When runtime configuration or asset roots are introduced, include them in that
+fixture as needed. No production build is required to run this command.
 
-Current integration checks cover migration apply/reapply/rollback, refusal of
-an unsafe schema rollback, and a parameterized query through the real application
-pool. When adding business migrations, update these assertions: the current test
-expects one migration and an otherwise empty schema. Add meaningful endpoint,
-concurrency, and delivery checks with the relevant feature.
+Cleanup removes the test application/fixture and only its generated Compose
+project. It does not load `.env.local` or use a caller's production database URL.
+SIGINT/SIGTERM, including repeated signals during cleanup, were independently
+verified with the test application running. SIGKILL cannot run process cleanup.
+If a process is forcibly killed, inspect
+leftover `kvarta-test-*` resources and `kvarta-http-test-*` temporary directories
+before removing only that test run's resources.
+
+Integration checks cover both migrations' apply/reapply/rollback, the original
+schema rollback guard, parameterized SQL, actual HTTP validation, attribution,
+formatted-phone and concurrent duplicates, different-phone submissions, exact
+microsecond window boundaries using the actual acceptance SQL, post-lock clock
+sampling, outbox-insert rollback, recoverable query failure, and database
+constraints. Tests use synthetic contacts and make no Telegram calls. Browser
+interaction coverage comes with the actual form in F4.
 
 For a local production smoke check, stop any server occupying port 3000, then:
 

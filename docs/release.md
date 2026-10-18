@@ -1,7 +1,7 @@
 # Release checklist
 
 This is a future checklist for F5, not a record of a configured cloud deployment.
-As of 2026-10-18, only the local foundation is complete. Keep cloud account/project
+As of 2026-10-18, the local foundation and lead intake are complete. Keep cloud account/project
 setup and the real Telegram bot connection until the earlier local features pass.
 See the [roadmap](roadmap.md) for dependencies and [architecture](architecture.md)
 for environment and reliability decisions.

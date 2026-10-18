@@ -8,6 +8,7 @@ the next feature, dependencies, and observable completion criteria.
 | [Product](PRODUCT.md) | Agreed scope, audience, business facts, design direction, and constraints. |
 | [Original brief](kvarta-brief.md) | Preserved assignment text. Later user decisions in the product document take precedence. |
 | [Architecture](architecture.md) | Selected stack, data ownership, request flow, Telegram reliability, and environment boundaries. |
+| [Lead API](api.md) | Implemented request fields, limits, responses, and persistence/duplicate behavior. |
 | [Local development](development.md) | Setup, commands, database lifecycle, migrations, verification, and current tooling limits. |
 | [Roadmap and backlog](roadmap.md) | One shared implementation plan, including release and deferred work. |
 | [Release checklist](release.md) | Final cloud setup, deployed verification, recovery preparation, and submission evidence. |

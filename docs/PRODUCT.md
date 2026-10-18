@@ -14,13 +14,14 @@ use Vercel + Neon PostgreSQL. Local development uses host Next.js and Docker
 PostgreSQL 17 with a persistent volume, and must work offline after dependencies
 and images are downloaded. Keep fonts and imagery local.
 
-The local foundation is implemented. The current home page is a development
-placeholder; lead intake, Telegram delivery, and the approved UI remain planned.
+The local foundation and lead API are implemented and independently tested/reviewed.
+The current home page is a development placeholder;
+Telegram delivery and the approved UI remain planned.
 See the [roadmap](roadmap.md) for status and acceptance criteria, the
 [architecture](architecture.md) for implemented and planned boundaries, and the
 [development guide](development.md) for commands.
 
-Lead intake will use `POST /api/lead`, Zod, `libphonenumber-js/max`, and atomic
+Lead intake uses `POST /api/lead`, Zod, `libphonenumber-js/max`, and atomic
 database coordination for duplicate protection and a durable notification
 outbox. Telegram delivery will attempt after commit, persist failures and retry
 state, and recover pending jobs. A repeated Telegram message is possible after
