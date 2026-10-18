@@ -1,0 +1,30 @@
+{
+  "title": "Kvarta: a softer headline",
+  "question": "The morning-table composition you selected, with a warmer serif headline above the photo. Compare it with the original heavy sans-serif.",
+  "followup": true,
+  "options": [
+    {
+      "id": "serif-headline",
+      "kind": "grounded",
+      "label": "Softer serif headline",
+      "thesis": "A warm medium-weight serif gives the headline a calmer, more inviting voice.",
+      "palette": ["#FCEDE3", "#FFF8F1", "#432D25", "#E8724A"],
+      "materials": ["soft serif headline", "existing coffee still life", "peach and cream"],
+      "viewport": "The same morning-table composition, with only the headline font refined.",
+      "risk": "The generated type is a visual direction; the final font will be rendered as real, responsive text.",
+      "comp": ".impeccable/mocks/decision/cosy-pack-serif.png"
+    },
+    {
+      "id": "original-headline",
+      "kind": "grounded",
+      "label": "Original headline — reference",
+      "thesis": "The selected cozy composition with its original heavy geometric headline.",
+      "palette": ["#FCEDE3", "#FFF8F1", "#432D25", "#E8724A"],
+      "materials": ["heavy sans-serif headline", "existing coffee still life", "peach and cream"],
+      "viewport": "The original mockup is retained as a comparison for the font change.",
+      "risk": "The headline competes with the bold wordmark and feels heavier than the warm imagery.",
+      "comp": ".impeccable/mocks/decision/cosy-pack.png"
+    }
+  ],
+  "steer": true
+}

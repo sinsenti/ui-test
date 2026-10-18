@@ -1,7 +1,7 @@
 {
   "generator": "built-in image_gen",
   "purpose": "User-requested cozier revisions with #FCEDE3 and more visual forms",
-  "status": "awaiting-user-selection",
+  "status": "cosy-pack-selected-for-typography-refinement",
   "businessSource": "PRODUCT.md",
   "comps": [
     {
@@ -54,5 +54,10 @@
     "palette": "Peach #FCEDE3, warm cream, cocoa text and orange accents replace the white-only direction.",
     "forms": "Organic photo windows, cream ovals and a curved roast-to-cup journey add visual warmth.",
     "limitations": "These are generated visual studies. Responsive behavior, form interaction and accessibility will be verified in implementation; concept photography is illustrative."
+  },
+  "selection": {
+    "image": ".impeccable/mocks/decision/cosy-pack.png",
+    "source": "User explicitly named cosy-pack.png as the favorite and requested a font change, especially above the picture.",
+    "typography": "Pending review of softer serif headline; no exact replacement font approved."
   }
 }

@@ -90,6 +90,13 @@ identified or selected. Do not copy the reference brand name, registered mark,
 food offerings, or other business claims. Compare layouts within this visual
 direction before implementation.
 
+The user selected `.impeccable/mocks/decision/cosy-pack.png` ("Your morning
+table") as the preferred composition: peach canvas, a coffee bag and ceramic
+cup inside a large organic oval, followed by the offers and rounded callback
+panel. Preserve this composition while refining the headline font above the
+photograph. The heavy headline font is open for revision; no exact replacement
+family is approved yet.
+
 ## Evidence on Hand
 
 The client is fictional; the following are supplied assignment facts, not
