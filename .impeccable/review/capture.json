@@ -1,0 +1,34 @@
+{
+  "url": "http://127.0.0.1:3001",
+  "capturedAt": "2026-10-18T22:02:43.778Z",
+  "browser": "155.0.8059.39",
+  "captures": [
+    {
+      "name": "hero-repro",
+      "width": 853,
+      "viewportHeight": 1844,
+      "documentHeight": 3955,
+      "scrollWidth": 853,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "viewportHeight": 844,
+      "documentHeight": 3422,
+      "scrollWidth": 390,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "viewportHeight": 1000,
+      "documentHeight": 4433,
+      "scrollWidth": 1440,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    }
+  ]
+}

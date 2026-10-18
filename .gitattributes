@@ -1,0 +1,3 @@
+# Preserve original license and generated audit bytes, including upstream whitespace.
+assets/fonts/*-OFL.txt -whitespace
+.impeccable/review/*.report.html -whitespace

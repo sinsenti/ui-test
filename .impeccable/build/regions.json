@@ -1,0 +1,236 @@
+{
+  "regions": [
+    {
+      "id": "wordmark",
+      "kind": "text",
+      "pixelBox": {
+        "x": 48,
+        "y": 22,
+        "w": 375,
+        "h": 72
+      },
+      "note": "Heavy cocoa Cyrillic Kvarta wordmark"
+    },
+    {
+      "id": "menu",
+      "kind": "control",
+      "pixelBox": {
+        "x": 740,
+        "y": 40,
+        "w": 60,
+        "h": 40
+      },
+      "note": "Three cocoa lines opening the navigation"
+    },
+    {
+      "id": "headline",
+      "kind": "text",
+      "pixelBox": {
+        "x": 50,
+        "y": 141,
+        "w": 744,
+        "h": 161
+      },
+      "note": "Two bold lines: Ваше утро начинается с кофе"
+    },
+    {
+      "id": "coffee-still-life",
+      "kind": "plate",
+      "pixelBox": {
+        "x": 6,
+        "y": 318,
+        "w": 847,
+        "h": 580
+      },
+      "note": "Complete organic cream oval with ceramic coffee cup left, Kvarta Brazil coffee bag right and beige linen in daylight; native transparent exterior"
+    },
+    {
+      "id": "coffee-price",
+      "kind": "text",
+      "pixelBox": {
+        "x": 51,
+        "y": 901,
+        "w": 383,
+        "h": 49
+      },
+      "note": "Bold cocoa Кофе от 26 BYN"
+    },
+    {
+      "id": "subscription-price",
+      "kind": "text",
+      "pixelBox": {
+        "x": 52,
+        "y": 955,
+        "w": 585,
+        "h": 77
+      },
+      "note": "Two lines: Подписка — 54 BYN / месяц; 2 пачки по 250 г, доставка включена"
+    },
+    {
+      "id": "freshness",
+      "kind": "text",
+      "pixelBox": {
+        "x": 53,
+        "y": 1048,
+        "w": 650,
+        "h": 66
+      },
+      "note": "Two muted cocoa lines about Thursday roasting, Friday delivery and five kilogram batches"
+    },
+    {
+      "id": "callback-panel",
+      "kind": "chrome",
+      "container": true,
+      "pixelBox": {
+        "x": 35,
+        "y": 1144,
+        "w": 783,
+        "h": 547
+      },
+      "note": "Rounded warm cream callback form surface"
+    },
+    {
+      "id": "name-label",
+      "kind": "text",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 61,
+        "y": 1166,
+        "w": 60,
+        "h": 23
+      },
+      "note": "Persistent name label Имя"
+    },
+    {
+      "id": "name-input",
+      "kind": "control",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 60,
+        "y": 1197,
+        "w": 733,
+        "h": 57
+      },
+      "note": "Thin warm border rounded name input, placeholder Ваше имя"
+    },
+    {
+      "id": "phone-label",
+      "kind": "text",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 61,
+        "y": 1274,
+        "w": 127,
+        "h": 25
+      },
+      "note": "Persistent phone label Телефон"
+    },
+    {
+      "id": "phone-input",
+      "kind": "control",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 60,
+        "y": 1305,
+        "w": 733,
+        "h": 57
+      },
+      "note": "Thin warm border rounded phone input with Belarusian number placeholder"
+    },
+    {
+      "id": "interest-label",
+      "kind": "text",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 61,
+        "y": 1384,
+        "w": 143,
+        "h": 25
+      },
+      "note": "Interest fieldset legend Интересует"
+    },
+    {
+      "id": "interest-options",
+      "kind": "control",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 65,
+        "y": 1420,
+        "w": 645,
+        "h": 43
+      },
+      "note": "Single mutually exclusive radio group Разовый заказ, Подписка, Вопрос"
+    },
+    {
+      "id": "comment-disclosure",
+      "kind": "control",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 60,
+        "y": 1481,
+        "w": 733,
+        "h": 63
+      },
+      "note": "Closed soft peach disclosure Комментарий необязательно with plus and chevron"
+    },
+    {
+      "id": "submit",
+      "kind": "control",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 60,
+        "y": 1563,
+        "w": 733,
+        "h": 68
+      },
+      "note": "Bright warm orange rounded button Оставить заявку"
+    },
+    {
+      "id": "callback-help",
+      "kind": "text",
+      "parentId": "callback-panel",
+      "pixelBox": {
+        "x": 228,
+        "y": 1648,
+        "w": 429,
+        "h": 24
+      },
+      "note": "Centered cocoa reassurance Перезвоним и поможем с выбором"
+    },
+    {
+      "id": "catalog-rule",
+      "kind": "chrome",
+      "pixelBox": {
+        "x": 56,
+        "y": 1718,
+        "w": 740,
+        "h": 2
+      },
+      "note": "Subtle peach separator before the catalog"
+    },
+    {
+      "id": "catalog-heading",
+      "kind": "text",
+      "pixelBox": {
+        "x": 51,
+        "y": 1738,
+        "w": 400,
+        "h": 52
+      },
+      "note": "Bold cocoa catalog heading Кофе на выбор"
+    },
+    {
+      "id": "catalog-first-item",
+      "kind": "text",
+      "pixelBox": {
+        "x": 52,
+        "y": 1796,
+        "w": 700,
+        "h": 42
+      },
+      "note": "First catalog line Эфиопия Иргачеффе · 250 г · 32 BYN"
+    }
+  ],
+  "allowUncovered": true,
+  "coverageNote": "All twenty semantic and painted regions visually inventoried against original and overlay. Remaining A0/A5/A9/F9/G9 detector cells contain peach background outside element bounds; expanded text boxes retain their full ink."
+}

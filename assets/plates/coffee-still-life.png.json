@@ -1,0 +1,13 @@
+{
+  "generator": "built-in image_gen",
+  "purpose": "landing-page-production-plate",
+  "prompt_file": ".impeccable/planning/prompts/landing-coffee-still-life.txt",
+  "reference_paths": [".impeccable/build/crops/coffee-still-life.png"],
+  "approved_comp": ".impeccable/mocks/decision/cosy-pack.png",
+  "dimensions": [1511, 1041],
+  "transparent_background": true,
+  "generated_on": "2026-10-18",
+  "approved": true,
+  "review_status": "User approved the production asset and plan in conversation before implementation.",
+  "approval_source": "User: looks good. let's implement it. i approve it."
+}

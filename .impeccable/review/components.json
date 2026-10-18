@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 3,
+  "stage": "components",
+  "id": "components",
+  "title": "Plan and asset review · src/app/page.tsx",
+  "comp": {
+    "path": ".impeccable/mocks/decision/cosy-pack.png",
+    "width": 853,
+    "height": 1844
+  },
+  "specSha256": "ab5d5ef0cf0695cefa5219794923e99c670f66ef245955953a9c739782e14fca",
+  "components": [
+    {
+      "id": "coffee-still-life",
+      "name": "Coffee still life",
+      "kind": "plate",
+      "role": "asset",
+      "box": {
+        "x": 0.007,
+        "y": 0.1725,
+        "w": 0.993,
+        "h": 0.3145
+      },
+      "note": "Complete organic cream oval with ceramic coffee cup left, Kvarta Brazil coffee bag right and beige linen in daylight; native transparent exterior",
+      "medium": "raster",
+      "preview": {
+        "kind": "image",
+        "path": "assets/plates/coffee-still-life.png"
+      },
+      "dependencies": []
+    }
+  ],
+  "codeRegions": [
+    {
+      "id": "wordmark",
+      "name": "Wordmark",
+      "kind": "text",
+      "box": {
+        "x": 0.0563,
+        "y": 0.0119,
+        "w": 0.4396,
+        "h": 0.039
+      },
+      "note": "Heavy cocoa Cyrillic Kvarta wordmark"
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "kind": "control",
+      "box": {
+        "x": 0.8675,
+        "y": 0.0217,
+        "w": 0.0703,
+        "h": 0.0217
+      },
+      "note": "Three cocoa lines opening the navigation"
+    },
+    {
+      "id": "headline",
+      "name": "Headline",
+      "kind": "text",
+      "box": {
+        "x": 0.0586,
+        "y": 0.0765,
+        "w": 0.8722,
+        "h": 0.0873
+      },
+      "note": "Two bold lines: Ваше утро начинается с кофе"
+    },
+    {
+      "id": "coffee-price",
+      "name": "Coffee price",
+      "kind": "text",
+      "box": {
+        "x": 0.0598,
+        "y": 0.4886,
+        "w": 0.449,
+        "h": 0.0266
+      },
+      "note": "Bold cocoa Кофе от 26 BYN"
+    },
+    {
+      "id": "subscription-price",
+      "name": "Subscription price",
+      "kind": "text",
+      "box": {
+        "x": 0.061,
+        "y": 0.5179,
+        "w": 0.6858,
+        "h": 0.0418
+      },
+      "note": "Two lines: Подписка — 54 BYN / месяц; 2 пачки по 250 г, доставка включена"
+    },
+    {
+      "id": "freshness",
+      "name": "Freshness",
+      "kind": "text",
+      "box": {
+        "x": 0.0621,
+        "y": 0.5683,
+        "w": 0.762,
+        "h": 0.0358
+      },
+      "note": "Two muted cocoa lines about Thursday roasting, Friday delivery and five kilogram batches"
+    },
+    {
+      "id": "callback-panel",
+      "name": "Callback panel",
+      "kind": "chrome",
+      "box": {
+        "x": 0.041,
+        "y": 0.6204,
+        "w": 0.9179,
+        "h": 0.2966
+      },
+      "note": "Rounded warm cream callback form surface"
+    },
+    {
+      "id": "name-label",
+      "name": "Name label",
+      "kind": "text",
+      "box": {
+        "x": 0.0715,
+        "y": 0.6323,
+        "w": 0.0703,
+        "h": 0.0125
+      },
+      "note": "Persistent name label Имя"
+    },
+    {
+      "id": "name-input",
+      "name": "Name input",
+      "kind": "control",
+      "box": {
+        "x": 0.0703,
+        "y": 0.6491,
+        "w": 0.8593,
+        "h": 0.0309
+      },
+      "note": "Thin warm border rounded name input, placeholder Ваше имя"
+    },
+    {
+      "id": "phone-label",
+      "name": "Phone label",
+      "kind": "text",
+      "box": {
+        "x": 0.0715,
+        "y": 0.6909,
+        "w": 0.1489,
+        "h": 0.0136
+      },
+      "note": "Persistent phone label Телефон"
+    },
+    {
+      "id": "phone-input",
+      "name": "Phone input",
+      "kind": "control",
+      "box": {
+        "x": 0.0703,
+        "y": 0.7077,
+        "w": 0.8593,
+        "h": 0.0309
+      },
+      "note": "Thin warm border rounded phone input with Belarusian number placeholder"
+    },
+    {
+      "id": "interest-label",
+      "name": "Interest label",
+      "kind": "text",
+      "box": {
+        "x": 0.0715,
+        "y": 0.7505,
+        "w": 0.1676,
+        "h": 0.0136
+      },
+      "note": "Interest fieldset legend Интересует"
+    },
+    {
+      "id": "interest-options",
+      "name": "Interest options",
+      "kind": "control",
+      "box": {
+        "x": 0.0762,
+        "y": 0.7701,
+        "w": 0.7562,
+        "h": 0.0233
+      },
+      "note": "Single mutually exclusive radio group Разовый заказ, Подписка, Вопрос"
+    },
+    {
+      "id": "comment-disclosure",
+      "name": "Comment disclosure",
+      "kind": "control",
+      "box": {
+        "x": 0.0703,
+        "y": 0.8031,
+        "w": 0.8593,
+        "h": 0.0342
+      },
+      "note": "Closed soft peach disclosure Комментарий необязательно with plus and chevron"
+    },
+    {
+      "id": "submit",
+      "name": "Submit",
+      "kind": "control",
+      "box": {
+        "x": 0.0703,
+        "y": 0.8476,
+        "w": 0.8593,
+        "h": 0.0369
+      },
+      "note": "Bright warm orange rounded button Оставить заявку"
+    },
+    {
+      "id": "callback-help",
+      "name": "Callback help",
+      "kind": "text",
+      "box": {
+        "x": 0.2673,
+        "y": 0.8937,
+        "w": 0.5029,
+        "h": 0.013
+      },
+      "note": "Centered cocoa reassurance Перезвоним и поможем с выбором"
+    },
+    {
+      "id": "catalog-rule",
+      "name": "Catalog rule",
+      "kind": "chrome",
+      "box": {
+        "x": 0.0657,
+        "y": 0.9317,
+        "w": 0.8675,
+        "h": 0.0011
+      },
+      "note": "Subtle peach separator before the catalog"
+    },
+    {
+      "id": "catalog-heading",
+      "name": "Catalog heading",
+      "kind": "text",
+      "box": {
+        "x": 0.0598,
+        "y": 0.9425,
+        "w": 0.4689,
+        "h": 0.0282
+      },
+      "note": "Bold cocoa catalog heading Кофе на выбор"
+    },
+    {
+      "id": "catalog-first-item",
+      "name": "Catalog first item",
+      "kind": "text",
+      "box": {
+        "x": 0.061,
+        "y": 0.974,
+        "w": 0.8206,
+        "h": 0.0228
+      },
+      "note": "First catalog line Эфиопия Иргачеффе · 250 г · 32 BYN"
+    }
+  ]
+}

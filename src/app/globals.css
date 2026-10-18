@@ -1,0 +1,28 @@
+:root {
+  color-scheme: light;
+  --peach: #fcede3;
+  --cream: #fff8f0;
+  --cocoa: #2b0c09;
+  --muted: #795240;
+  --orange: #f86725;
+  --orange-dark: #b63d0b;
+  --line: #d8b9a5;
+  --control-line: #9c7b67;
+  --error: #a12c1d;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; scrollbar-color: var(--muted) var(--peach); }
+body { margin: 0; background: var(--peach); color: var(--cocoa); font-family: var(--font-text), sans-serif; -webkit-font-smoothing: antialiased; }
+button, input, textarea { font: inherit; }
+button, a, input, textarea, summary { -webkit-tap-highlight-color: #f8672533; }
+button, a { color: inherit; }
+button, summary { cursor: pointer; }
+button:disabled { cursor: wait; opacity: .62; }
+a { text-underline-offset: .2em; }
+button, input, textarea { caret-color: var(--orange-dark); }
+::selection { background: var(--orange); color: var(--cocoa); }
+:focus-visible { outline: 3px solid var(--orange-dark); outline-offset: 5px; }
+svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+h1, h2, h3, p { margin: 0; }
+button { border: 0; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }

@@ -1,0 +1,8 @@
+# Written by Impeccable: local runtime state, never committed.
+state.json
+
+# Regenerable inspection copies and downloaded comparison-font caches.
+map-inspections/
+approved-comp.png
+comp-grid.png
+scaffold/

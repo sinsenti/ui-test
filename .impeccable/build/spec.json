@@ -1,0 +1,1415 @@
+{
+  "tool": "comp-spec",
+  "version": 1,
+  "createdAt": "2026-10-18T21:39:47.086Z",
+  "comp": ".impeccable/mocks/decision/cosy-pack.png",
+  "warnings": [
+    "region callback-panel: \"container\": true set in the regions file (the region-size refusal is overridden: one undivided element)"
+  ],
+  "uncoveredInkCells": [
+    "A0",
+    "A5",
+    "A9",
+    "F9",
+    "G9"
+  ],
+  "compSize": {
+    "width": 853,
+    "height": 1844
+  },
+  "aspect": 0.4626,
+  "orientation": "portrait",
+  "palette": [
+    {
+      "hex": "#f7ecdd",
+      "coverage": 0.7642
+    },
+    {
+      "hex": "#d2b49b",
+      "coverage": 0.113
+    },
+    {
+      "hex": "#a4826b",
+      "coverage": 0.0511
+    },
+    {
+      "hex": "#2b0c09",
+      "coverage": 0.0419
+    },
+    {
+      "hex": "#f86725",
+      "coverage": 0.0298
+    }
+  ],
+  "bands": [
+    {
+      "y": 0.0144,
+      "strength": 0.5908
+    },
+    {
+      "y": 0.0469,
+      "strength": 0.6832
+    },
+    {
+      "y": 0.0903,
+      "strength": 0.6393
+    },
+    {
+      "y": 0.13,
+      "strength": 1
+    },
+    {
+      "y": 0.1552,
+      "strength": 1
+    },
+    {
+      "y": 0.343,
+      "strength": 0.2268
+    },
+    {
+      "y": 0.4332,
+      "strength": 0.2334
+    },
+    {
+      "y": 0.4549,
+      "strength": 0.2854
+    },
+    {
+      "y": 0.491,
+      "strength": 0.3125
+    },
+    {
+      "y": 0.5126,
+      "strength": 0.4276
+    },
+    {
+      "y": 0.5343,
+      "strength": 0.4171
+    },
+    {
+      "y": 0.556,
+      "strength": 0.6082
+    },
+    {
+      "y": 0.5848,
+      "strength": 0.2842
+    },
+    {
+      "y": 0.787,
+      "strength": 0.4097
+    },
+    {
+      "y": 0.8231,
+      "strength": 0.3013
+    },
+    {
+      "y": 0.8484,
+      "strength": 1
+    },
+    {
+      "y": 0.8845,
+      "strength": 1
+    },
+    {
+      "y": 0.9061,
+      "strength": 0.2019
+    },
+    {
+      "y": 0.9639,
+      "strength": 0.4311
+    },
+    {
+      "y": 0.9928,
+      "strength": 0.2979
+    }
+  ],
+  "regions": [
+    {
+      "id": "wordmark",
+      "kind": "text",
+      "note": "Heavy cocoa Cyrillic Kvarta wordmark",
+      "grid": null,
+      "box": {
+        "x": 0.0563,
+        "y": 0.0119,
+        "w": 0.4396,
+        "h": 0.039
+      },
+      "px": {
+        "x": 48,
+        "y": 22,
+        "w": 375,
+        "h": 72
+      },
+      "aspect": 5.2083,
+      "palette": [
+        {
+          "hex": "#f8e9dd",
+          "coverage": 0.4838
+        },
+        {
+          "hex": "#2f0908",
+          "coverage": 0.4181
+        },
+        {
+          "hex": "#5e3e32",
+          "coverage": 0.0437
+        },
+        {
+          "hex": "#1c0d08",
+          "coverage": 0.041
+        },
+        {
+          "hex": "#85675c",
+          "coverage": 0.0135
+        }
+      ],
+      "detail": {
+        "energy": 52.5052
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 5,
+          "capHeightPx": 57.7,
+          "inkIsDark": true,
+          "allCaps": true,
+          "advance": 1.0394,
+          "advTall": 1.0394,
+          "advX": null,
+          "gap": 0.1213,
+          "xRatio": null,
+          "stemW": 0.2847,
+          "contrast": 1.1874,
+          "serif": null,
+          "densTall": 0.6521,
+          "densX": null,
+          "weight": 0.6521
+        },
+        "widthClass": "wide",
+        "weightClass": "bold",
+        "chosen": {
+          "family": "Unbounded",
+          "weight": 700,
+          "fontSizePx": 78,
+          "source": "index",
+          "fp": {
+            "lines": 1,
+            "glyphs": 5,
+            "capHeightPx": 58.2,
+            "inkIsDark": true,
+            "allCaps": true,
+            "advance": 1.0817,
+            "advTall": 1.0817,
+            "advX": null,
+            "gap": 0.1803,
+            "xRatio": null,
+            "stemW": 0.2867,
+            "contrast": 1.2843,
+            "serif": null,
+            "densTall": 0.6019,
+            "densX": null,
+            "weight": 0.6019
+          },
+          "stamp": "98312b0c52d2"
+        }
+      }
+    },
+    {
+      "id": "menu",
+      "kind": "control",
+      "note": "Three cocoa lines opening the navigation",
+      "grid": null,
+      "box": {
+        "x": 0.8675,
+        "y": 0.0217,
+        "w": 0.0703,
+        "h": 0.0217
+      },
+      "px": {
+        "x": 740,
+        "y": 40,
+        "w": 60,
+        "h": 40
+      },
+      "aspect": 1.5,
+      "palette": [
+        {
+          "hex": "#f8e9dd",
+          "coverage": 0.595
+        },
+        {
+          "hex": "#2a0909",
+          "coverage": 0.2007
+        },
+        {
+          "hex": "#99796c",
+          "coverage": 0.1254
+        },
+        {
+          "hex": "#644339",
+          "coverage": 0.0753
+        },
+        {
+          "hex": "#b89898",
+          "coverage": 0.0036
+        }
+      ],
+      "detail": {
+        "energy": 18.7925
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": true
+      }
+    },
+    {
+      "id": "headline",
+      "kind": "text",
+      "note": "Two bold lines: Ваше утро начинается с кофе",
+      "grid": null,
+      "box": {
+        "x": 0.0586,
+        "y": 0.0765,
+        "w": 0.8722,
+        "h": 0.0873
+      },
+      "px": {
+        "x": 50,
+        "y": 141,
+        "w": 744,
+        "h": 161
+      },
+      "aspect": 4.6211,
+      "palette": [
+        {
+          "hex": "#f8e8db",
+          "coverage": 0.7137
+        },
+        {
+          "hex": "#2b0b09",
+          "coverage": 0.2517
+        },
+        {
+          "hex": "#886b5f",
+          "coverage": 0.0129
+        },
+        {
+          "hex": "#bfa99c",
+          "coverage": 0.0119
+        },
+        {
+          "hex": "#533528",
+          "coverage": 0.0099
+        }
+      ],
+      "detail": {
+        "energy": 68.8123
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 22,
+          "capHeightPx": 53.8,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.8788,
+          "advTall": 0.8788,
+          "advX": 0.7403,
+          "gap": 0.0732,
+          "xRatio": 0.6873,
+          "stemW": 0.2649,
+          "contrast": 1.1972,
+          "serif": 1.0047,
+          "densTall": 0.6922,
+          "densX": 0.6577,
+          "weight": 0.6922
+        },
+        "widthClass": "wide",
+        "weightClass": "black",
+        "chosen": {
+          "family": "Pliant",
+          "weight": 700,
+          "fontSizePx": 75,
+          "source": "index",
+          "fp": {
+            "lines": 1,
+            "glyphs": 8,
+            "capHeightPx": 53.5,
+            "inkIsDark": true,
+            "allCaps": false,
+            "advance": 0.7758,
+            "advTall": 0.8225,
+            "advX": 0.7664,
+            "gap": 0.1122,
+            "xRatio": 0.7291,
+            "stemW": 0.2535,
+            "contrast": 1.2924,
+            "serif": 1.3031,
+            "densTall": 0.7845,
+            "densX": 0.676,
+            "weight": 0.7845
+          },
+          "stamp": "dc9b3bbf7bed"
+        }
+      }
+    },
+    {
+      "id": "coffee-still-life",
+      "kind": "plate",
+      "note": "Complete organic cream oval with ceramic coffee cup left, Kvarta Brazil coffee bag right and beige linen in daylight; native transparent exterior",
+      "grid": null,
+      "box": {
+        "x": 0.007,
+        "y": 0.1725,
+        "w": 0.993,
+        "h": 0.3145
+      },
+      "px": {
+        "x": 6,
+        "y": 318,
+        "w": 847,
+        "h": 580
+      },
+      "aspect": 1.4603,
+      "palette": [
+        {
+          "hex": "#f1e0d1",
+          "coverage": 0.5318
+        },
+        {
+          "hex": "#cdae93",
+          "coverage": 0.2935
+        },
+        {
+          "hex": "#a28069",
+          "coverage": 0.1331
+        },
+        {
+          "hex": "#735139",
+          "coverage": 0.0312
+        },
+        {
+          "hex": "#c34108",
+          "coverage": 0.0105
+        }
+      ],
+      "detail": {
+        "energy": 21.1046
+      },
+      "medium": "raster",
+      "plate": "assets/plates/coffee-still-life.png",
+      "text": null
+    },
+    {
+      "id": "coffee-price",
+      "kind": "text",
+      "note": "Bold cocoa Кофе от 26 BYN",
+      "grid": null,
+      "box": {
+        "x": 0.0598,
+        "y": 0.4886,
+        "w": 0.449,
+        "h": 0.0266
+      },
+      "px": {
+        "x": 51,
+        "y": 901,
+        "w": 383,
+        "h": 49
+      },
+      "aspect": 7.8163,
+      "palette": [
+        {
+          "hex": "#f8e9dd",
+          "coverage": 0.6603
+        },
+        {
+          "hex": "#230a08",
+          "coverage": 0.2085
+        },
+        {
+          "hex": "#39130c",
+          "coverage": 0.0872
+        },
+        {
+          "hex": "#997d6f",
+          "coverage": 0.0272
+        },
+        {
+          "hex": "#63463b",
+          "coverage": 0.0169
+        }
+      ],
+      "detail": {
+        "energy": 77.0314
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 9,
+          "capHeightPx": 35.7,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.7849,
+          "advTall": 0.7849,
+          "advX": 1.0512,
+          "gap": 0.1822,
+          "xRatio": 0.7569,
+          "stemW": 0.2293,
+          "contrast": 1.1728,
+          "serif": null,
+          "densTall": 0.5977,
+          "densX": 0.5955,
+          "weight": 0.5977
+        },
+        "widthClass": "wide",
+        "weightClass": "bold"
+      }
+    },
+    {
+      "id": "subscription-price",
+      "kind": "text",
+      "note": "Two lines: Подписка — 54 BYN / месяц; 2 пачки по 250 г, доставка включена",
+      "grid": null,
+      "box": {
+        "x": 0.061,
+        "y": 0.5179,
+        "w": 0.6858,
+        "h": 0.0418
+      },
+      "px": {
+        "x": 52,
+        "y": 955,
+        "w": 585,
+        "h": 77
+      },
+      "aspect": 7.5974,
+      "palette": [
+        {
+          "hex": "#f7e9dd",
+          "coverage": 0.8442
+        },
+        {
+          "hex": "#210c0b",
+          "coverage": 0.0551
+        },
+        {
+          "hex": "#8e7265",
+          "coverage": 0.0511
+        },
+        {
+          "hex": "#c5ab9e",
+          "coverage": 0.034
+        },
+        {
+          "hex": "#573b2b",
+          "coverage": 0.0157
+        }
+      ],
+      "detail": {
+        "energy": 76.5533
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 50,
+          "capHeightPx": 23.8,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.6099,
+          "advTall": 0.673,
+          "advX": 0.6099,
+          "gap": 0.1052,
+          "xRatio": 0.7258,
+          "stemW": 0.1292,
+          "contrast": 1.121,
+          "serif": 0.9792,
+          "densTall": 0.4049,
+          "densX": 0.4718,
+          "weight": 0.4049
+        },
+        "widthClass": "normal",
+        "weightClass": "regular"
+      }
+    },
+    {
+      "id": "freshness",
+      "kind": "text",
+      "note": "Two muted cocoa lines about Thursday roasting, Friday delivery and five kilogram batches",
+      "grid": null,
+      "box": {
+        "x": 0.0621,
+        "y": 0.5683,
+        "w": 0.762,
+        "h": 0.0358
+      },
+      "px": {
+        "x": 53,
+        "y": 1048,
+        "w": 650,
+        "h": 66
+      },
+      "aspect": 9.8485,
+      "palette": [
+        {
+          "hex": "#f7e8db",
+          "coverage": 0.8715
+        },
+        {
+          "hex": "#774d3b",
+          "coverage": 0.0471
+        },
+        {
+          "hex": "#c1a292",
+          "coverage": 0.0467
+        },
+        {
+          "hex": "#98725f",
+          "coverage": 0.0347
+        }
+      ],
+      "detail": {
+        "energy": 40.3443
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 2,
+          "glyphs": 48,
+          "capHeightPx": 20,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.623,
+          "advTall": 0.6542,
+          "advX": 0.623,
+          "gap": 0.1246,
+          "xRatio": 0.7191,
+          "stemW": 0.1454,
+          "contrast": 1.1491,
+          "serif": 0.9752,
+          "densTall": 0.5595,
+          "densX": 0.5534,
+          "weight": 0.5595
+        },
+        "widthClass": "normal",
+        "weightClass": "medium"
+      }
+    },
+    {
+      "id": "callback-panel",
+      "kind": "chrome",
+      "note": "Rounded warm cream callback form surface",
+      "grid": null,
+      "container": true,
+      "box": {
+        "x": 0.041,
+        "y": 0.6204,
+        "w": 0.9179,
+        "h": 0.2966
+      },
+      "px": {
+        "x": 35,
+        "y": 1144,
+        "w": 783,
+        "h": 547
+      },
+      "aspect": 1.4314,
+      "palette": [
+        {
+          "hex": "#f8f5e8",
+          "coverage": 0.8806
+        },
+        {
+          "hex": "#f86726",
+          "coverage": 0.1036
+        },
+        {
+          "hex": "#c9bcb2",
+          "coverage": 0.0055
+        },
+        {
+          "hex": "#f8935e",
+          "coverage": 0.0055
+        },
+        {
+          "hex": "#f8bb9b",
+          "coverage": 0.0047
+        }
+      ],
+      "detail": {
+        "energy": 14.8188
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": true,
+        "rules": true
+      }
+    },
+    {
+      "id": "name-label",
+      "kind": "text",
+      "note": "Persistent name label Имя",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0715,
+        "y": 0.6323,
+        "w": 0.0703,
+        "h": 0.0125
+      },
+      "px": {
+        "x": 61,
+        "y": 1166,
+        "w": 60,
+        "h": 23
+      },
+      "aspect": 2.6087,
+      "palette": [
+        {
+          "hex": "#f7f6ee",
+          "coverage": 0.7315
+        },
+        {
+          "hex": "#8e7c6c",
+          "coverage": 0.0738
+        },
+        {
+          "hex": "#c8b9ac",
+          "coverage": 0.0738
+        },
+        {
+          "hex": "#38281a",
+          "coverage": 0.0671
+        },
+        {
+          "hex": "#2a0c0c",
+          "coverage": 0.0537
+        }
+      ],
+      "detail": {
+        "energy": 23.9395
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 3,
+          "capHeightPx": 17.3,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.8384,
+          "advTall": 0.8384,
+          "advX": 0.7228,
+          "gap": 0.1446,
+          "xRatio": 0.7256,
+          "stemW": 0.1754,
+          "contrast": 0.6497,
+          "serif": 0.6707,
+          "densTall": 0.5526,
+          "densX": 0.6423,
+          "weight": 0.5526
+        },
+        "widthClass": "wide",
+        "weightClass": "medium"
+      }
+    },
+    {
+      "id": "name-input",
+      "kind": "control",
+      "note": "Thin warm border rounded name input, placeholder Ваше имя",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0703,
+        "y": 0.6491,
+        "w": 0.8593,
+        "h": 0.0309
+      },
+      "px": {
+        "x": 60,
+        "y": 1197,
+        "w": 733,
+        "h": 57
+      },
+      "aspect": 12.8596,
+      "palette": [
+        {
+          "hex": "#f6f4e5",
+          "coverage": 0.9845
+        },
+        {
+          "hex": "#a49e97",
+          "coverage": 0.0114
+        },
+        {
+          "hex": "#ccc6bf",
+          "coverage": 0.0041
+        }
+      ],
+      "detail": {
+        "energy": 5.8865
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "phone-label",
+      "kind": "text",
+      "note": "Persistent phone label Телефон",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0715,
+        "y": 0.6909,
+        "w": 0.1489,
+        "h": 0.0136
+      },
+      "px": {
+        "x": 61,
+        "y": 1274,
+        "w": 127,
+        "h": 25
+      },
+      "aspect": 5.08,
+      "palette": [
+        {
+          "hex": "#f8f7ed",
+          "coverage": 0.7763
+        },
+        {
+          "hex": "#2c100e",
+          "coverage": 0.0816
+        },
+        {
+          "hex": "#d4c6bd",
+          "coverage": 0.0526
+        },
+        {
+          "hex": "#51342d",
+          "coverage": 0.0474
+        },
+        {
+          "hex": "#9c877c",
+          "coverage": 0.0421
+        }
+      ],
+      "detail": {
+        "energy": 40.8047
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 7,
+          "capHeightPx": 17.2,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.667,
+          "advTall": 0.667,
+          "advX": 0.667,
+          "gap": 0.087,
+          "xRatio": 0.7263,
+          "stemW": 0.1631,
+          "contrast": 1.157,
+          "serif": 0.8419,
+          "densTall": 0.4801,
+          "densX": 0.5452,
+          "weight": 0.4801
+        },
+        "widthClass": "normal",
+        "weightClass": "medium"
+      }
+    },
+    {
+      "id": "phone-input",
+      "kind": "control",
+      "note": "Thin warm border rounded phone input with Belarusian number placeholder",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0703,
+        "y": 0.7077,
+        "w": 0.8593,
+        "h": 0.0309
+      },
+      "px": {
+        "x": 60,
+        "y": 1305,
+        "w": 733,
+        "h": 57
+      },
+      "aspect": 12.8596,
+      "palette": [
+        {
+          "hex": "#f8f7e9",
+          "coverage": 0.9832
+        },
+        {
+          "hex": "#c0beb6",
+          "coverage": 0.0136
+        },
+        {
+          "hex": "#a79f9b",
+          "coverage": 0.0032
+        }
+      ],
+      "detail": {
+        "energy": 6.6382
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "interest-label",
+      "kind": "text",
+      "note": "Interest fieldset legend Интересует",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0715,
+        "y": 0.7505,
+        "w": 0.1676,
+        "h": 0.0136
+      },
+      "px": {
+        "x": 61,
+        "y": 1384,
+        "w": 143,
+        "h": 25
+      },
+      "aspect": 5.72,
+      "palette": [
+        {
+          "hex": "#f7f6ee",
+          "coverage": 0.7831
+        },
+        {
+          "hex": "#4d2e27",
+          "coverage": 0.0651
+        },
+        {
+          "hex": "#190a09",
+          "coverage": 0.0627
+        },
+        {
+          "hex": "#937c6d",
+          "coverage": 0.053
+        },
+        {
+          "hex": "#d2c1b5",
+          "coverage": 0.0361
+        }
+      ],
+      "detail": {
+        "energy": 52.8473
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 9,
+          "capHeightPx": 17,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.6757,
+          "advTall": 0.8226,
+          "advX": 0.6463,
+          "gap": 0.0588,
+          "xRatio": 0.7266,
+          "stemW": 0.1594,
+          "contrast": 1.1617,
+          "serif": null,
+          "densTall": 0.5282,
+          "densX": 0.5184,
+          "weight": 0.5282
+        },
+        "widthClass": "normal",
+        "weightClass": "medium"
+      }
+    },
+    {
+      "id": "interest-options",
+      "kind": "control",
+      "note": "Single mutually exclusive radio group Разовый заказ, Подписка, Вопрос",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0762,
+        "y": 0.7701,
+        "w": 0.7562,
+        "h": 0.0233
+      },
+      "px": {
+        "x": 65,
+        "y": 1420,
+        "w": 645,
+        "h": 43
+      },
+      "aspect": 15,
+      "palette": [
+        {
+          "hex": "#f8f7eb",
+          "coverage": 0.9115
+        },
+        {
+          "hex": "#29100e",
+          "coverage": 0.0274
+        },
+        {
+          "hex": "#a4958c",
+          "coverage": 0.0248
+        },
+        {
+          "hex": "#d1c5bb",
+          "coverage": 0.022
+        },
+        {
+          "hex": "#6c5149",
+          "coverage": 0.0143
+        }
+      ],
+      "detail": {
+        "energy": 41.5909
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "comment-disclosure",
+      "kind": "control",
+      "note": "Closed soft peach disclosure Комментарий необязательно with plus and chevron",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0703,
+        "y": 0.8031,
+        "w": 0.8593,
+        "h": 0.0342
+      },
+      "px": {
+        "x": 60,
+        "y": 1481,
+        "w": 733,
+        "h": 63
+      },
+      "aspect": 11.6349,
+      "palette": [
+        {
+          "hex": "#f8e9e6",
+          "coverage": 0.9539
+        },
+        {
+          "hex": "#573624",
+          "coverage": 0.0131
+        },
+        {
+          "hex": "#39160e",
+          "coverage": 0.012
+        },
+        {
+          "hex": "#886959",
+          "coverage": 0.0112
+        },
+        {
+          "hex": "#b49c8d",
+          "coverage": 0.0098
+        }
+      ],
+      "detail": {
+        "energy": 18.2481
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "submit",
+      "kind": "control",
+      "note": "Bright warm orange rounded button Оставить заявку",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.0703,
+        "y": 0.8476,
+        "w": 0.8593,
+        "h": 0.0369
+      },
+      "px": {
+        "x": 60,
+        "y": 1563,
+        "w": 733,
+        "h": 68
+      },
+      "aspect": 10.7794,
+      "palette": [
+        {
+          "hex": "#f86725",
+          "coverage": 0.9012
+        },
+        {
+          "hex": "#f8f7f5",
+          "coverage": 0.0797
+        },
+        {
+          "hex": "#f8a176",
+          "coverage": 0.008
+        },
+        {
+          "hex": "#f8c29f",
+          "coverage": 0.0066
+        },
+        {
+          "hex": "#f8814e",
+          "coverage": 0.0045
+        }
+      ],
+      "detail": {
+        "energy": 17.4728
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      }
+    },
+    {
+      "id": "callback-help",
+      "kind": "text",
+      "note": "Centered cocoa reassurance Перезвоним и поможем с выбором",
+      "grid": null,
+      "parentId": "callback-panel",
+      "box": {
+        "x": 0.2673,
+        "y": 0.8937,
+        "w": 0.5029,
+        "h": 0.013
+      },
+      "px": {
+        "x": 228,
+        "y": 1648,
+        "w": 429,
+        "h": 24
+      },
+      "aspect": 17.875,
+      "palette": [
+        {
+          "hex": "#f8f7ee",
+          "coverage": 0.7446
+        },
+        {
+          "hex": "#47281a",
+          "coverage": 0.0759
+        },
+        {
+          "hex": "#a69083",
+          "coverage": 0.0661
+        },
+        {
+          "hex": "#decec5",
+          "coverage": 0.0616
+        },
+        {
+          "hex": "#705447",
+          "coverage": 0.0518
+        }
+      ],
+      "detail": {
+        "energy": 95.0056
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 28,
+          "capHeightPx": 18,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.6251,
+          "advTall": 0.1389,
+          "advX": 0.639,
+          "gap": 0.1111,
+          "xRatio": 0.689,
+          "stemW": 0.1367,
+          "contrast": 1.067,
+          "serif": 0.6635,
+          "densTall": 0.8515,
+          "densX": 0.5326,
+          "weight": 0.8515
+        },
+        "widthClass": "normal",
+        "weightClass": "black"
+      }
+    },
+    {
+      "id": "catalog-rule",
+      "kind": "chrome",
+      "note": "Subtle peach separator before the catalog",
+      "grid": null,
+      "box": {
+        "x": 0.0657,
+        "y": 0.9317,
+        "w": 0.8675,
+        "h": 0.0011
+      },
+      "px": {
+        "x": 56,
+        "y": 1718,
+        "w": 740,
+        "h": 2
+      },
+      "aspect": 370,
+      "palette": [
+        {
+          "hex": "#f8e6d8",
+          "coverage": 1
+        }
+      ],
+      "detail": {
+        "energy": 9.8156
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": true
+      }
+    },
+    {
+      "id": "catalog-heading",
+      "kind": "text",
+      "note": "Bold cocoa catalog heading Кофе на выбор",
+      "grid": null,
+      "box": {
+        "x": 0.0598,
+        "y": 0.9425,
+        "w": 0.4689,
+        "h": 0.0282
+      },
+      "px": {
+        "x": 51,
+        "y": 1738,
+        "w": 400,
+        "h": 52
+      },
+      "aspect": 7.6923,
+      "palette": [
+        {
+          "hex": "#f7e9dd",
+          "coverage": 0.6752
+        },
+        {
+          "hex": "#290c08",
+          "coverage": 0.2565
+        },
+        {
+          "hex": "#5e3e31",
+          "coverage": 0.0327
+        },
+        {
+          "hex": "#c1a89d",
+          "coverage": 0.0189
+        },
+        {
+          "hex": "#927668",
+          "coverage": 0.0168
+        }
+      ],
+      "detail": {
+        "energy": 72.1665
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 11,
+          "capHeightPx": 36.9,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.6509,
+          "advTall": 1.1391,
+          "advX": 0.6509,
+          "gap": 0.0542,
+          "xRatio": 0.7604,
+          "stemW": 0.2227,
+          "contrast": 1.1762,
+          "serif": null,
+          "densTall": 0.5876,
+          "densX": 0.6738,
+          "weight": 0.5876
+        },
+        "widthClass": "normal",
+        "weightClass": "bold"
+      }
+    },
+    {
+      "id": "catalog-first-item",
+      "kind": "text",
+      "note": "First catalog line Эфиопия Иргачеффе · 250 г · 32 BYN",
+      "grid": null,
+      "box": {
+        "x": 0.061,
+        "y": 0.974,
+        "w": 0.8206,
+        "h": 0.0228
+      },
+      "px": {
+        "x": 52,
+        "y": 1796,
+        "w": 700,
+        "h": 42
+      },
+      "aspect": 16.6667,
+      "palette": [
+        {
+          "hex": "#f7e8dc",
+          "coverage": 0.8594
+        },
+        {
+          "hex": "#c1a496",
+          "coverage": 0.0554
+        },
+        {
+          "hex": "#230a09",
+          "coverage": 0.0479
+        },
+        {
+          "hex": "#411d12",
+          "coverage": 0.0193
+        },
+        {
+          "hex": "#68493d",
+          "coverage": 0.018
+        }
+      ],
+      "detail": {
+        "energy": 67.7412
+      },
+      "medium": "semantic",
+      "plate": null,
+      "text": null,
+      "surface": {
+        "flat": false,
+        "rules": false
+      },
+      "type": {
+        "comp": {
+          "lines": 1,
+          "glyphs": 29,
+          "capHeightPx": 23.8,
+          "inkIsDark": true,
+          "allCaps": false,
+          "advance": 0.6299,
+          "advTall": 0.6509,
+          "advX": 0.6089,
+          "gap": 0.105,
+          "xRatio": 0.7275,
+          "stemW": 0.1297,
+          "contrast": 1.1043,
+          "serif": 1.0154,
+          "densTall": 0.3879,
+          "densX": 0.4772,
+          "weight": 0.3879
+        },
+        "widthClass": "normal",
+        "weightClass": "regular"
+      }
+    }
+  ],
+  "compSha256": "fe3e916fb2f5b0212119dd69c72b59f6846f4f41f1d7814fcd0a74e122f3c752",
+  "regionsSource": {
+    "path": ".impeccable/build/regions.json",
+    "sha256": "f18a4c59316d86c14215e50605bb095f3c79efc74050df6127b4e6889fb04e4d"
+  }
+}

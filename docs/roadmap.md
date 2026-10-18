@@ -1,6 +1,6 @@
 # Development roadmap and backlog
 
-Updated 2026-10-18. This is the shared plan for the whole initial delivery.
+Updated 2026-10-19. This is the shared plan for the whole initial delivery.
 Task definitions and AI role handoffs stay in the conversation; no separate
 committed file is required for each feature. Implementation follows the workflow
 in [AGENTS.md](../AGENTS.md).
@@ -12,14 +12,14 @@ in [AGENTS.md](../AGENTS.md).
 | F1 | Local application and database foundation | Done — `f44feb7` | None |
 | F2 | Reliable lead intake | Done — `f06ad9c` | F1 |
 | F3 | Required Telegram delivery | Done — local evidence below | F2 and its atomic outbox |
-| F4 | Complete responsive landing page | Next | F2–F3 for end-to-end local verification |
+| F4 | Complete responsive landing page | Implemented — assembled-page approval pending | F2–F3 for end-to-end local verification |
 | F5 | Cloud connection, release, and submission | Planned | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
 approved design. Vercel + Neon and Docker PostgreSQL for offline development
 are decided. Telegram is required. Cloud account setup and the real bot connection
-remain the final feature. The current home page is a placeholder; the lead API
-and notification worker use an offline simulator for local verification.
+remain the final feature. The landing page connects to the lead API; notification
+checks use an offline simulator for local verification.
 
 Work on one feature at a time. The following sections can be broken into smaller
 implementation commits while retaining these dependency and completion gates.
@@ -147,26 +147,49 @@ those remain explicit F4/F5 gates. Detailed role evidence stays in the conversat
 Outcome: visitors understand the offer on a phone and can submit a callback
 request through the real locally tested endpoint.
 
+Implementation in progress (2026-10-19): the original comp has a measured region
+map and font comparison proofs under `.impeccable/build/`. The user approved the
+local production still life and plan before assembly; see [asset sources](assets.md).
+The responsive page and shared callback form are implemented. Independent
+PostgreSQL/browser testing passed 34 checks, including ten browser groups.
+Independent code review found no material runtime defect. Production Chromium
+checks passed after the font optimization: two local fonts, complete high-priority
+image, all eight offer actions, no overflow at 320/390/768/1440, and zero axe
+violations in default/menu/comment states. No production form was submitted.
+Mobile Lighthouse measured 96 performance and 100 accessibility/best practices/SEO,
+LCP 2.7 s, TBT 90 ms, CLS 0; conditions and original reports are in
+[development](development.md#visual-and-performance-evidence).
+
+The Impeccable hero comparison is 79% at the reference viewport, with phone/radio
+control drift after three attempts. The prescribed assembled-page user review
+remains pending; plate/plan approval is already complete. The static review
+capture rejected the real Next.js TSX entry (`pinned snapshot requires its HTML
+entry`), so no receipt or automated pass has been fabricated. Current production
+captures are valid. The raw desktop full-page comparison has mismatched scaling
+and cannot prove missing elements; a matching-viewport comparison is retained
+separately. Final phase closure depends on accepting the rendered page or
+requesting form-spacing changes. F4 is not marked complete and F5 has not begun.
+
 Work to do:
 
-- [ ] Use the local Impeccable skill and the approved original composition.
+- [x] Use the local Impeccable skill and the approved original composition.
   Match local Cyrillic font assets; record licensing/provenance and implemented
   tokens/components in `docs/DESIGN.md` when they are established.
-- [ ] Build the peach `#FCEDE3`, cream, cocoa, and warm-orange visual direction,
+- [x] Build the peach `#FCEDE3`, cream, cocoa, and warm-orange visual direction,
   organic coffee still life, readable typography, and rounded callback panel.
-- [ ] Implement semantic text and controls; use photography as assets rather
+- [x] Implement semantic text and controls; use photography as assets rather
   than rendering the whole page as one raster mockup.
-- [ ] Add all required content: freshness/story, four products with correct
+- [x] Add all required content: freshness/story, four products with correct
   prices, subscription, Friday delivery, pickup address/hours, and contacts.
-- [ ] Give product and subscription actions equal useful access to one shared
+- [x] Give product and subscription actions equal useful access to one shared
   form; preselect interest and preserve relevant product context.
-- [ ] Build labeled name/phone/interest fields and optional comment, phone help,
+- [x] Build labeled name/phone/interest fields and optional comment, phone help,
   pending, saved, duplicate, validation-error, and retry states.
-- [ ] Capture attribution from the entry page/referrer and preserve it through
+- [x] Capture attribution from the entry page/referrer and preserve it through
   selection changes and submission retries.
-- [ ] Add complete link-preview metadata and a local social image; keep motion
+- [x] Add complete link-preview metadata and a local social image; keep motion
   restrained and respect reduced-motion preferences.
-- [ ] Verify keyboard/focus/error announcements, contrast, touch targets,
+- [x] Verify keyboard/focus/error announcements, contrast, touch targets,
   responsive layouts, image/font loading, and browser form behavior.
 - [ ] Run local end-to-end checks and a mobile performance pass; complete visual,
   test, and independent code review before moving to cloud setup.

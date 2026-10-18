@@ -1,7 +1,7 @@
 # Local development
 
-These commands describe the implemented foundation, [lead API](api.md), and local
-notification delivery. Browser form checks and cloud release remain planned. The
+These commands describe the landing page, [lead API](api.md), and local
+notification delivery. Cloud release remains planned. The
 [roadmap](roadmap.md) records what is still planned.
 
 ## First setup
@@ -19,13 +19,13 @@ npm run dev
 ```
 
 Copy the example only on initial setup; preserve an existing `.env.local`.
-Open http://127.0.0.1:3000. The current page is an unstyled development placeholder.
+Open http://127.0.0.1:3000 for the landing page and its real local callback form.
 The database is PostgreSQL 17 on `127.0.0.1:54329`, bound only to loopback.
 Credentials in Compose and `.env.example` are local examples, not production secrets.
 
 The first package install and Docker image pull require internet. After those
 downloads, development, migrations, tests, and builds use local cached resources.
-Keep future fonts and imagery local, and use the simulated Telegram
+Fonts and imagery are stored locally. Use the simulated Telegram
 transport to preserve offline development. A real Telegram send requires internet
 and is a release check, not a prerequisite for local work.
 
@@ -47,10 +47,10 @@ the database configuration.
 | `npm run db:check` | Confirm the application can access its database schema. |
 | `npm run lint` | Run ESLint. |
 | `npm run typecheck` | Generate Next.js types and run TypeScript checking. |
-| `npm run test:db` | Run migrations and real Next.js HTTP integration checks against separate temporary PostgreSQL. |
+| `npm run test:db` | Run migrations, HTTP/worker checks, and Chromium browser tests against separate temporary PostgreSQL. |
 | `npm run build` | Build the production application. |
 | `npm start` | Serve a previously built application locally. |
-| `npm run check` | Run lint, typecheck, database tests, and production build. |
+| `npm run check` | Run lint, typecheck, API/database/browser tests, and production build. |
 
 Do not add `--volumes` to development database teardown unless you intend to
 erase local data. The named volume is `kvarta_postgres_data`. Recreating the
@@ -62,6 +62,8 @@ application or database container does not normally remove this volume.
 | --- | --- |
 | `DATABASE_URL` | Server-only application connection to local PostgreSQL. |
 | `DATABASE_URL_DIRECT` | Preferred migration connection; optional locally because migration scripts fall back to `DATABASE_URL`. Required as a separate direct URL in the planned Neon setup. |
+| `SITE_URL` | Public absolute origin used at build time for social-image metadata. Local default `http://localhost:3000`; set the real HTTPS origin and rebuild at release. Not a secret. |
+| `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` | Optional test-only browser executable override; otherwise use Playwright's installed Chromium. Not used by application code. |
 | `TELEGRAM_TRANSPORT` | `mock` (default) or explicit `telegram`. Real mode requires valid bot/chat settings and never falls back to mock. |
 | `TELEGRAM_MOCK_SCENARIO` | `success` by default; also `transient`, `transient-once`, `throttled`, `throttled-once`, `terminal`, or `timeout`. Applied server-side, never from visitor fields. |
 | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | Server-only real adapter configuration. Leave blank locally; configure/verify the actual bot only in F5. |
@@ -155,12 +157,21 @@ The first migration creates the empty `app` schema and refuses to drop it when
 unexpected objects remain; it uses no `CASCADE`.
 
 `npm run test:db` uses `compose.test.yaml`, a generated Compose project name,
-a random loopback port, and temporary database storage. It copies current source
+a random loopback port, and temporary database storage. It copies current source/assets
 into a temporary application fixture, links the installed dependencies, and starts
 a separate Next.js development server on a random loopback port. Generated files
 and server locks are isolated, so your development server can remain running.
-When runtime configuration or asset roots are introduced, include them in that
-fixture as needed. No production build is required to run this command.
+No production build is required to run this command. Install the test browser
+once before running checks:
+
+```sh
+npx playwright install chromium
+# Linux hosts lacking browser system libraries: npx playwright install --with-deps chromium
+```
+
+The browser download needs internet once; cached binaries work offline. An
+existing compatible Chrome can instead be selected with
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/absolute/path/to/chrome npm run check`.
 
 Cleanup removes the test application/fixture and only its generated Compose
 project. It does not load `.env.local` or use a caller's production database URL.
@@ -179,8 +190,12 @@ constraints. Notification checks cover after-response delivery, concurrent claim
 worker termination/recovery, stale ownership, backoff/throttling, bounded timeouts,
 terminal/manual recovery, result-write failure, authorization, and message bounds.
 The real HTTP adapter is tested with injected stub responses only. Tests use
-synthetic contacts and make no Telegram calls. Browser
-interaction coverage comes with the actual form in F4.
+synthetic contacts and make no Telegram calls. Browser checks use the same
+isolated database and simulator; they never submit to the development database.
+They cover offer context, saved/duplicate/invalid submissions, network/response
+loss, database rollback and retry, attribution, keyboard/reduced-motion behavior,
+responsive overflow, local asset loading and automated axe accessibility checks.
+Automated accessibility checks supplement visual and keyboard inspection.
 
 For a local production smoke check, stop any server occupying port 3000, then:
 
@@ -191,6 +206,50 @@ npm start
 
 The current static page can build without a database URL or running database.
 Do not make future builds run migrations or send real notifications.
+
+## Visual and performance evidence
+
+With a production server running, capture the real page with:
+
+```sh
+node scripts/capture-page.ts http://127.0.0.1:3000
+# Apply PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH if using an existing Chrome.
+```
+
+The script waits for local fonts and images and records 853 × 1844 comp,
+390 × 844 mobile, and 1440 × 1000 desktop captures under `.impeccable/review/`.
+The latter two are full-page images. `capture.json` records actual dimensions,
+browser version, font/image completion, and overflow. Compare at the original
+comp's viewport; mobile uses larger readable controls and phone help.
+
+Measured on 2026-10-19 (local date), using the production application at
+`http://127.0.0.1:3001`, Lighthouse 13.5.0 / headless Chrome 155:
+
+| Category or metric | Measured result |
+| --- | --- |
+| Mobile performance | 96 |
+| Accessibility / best practices / SEO | 100 / 100 / 100 |
+| FCP / LCP | 0.9 s / 2.7 s |
+| Total blocking time / cumulative layout shift | 90 ms / 0 |
+
+This was one local lab run with a warm Next.js server, a fresh browser profile,
+412 × 823 emulation at DPR 1.75, simulated 150 ms RTT / 1.6 Mbps networking and
+4× CPU slowdown. The initial performance score was 89 (LCP 3.6 s). Subsetting
+the wordmark font from 180 KB to 992 bytes and setting high/eager image priority
+resolved the image-discovery finding. These scores are not field measurements
+or deployed-site results. LCP remains above 2.5 seconds in this simulation;
+measure again on the real deployment in F5.
+
+The [JSON report](../.impeccable/review/lighthouse-mobile.report.json) and
+[HTML report](../.impeccable/review/lighthouse-mobile.report.html) retain the actual
+measurement. Reproduce with the cached browser executable (or omit `CHROME_PATH`
+if Lighthouse finds Chrome automatically):
+
+```sh
+CHROME_PATH=/absolute/path/to/chrome npx lighthouse http://127.0.0.1:3000 \
+  --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' \
+  --output=json --output=html --output-path=.impeccable/review/lighthouse-mobile
+```
 
 ## Development workflow
 

@@ -1,7 +1,7 @@
 # Lead API
 
-`POST /api/lead` is implemented in the Node.js runtime. The page is still a
-placeholder; F4 will connect the shared visitor form. After commit, this endpoint
+`POST /api/lead` is implemented in the Node.js runtime and used by the shared
+visitor form. After commit, this endpoint
 schedules a bounded notification drain using `after()`. The default local
 transport is an offline simulator; the real bot connection belongs to release.
 
@@ -57,9 +57,13 @@ Attribution keys:
 - Up to 2,048 each: `landingUrl`, `referrer`; absolute HTTP(S) URL with no username
   or password. Validated values are stored, never fetched.
 
-The endpoint saves the supplied attribution. F4 will capture the entry page and
-available referrer in the browser; the API request URL is not a substitute for
+The endpoint saves the supplied attribution. The page captures its entry URL and
+available referrer once in browser memory; the API request URL is not a substitute for
 the landing URL. Missing attribution is allowed and is not fabricated.
+The browser omits malformed/over-limit optional values and caps attribution at
+6,000 UTF-8 JSON bytes so advertising URLs cannot exhaust the 16 KiB request
+budget. Selection changes, in-page navigation, and retries retain the initial
+snapshot. Personal form values are not persisted in browser storage.
 
 ## Responses
 

@@ -52,7 +52,7 @@ async function docker(args: string[], capture = false): Promise<string> {
 async function startApplication(env: NodeJS.ProcessEnv): Promise<string> {
   fixture = await mkdtemp(join(tmpdir(), "kvarta-http-test-"));
   // Separate generated files/locks: tests can run beside the developer's server.
-  for (const source of ["src", "package.json", "tsconfig.json"]) {
+  for (const source of ["src", "assets", "package.json", "tsconfig.json"]) {
     await cp(resolve(source), join(fixture, source), { recursive: true });
   }
   await symlink(resolve("node_modules"), join(fixture, "node_modules"), "dir");
@@ -106,7 +106,7 @@ try {
   };
   const appUrl = await startApplication(testEnv);
   const result = await run(process.execPath, ["--conditions=react-server", "--test", "--test-concurrency=1",
-    "tests/database.test.ts", "tests/lead.test.ts", "tests/notification.test.ts"], false, { ...testEnv, TEST_APP_URL: appUrl });
+    "tests/database.test.ts", "tests/lead.test.ts", "tests/notification.test.ts", "tests/landing.test.ts"], false, { ...testEnv, TEST_APP_URL: appUrl });
   process.exitCode = result.status ?? 1;
 } catch {
   console.error(interrupted

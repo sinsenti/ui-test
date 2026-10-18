@@ -15,8 +15,8 @@ PostgreSQL 17 with a persistent volume, and must work offline after dependencies
 and images are downloaded. Keep fonts and imagery local.
 
 The local foundation, lead API, and durable notification worker are implemented.
-Local notification checks use an offline simulator. The current home page is a
-development placeholder; the approved UI remains planned.
+Local notification checks use an offline simulator. The landing page implements
+the approved cosy-pack composition and connects to the shared callback API.
 See the [roadmap](roadmap.md) for status and acceptance criteria, the
 [architecture](architecture.md) for implemented and planned boundaries, and the
 [development guide](development.md) for commands.
@@ -111,8 +111,9 @@ gentler hierarchy and warmer overall expression.
 
 Typography reference: [assets/screen.png](../assets/screen.png), supplied by the
 user. Use its broad, bold geometric wordmark character and compact, tightly stacked plain sans-serif
-copy as inspiration for a Cyrillic Kvarta identity. The exact font has not been
-identified or selected. Do not copy the reference brand name, registered mark,
+copy as inspiration for a Cyrillic Kvarta identity. The implementation uses
+locally served Pliant text and an Unbounded wordmark, matched to the approved comp.
+Do not copy the reference brand name, registered mark,
 food offerings, or other business claims. Compare layouts within this visual
 direction before implementation.
 
@@ -122,8 +123,9 @@ cup inside a large organic oval, followed by the offers and rounded callback
 panel. The user subsequently confirmed the original `cosy-pack.png` as the design
 to keep, including its original headline direction. The serif experiment is
 unselected. Use the original as the approved baseline; further design additions
-can be explored later. Exact font assets still need to be matched to this visual
-direction during implementation.
+can be explored later. The user approved the generated production still life and
+build plan before assembly. Font licenses and generation provenance live in
+[asset sources](assets.md).
 
 ## Evidence on Hand
 

@@ -1,0 +1,777 @@
+{
+  "tool": "comp-diff",
+  "version": 1,
+  "createdAt": "2026-10-18T22:10:48.884Z",
+  "label": "hero-repro",
+  "comp": ".impeccable/mocks/decision/cosy-pack.png",
+  "build": ".impeccable/review/hero-repro.png",
+  "spec": ".impeccable/build/spec.json",
+  "compSize": "853x1844",
+  "buildSize": "853x1844",
+  "align": "top",
+  "overall": 0.7867,
+  "verdict": "drift",
+  "scores": {
+    "overall": 0.7867,
+    "structure": 0.8141,
+    "color": 0.6195,
+    "colorIntersection": 0.3549,
+    "paletteMatch": 0.7619,
+    "detail": 0.8177,
+    "detailRaw": 0.8542,
+    "detailAdded": 0.0729,
+    "bands": 0.95
+  },
+  "palette": {
+    "comp": [
+      {
+        "hex": "#f7ecdd",
+        "coverage": 0.7554
+      },
+      {
+        "hex": "#d2b49b",
+        "coverage": 0.1117
+      },
+      {
+        "hex": "#a4826b",
+        "coverage": 0.0505
+      },
+      {
+        "hex": "#2b0c09",
+        "coverage": 0.0415
+      },
+      {
+        "hex": "#f86725",
+        "coverage": 0.0294
+      },
+      {
+        "hex": "#75533f",
+        "coverage": 0.0114
+      }
+    ],
+    "build": [
+      {
+        "hex": "#f7ecea",
+        "coverage": 0.7692
+      },
+      {
+        "hex": "#c3a68a",
+        "coverage": 0.0746
+      },
+      {
+        "hex": "#e2ccb4",
+        "coverage": 0.0522
+      },
+      {
+        "hex": "#290808",
+        "coverage": 0.0421
+      },
+      {
+        "hex": "#f86828",
+        "coverage": 0.0315
+      },
+      {
+        "hex": "#a08169",
+        "coverage": 0.0304
+      }
+    ]
+  },
+  "regions": [
+    {
+      "id": "wordmark",
+      "x": 0.0563,
+      "y": 0.0119,
+      "w": 0.4396,
+      "h": 0.039,
+      "kind": "text",
+      "score": {
+        "overall": 0.4981,
+        "structure": 0.4023,
+        "color": 0.6334,
+        "colorIntersection": 0.3636,
+        "paletteMatch": 0.7787,
+        "detail": 0.5392,
+        "detailRaw": 0.6277,
+        "detailAdded": 0.1771,
+        "bands": 0.5773
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 0,
+          "y": 0,
+          "w": 375,
+          "h": 72
+        },
+        "build": {
+          "x": 13,
+          "y": 10,
+          "w": 362,
+          "h": 58
+        }
+      }
+    },
+    {
+      "id": "menu",
+      "x": 0.8675,
+      "y": 0.0217,
+      "w": 0.0703,
+      "h": 0.0217,
+      "kind": "control",
+      "score": {
+        "overall": 0.6727,
+        "structure": 0.6918,
+        "color": 0.5572,
+        "colorIntersection": 0.2883,
+        "paletteMatch": 0.702,
+        "detail": 0.8317,
+        "detailRaw": 0.8317,
+        "detailAdded": 0,
+        "bands": 0.94
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 1,
+          "y": 2,
+          "w": 58,
+          "h": 35
+        },
+        "build": {
+          "x": 1,
+          "y": 2,
+          "w": 57,
+          "h": 36
+        }
+      }
+    },
+    {
+      "id": "headline",
+      "x": 0.0586,
+      "y": 0.0765,
+      "w": 0.8722,
+      "h": 0.0873,
+      "kind": "text",
+      "score": {
+        "overall": 0.6575,
+        "structure": 0.6021,
+        "color": 0.5762,
+        "colorIntersection": 0.2175,
+        "paletteMatch": 0.7693,
+        "detail": 0.7491,
+        "detailRaw": 0.7491,
+        "detailAdded": 0,
+        "bands": 1
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 11,
+          "y": 7,
+          "w": 720,
+          "h": 153
+        },
+        "build": {
+          "x": 9,
+          "y": 13,
+          "w": 705,
+          "h": 135
+        }
+      }
+    },
+    {
+      "id": "coffee-still-life",
+      "x": 0.007,
+      "y": 0.1725,
+      "w": 0.993,
+      "h": 0.3145,
+      "kind": "plate",
+      "score": {
+        "overall": 0.8483,
+        "structure": 0.8425,
+        "color": 0.7333,
+        "colorIntersection": 0.6385,
+        "paletteMatch": 0.7843,
+        "detail": 0.8886,
+        "detailRaw": 0.8886,
+        "detailAdded": 0,
+        "bands": 0.9333
+      },
+      "verdict": "match",
+      "inkBox": {
+        "comp": {
+          "x": 49,
+          "y": 60,
+          "w": 798,
+          "h": 497
+        },
+        "build": {
+          "x": 58,
+          "y": 35,
+          "w": 784,
+          "h": 514
+        }
+      }
+    },
+    {
+      "id": "coffee-price",
+      "x": 0.0598,
+      "y": 0.4886,
+      "w": 0.449,
+      "h": 0.0266,
+      "kind": "text",
+      "score": {
+        "overall": 0.5605,
+        "structure": 0.509,
+        "color": 0.5651,
+        "colorIntersection": 0.2758,
+        "paletteMatch": 0.7208,
+        "detail": 0.5984,
+        "detailRaw": 0.6765,
+        "detailAdded": 0.1563,
+        "bands": 0.75
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 8,
+          "y": 5,
+          "w": 362,
+          "h": 44
+        },
+        "build": {
+          "x": 7,
+          "y": 7,
+          "w": 347,
+          "h": 39
+        }
+      }
+    },
+    {
+      "id": "subscription-price",
+      "x": 0.061,
+      "y": 0.5179,
+      "w": 0.6858,
+      "h": 0.0418,
+      "kind": "text",
+      "score": {
+        "overall": 0.5389,
+        "structure": 0.5166,
+        "color": 0.5159,
+        "colorIntersection": 0.2147,
+        "paletteMatch": 0.6781,
+        "detail": 0.5769,
+        "detailRaw": 0.6707,
+        "detailAdded": 0.1875,
+        "bands": 0.6508
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 7,
+          "y": 5,
+          "w": 541,
+          "h": 69
+        },
+        "build": {
+          "x": 5,
+          "y": 10,
+          "w": 536,
+          "h": 67
+        }
+      }
+    },
+    {
+      "id": "freshness",
+      "x": 0.0621,
+      "y": 0.5683,
+      "w": 0.762,
+      "h": 0.0358,
+      "kind": "text",
+      "score": {
+        "overall": 0.7359,
+        "structure": 0.8236,
+        "color": 0.5011,
+        "colorIntersection": 0.1501,
+        "paletteMatch": 0.6901,
+        "detail": 0.7475,
+        "detailRaw": 0.7839,
+        "detailAdded": 0.0729,
+        "bands": 0.8667
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 6,
+          "y": 6,
+          "w": 587,
+          "h": 60
+        },
+        "build": {
+          "x": 4,
+          "y": 8,
+          "w": 572,
+          "h": 58
+        }
+      }
+    },
+    {
+      "id": "callback-panel",
+      "x": 0.041,
+      "y": 0.6204,
+      "w": 0.9179,
+      "h": 0.2966,
+      "kind": "chrome",
+      "score": {
+        "overall": 0.7223,
+        "structure": 0.7848,
+        "color": 0.5632,
+        "colorIntersection": 0.1662,
+        "paletteMatch": 0.777,
+        "detail": 0.6873,
+        "detailRaw": 0.7654,
+        "detailAdded": 0.1563,
+        "bands": 0.9
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 25,
+          "y": 24,
+          "w": 734,
+          "h": 503
+        },
+        "build": {
+          "x": 26,
+          "y": 29,
+          "w": 731,
+          "h": 494
+        }
+      }
+    },
+    {
+      "id": "name-label",
+      "x": 0.0715,
+      "y": 0.6323,
+      "w": 0.0703,
+      "h": 0.0125,
+      "kind": "text",
+      "score": {
+        "overall": 0.4256,
+        "structure": 0.4705,
+        "color": 0.531,
+        "colorIntersection": 0.3111,
+        "paletteMatch": 0.6494,
+        "detail": 0.384,
+        "detailRaw": 0.4673,
+        "detailAdded": 0.1667,
+        "bands": 0
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 3,
+          "y": 2,
+          "w": 45,
+          "h": 18
+        },
+        "build": {
+          "x": 1,
+          "y": 7,
+          "w": 42,
+          "h": 16
+        }
+      }
+    },
+    {
+      "id": "name-input",
+      "x": 0.0703,
+      "y": 0.6491,
+      "w": 0.8593,
+      "h": 0.0309,
+      "kind": "control",
+      "score": {
+        "overall": 0.6641,
+        "structure": 0.9071,
+        "color": 0.4753,
+        "colorIntersection": 0.1161,
+        "paletteMatch": 0.6687,
+        "detail": 0.4477,
+        "detailRaw": 0.5206,
+        "detailAdded": 0.1458,
+        "bands": 0.5
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 23,
+          "y": 19,
+          "w": 101,
+          "h": 16
+        },
+        "build": {
+          "x": 1,
+          "y": 6,
+          "w": 731,
+          "h": 51
+        }
+      }
+    },
+    {
+      "id": "phone-label",
+      "x": 0.0715,
+      "y": 0.6909,
+      "w": 0.1489,
+      "h": 0.0136,
+      "kind": "text",
+      "score": {
+        "overall": 0.7289,
+        "structure": 0.7687,
+        "color": 0.5646,
+        "colorIntersection": 0.3113,
+        "paletteMatch": 0.701,
+        "detail": 0.7806,
+        "detailRaw": 0.8066,
+        "detailAdded": 0.0521,
+        "bands": 0.8632
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 0,
+          "y": 2,
+          "w": 95,
+          "h": 22
+        },
+        "build": {
+          "x": 0,
+          "y": 3,
+          "w": 93,
+          "h": 19
+        }
+      }
+    },
+    {
+      "id": "phone-input",
+      "x": 0.0703,
+      "y": 0.7077,
+      "w": 0.8593,
+      "h": 0.0309,
+      "kind": "control",
+      "score": {
+        "overall": 0.6415,
+        "structure": 0.9228,
+        "color": 0.4647,
+        "colorIntersection": 0.0314,
+        "paletteMatch": 0.6981,
+        "detail": 0.318,
+        "detailRaw": 0.4846,
+        "detailAdded": 0.3333,
+        "bands": 0.8667
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 23,
+          "y": 19,
+          "w": 215,
+          "h": 21
+        },
+        "build": {
+          "x": 1,
+          "y": 1,
+          "w": 731,
+          "h": 52
+        }
+      }
+    },
+    {
+      "id": "interest-label",
+      "x": 0.0715,
+      "y": 0.7505,
+      "w": 0.1676,
+      "h": 0.0136,
+      "kind": "text",
+      "score": {
+        "overall": 0.5262,
+        "structure": 0.492,
+        "color": 0.5563,
+        "colorIntersection": 0.3408,
+        "paletteMatch": 0.6724,
+        "detail": 0.5791,
+        "detailRaw": 0.6728,
+        "detailAdded": 0.1875,
+        "bands": 0.5429
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 1,
+          "y": 1,
+          "w": 122,
+          "h": 22
+        },
+        "build": {
+          "x": 1,
+          "y": 4,
+          "w": 132,
+          "h": 21
+        }
+      }
+    },
+    {
+      "id": "interest-options",
+      "x": 0.0762,
+      "y": 0.7701,
+      "w": 0.7562,
+      "h": 0.0233,
+      "kind": "control",
+      "score": {
+        "overall": 0.5976,
+        "structure": 0.7503,
+        "color": 0.5459,
+        "colorIntersection": 0.1988,
+        "paletteMatch": 0.7327,
+        "detail": 0.3446,
+        "detailRaw": 0.4332,
+        "detailAdded": 0.1771,
+        "bands": 0.46
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 2,
+          "y": 1,
+          "w": 639,
+          "h": 42
+        },
+        "build": {
+          "x": 0,
+          "y": 0,
+          "w": 638,
+          "h": 39
+        }
+      }
+    },
+    {
+      "id": "comment-disclosure",
+      "x": 0.0703,
+      "y": 0.8031,
+      "w": 0.8593,
+      "h": 0.0342,
+      "kind": "control",
+      "score": {
+        "overall": 0.7291,
+        "structure": 0.9282,
+        "color": 0.5058,
+        "colorIntersection": 0.1148,
+        "paletteMatch": 0.7164,
+        "detail": 0.6721,
+        "detailRaw": 0.7554,
+        "detailAdded": 0.1667,
+        "bands": 0
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 31,
+          "y": 20,
+          "w": 681,
+          "h": 23
+        },
+        "build": {
+          "x": 20,
+          "y": 19,
+          "w": 693,
+          "h": 22
+        }
+      }
+    },
+    {
+      "id": "submit",
+      "x": 0.0703,
+      "y": 0.8476,
+      "w": 0.8593,
+      "h": 0.0369,
+      "kind": "control",
+      "score": {
+        "overall": 0.709,
+        "structure": 0.7643,
+        "color": 0.8902,
+        "colorIntersection": 0.7934,
+        "paletteMatch": 0.9423,
+        "detail": 0.2674,
+        "detailRaw": 0.3872,
+        "detailAdded": 0.2396,
+        "bands": 0.25
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 0,
+          "y": 0,
+          "w": 733,
+          "h": 68
+        },
+        "build": {
+          "x": 0,
+          "y": 0,
+          "w": 733,
+          "h": 68
+        }
+      }
+    },
+    {
+      "id": "callback-help",
+      "x": 0.2673,
+      "y": 0.8937,
+      "w": 0.5029,
+      "h": 0.013,
+      "kind": "text",
+      "score": {
+        "overall": 0.5058,
+        "structure": 0.563,
+        "color": 0.5661,
+        "colorIntersection": 0.3663,
+        "paletteMatch": 0.6736,
+        "detail": 0.4336,
+        "detailRaw": 0.5325,
+        "detailAdded": 0.1979,
+        "bands": 0.1771
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 2,
+          "y": 1,
+          "w": 393,
+          "h": 22
+        },
+        "build": {
+          "x": 14,
+          "y": 0,
+          "w": 369,
+          "h": 19
+        }
+      }
+    },
+    {
+      "id": "catalog-rule",
+      "x": 0.0657,
+      "y": 0.9317,
+      "w": 0.8675,
+      "h": 0.0011,
+      "kind": "chrome",
+      "score": {
+        "overall": 0.6918,
+        "structure": 0.9929,
+        "color": 0.4625,
+        "colorIntersection": 0,
+        "paletteMatch": 0.7115,
+        "detail": 0.5547,
+        "detailRaw": 0.6172,
+        "detailAdded": 0.125,
+        "bands": 0.6
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": null,
+        "build": null
+      }
+    },
+    {
+      "id": "catalog-heading",
+      "x": 0.0598,
+      "y": 0.9425,
+      "w": 0.4689,
+      "h": 0.0282,
+      "kind": "text",
+      "score": {
+        "overall": 0.5661,
+        "structure": 0.5065,
+        "color": 0.5764,
+        "colorIntersection": 0.2644,
+        "paletteMatch": 0.7444,
+        "detail": 0.7124,
+        "detailRaw": 0.7228,
+        "detailAdded": 0.0208,
+        "bands": 0.619
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 7,
+          "y": 4,
+          "w": 353,
+          "h": 48
+        },
+        "build": {
+          "x": 7,
+          "y": 6,
+          "w": 331,
+          "h": 46
+        }
+      }
+    },
+    {
+      "id": "catalog-first-item",
+      "x": 0.061,
+      "y": 0.974,
+      "w": 0.8206,
+      "h": 0.0228,
+      "kind": "text",
+      "score": {
+        "overall": 0.5391,
+        "structure": 0.6498,
+        "color": 0.5136,
+        "colorIntersection": 0.208,
+        "paletteMatch": 0.6781,
+        "detail": 0.3723,
+        "detailRaw": 0.4296,
+        "detailAdded": 0.1146,
+        "bands": 0.3
+      },
+      "verdict": "drift",
+      "inkBox": {
+        "comp": {
+          "x": 7,
+          "y": 6,
+          "w": 559,
+          "h": 32
+        },
+        "build": {
+          "x": 5,
+          "y": 10,
+          "w": 695,
+          "h": 31
+        }
+      }
+    }
+  ],
+  "files": {
+    "sideBySide": "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/side-by-side.png",
+    "heatmap": "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/heatmap.png",
+    "regionFiles": [
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/wordmark.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/menu.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/headline.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/coffee-still-life.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/coffee-price.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/subscription-price.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/freshness.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/callback-panel.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/name-label.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/name-input.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/phone-label.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/phone-input.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/interest-label.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/interest-options.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/comment-disclosure.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/submit.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/callback-help.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/catalog-rule.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/catalog-heading.png",
+      "/home/user/git/personal/ui-test/.impeccable/review/diff/final/reference-viewport/regions/catalog-first-item.png"
+    ]
+  }
+}

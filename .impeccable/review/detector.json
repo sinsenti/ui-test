@@ -1,0 +1,5 @@
+{
+  "command": "impeccable detect --json src/app/page.tsx src/app/lead-form.tsx src/app/site-header.tsx src/app/page.module.css src/app/globals.css",
+  "findings": [],
+  "provenance": "Actual CLI output recorded in the development conversation; detector ran once."
+}

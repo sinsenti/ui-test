@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T22:12:23Z",
+  "title": "Design System: Kvarta",
+  "extensions": {
+    "colorMeta": {
+      "peach": {
+        "role": "neutral",
+        "displayName": "Peach canvas",
+        "canonical": "#fcede3",
+        "tonalRamp": [
+          "oklch(15.00% 0.02110 56.13)",
+          "oklch(26.43% 0.02110 56.13)",
+          "oklch(37.86% 0.02110 56.13)",
+          "oklch(49.29% 0.02110 56.13)",
+          "oklch(60.71% 0.02110 56.13)",
+          "oklch(72.14% 0.02110 56.13)",
+          "oklch(83.57% 0.02110 56.13)",
+          "oklch(95.00% 0.02110 56.13)"
+        ]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Warm cream",
+        "canonical": "#fff8f0",
+        "tonalRamp": [
+          "oklch(15.00% 0.01299 71.33)",
+          "oklch(26.43% 0.01299 71.33)",
+          "oklch(37.86% 0.01299 71.33)",
+          "oklch(49.29% 0.01299 71.33)",
+          "oklch(60.71% 0.01299 71.33)",
+          "oklch(72.14% 0.01299 71.33)",
+          "oklch(83.57% 0.01299 71.33)",
+          "oklch(95.00% 0.01299 71.33)"
+        ]
+      },
+      "cocoa": {
+        "role": "neutral",
+        "displayName": "Deep cocoa",
+        "canonical": "#2b0c09",
+        "tonalRamp": [
+          "oklch(15.00% 0.05240 28.10)",
+          "oklch(26.43% 0.05240 28.10)",
+          "oklch(37.86% 0.05240 28.10)",
+          "oklch(49.29% 0.05240 28.10)",
+          "oklch(60.71% 0.05240 28.10)",
+          "oklch(72.14% 0.05240 28.10)",
+          "oklch(83.57% 0.05240 28.10)",
+          "oklch(95.00% 0.05240 28.10)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Soft cocoa",
+        "canonical": "#795240",
+        "tonalRamp": [
+          "oklch(15.00% 0.05958 45.62)",
+          "oklch(26.43% 0.05958 45.62)",
+          "oklch(37.86% 0.05958 45.62)",
+          "oklch(49.29% 0.05958 45.62)",
+          "oklch(60.71% 0.05958 45.62)",
+          "oklch(72.14% 0.05958 45.62)",
+          "oklch(83.57% 0.05958 45.62)",
+          "oklch(95.00% 0.05958 45.62)"
+        ]
+      },
+      "orange": {
+        "role": "primary",
+        "displayName": "Warm orange",
+        "canonical": "#f86725",
+        "tonalRamp": [
+          "oklch(15.00% 0.19237 41.52)",
+          "oklch(26.43% 0.19237 41.52)",
+          "oklch(37.86% 0.19237 41.52)",
+          "oklch(49.29% 0.19237 41.52)",
+          "oklch(60.71% 0.19237 41.52)",
+          "oklch(72.14% 0.19237 41.52)",
+          "oklch(83.57% 0.19237 41.52)",
+          "oklch(95.00% 0.19237 41.52)"
+        ]
+      },
+      "orange-dark": {
+        "role": "primary",
+        "displayName": "Deep orange",
+        "canonical": "#b63d0b",
+        "tonalRamp": [
+          "oklch(15.00% 0.16527 38.54)",
+          "oklch(26.43% 0.16527 38.54)",
+          "oklch(37.86% 0.16527 38.54)",
+          "oklch(49.29% 0.16527 38.54)",
+          "oklch(60.71% 0.16527 38.54)",
+          "oklch(72.14% 0.16527 38.54)",
+          "oklch(83.57% 0.16527 38.54)",
+          "oklch(95.00% 0.16527 38.54)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Warm divider",
+        "canonical": "#d8b9a5",
+        "tonalRamp": [
+          "oklch(15.00% 0.04514 54.76)",
+          "oklch(26.43% 0.04514 54.76)",
+          "oklch(37.86% 0.04514 54.76)",
+          "oklch(49.29% 0.04514 54.76)",
+          "oklch(60.71% 0.04514 54.76)",
+          "oklch(72.14% 0.04514 54.76)",
+          "oklch(83.57% 0.04514 54.76)",
+          "oklch(95.00% 0.04514 54.76)"
+        ]
+      },
+      "control-line": {
+        "role": "neutral",
+        "displayName": "Control border",
+        "canonical": "#9c7b67",
+        "tonalRamp": [
+          "oklch(15.00% 0.05059 52.71)",
+          "oklch(26.43% 0.05059 52.71)",
+          "oklch(37.86% 0.05059 52.71)",
+          "oklch(49.29% 0.05059 52.71)",
+          "oklch(60.71% 0.05059 52.71)",
+          "oklch(72.14% 0.05059 52.71)",
+          "oklch(83.57% 0.05059 52.71)",
+          "oklch(95.00% 0.05059 52.71)"
+        ]
+      },
+      "error": {
+        "role": "error",
+        "displayName": "Error red",
+        "canonical": "#a12c1d",
+        "tonalRamp": [
+          "oklch(15.00% 0.15569 30.75)",
+          "oklch(26.43% 0.15569 30.75)",
+          "oklch(37.86% 0.15569 30.75)",
+          "oklch(49.29% 0.15569 30.75)",
+          "oklch(60.71% 0.15569 30.75)",
+          "oklch(72.14% 0.15569 30.75)",
+          "oklch(83.57% 0.15569 30.75)",
+          "oklch(95.00% 0.15569 30.75)"
+        ]
+      },
+      "orange-hover": {
+        "role": "primary",
+        "displayName": "Orange hover",
+        "canonical": "#ff7c3e",
+        "tonalRamp": [
+          "oklch(15.00% 0.17632 43.80)",
+          "oklch(26.43% 0.17632 43.80)",
+          "oklch(37.86% 0.17632 43.80)",
+          "oklch(49.29% 0.17632 43.80)",
+          "oklch(60.71% 0.17632 43.80)",
+          "oklch(72.14% 0.17632 43.80)",
+          "oklch(83.57% 0.17632 43.80)",
+          "oklch(95.00% 0.17632 43.80)"
+        ]
+      },
+      "comment-surface": {
+        "role": "neutral",
+        "displayName": "Comment surface",
+        "canonical": "#f8e9de",
+        "tonalRamp": [
+          "oklch(15.00% 0.02203 58.78)",
+          "oklch(26.43% 0.02203 58.78)",
+          "oklch(37.86% 0.02203 58.78)",
+          "oklch(49.29% 0.02203 58.78)",
+          "oklch(60.71% 0.02203 58.78)",
+          "oklch(72.14% 0.02203 58.78)",
+          "oklch(83.57% 0.02203 58.78)",
+          "oklch(95.00% 0.02203 58.78)"
+        ]
+      },
+      "feedback-surface": {
+        "role": "neutral",
+        "displayName": "Feedback surface",
+        "canonical": "#f5e6d6",
+        "tonalRamp": [
+          "oklch(15.00% 0.02691 69.29)",
+          "oklch(26.43% 0.02691 69.29)",
+          "oklch(37.86% 0.02691 69.29)",
+          "oklch(49.29% 0.02691 69.29)",
+          "oklch(60.71% 0.02691 69.29)",
+          "oklch(72.14% 0.02691 69.29)",
+          "oklch(83.57% 0.02691 69.29)",
+          "oklch(95.00% 0.02691 69.29)"
+        ]
+      },
+      "subscription-surface": {
+        "role": "neutral",
+        "displayName": "Subscription surface",
+        "canonical": "#f5d9c3",
+        "tonalRamp": [
+          "oklch(15.00% 0.04291 60.38)",
+          "oklch(26.43% 0.04291 60.38)",
+          "oklch(37.86% 0.04291 60.38)",
+          "oklch(49.29% 0.04291 60.38)",
+          "oklch(60.71% 0.04291 60.38)",
+          "oklch(72.14% 0.04291 60.38)",
+          "oklch(83.57% 0.04291 60.38)",
+          "oklch(95.00% 0.04291 60.38)"
+        ]
+      },
+      "footer-surface": {
+        "role": "neutral",
+        "displayName": "Footer surface",
+        "canonical": "#f5dfcf",
+        "tonalRamp": [
+          "oklch(15.00% 0.03245 58.38)",
+          "oklch(26.43% 0.03245 58.38)",
+          "oklch(37.86% 0.03245 58.38)",
+          "oklch(49.29% 0.03245 58.38)",
+          "oklch(60.71% 0.03245 58.38)",
+          "oklch(72.14% 0.03245 58.38)",
+          "oklch(83.57% 0.03245 58.38)",
+          "oklch(95.00% 0.03245 58.38)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Hero display",
+        "purpose": "The single two-line Pliant h1."
+      },
+      "headline": {
+        "displayName": "Section headline",
+        "purpose": "Compact Pliant h2 section headings."
+      },
+      "title": {
+        "displayName": "Product title",
+        "purpose": "Medium-weight product h3 names."
+      },
+      "body": {
+        "displayName": "Editorial body",
+        "purpose": "Story and delivery prose; 17px on small screens."
+      },
+      "label": {
+        "displayName": "Field label",
+        "purpose": "Persistent labels and the interest legend."
+      },
+      "wordmark": {
+        "displayName": "Kvarta wordmark",
+        "purpose": "Unbounded static 700 subset, only the letters in КВАРТА."
+      },
+      "action": {
+        "displayName": "Filled action",
+        "purpose": "Callback submit; subscription action uses the local 21px override."
+      }
+    },
+    "shadows": [
+      {
+        "name": "menu-popover",
+        "value": "0 12px 32px #2b0c0920",
+        "purpose": "The sole CSS shadow, under the navigation popover."
+      }
+    ],
+    "motion": [
+      {
+        "name": "action-hover",
+        "value": "background 180ms ease-out",
+        "purpose": "Enabled filled actions only; disabled by reduced-motion preference."
+      },
+      {
+        "name": "document-scroll",
+        "value": "smooth",
+        "purpose": "Anchor scrolling; becomes auto under reduced motion."
+      },
+      {
+        "name": "offer-selection-scroll",
+        "value": "smooth",
+        "purpose": "Callback scrollIntoView; becomes instant under reduced motion."
+      },
+      {
+        "name": "comment-chevron-open",
+        "value": "rotate(180deg)",
+        "purpose": "Native disclosure open state; no animated transition is defined."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "small-screen",
+        "value": "(max-width: 600px)"
+      },
+      {
+        "name": "wide-form-adjustment",
+        "value": "(min-width: 601px)"
+      },
+      {
+        "name": "bounded-canvas",
+        "value": "(min-width: 1120px)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled callback action; disabled state mirrors submission progress.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Оставить заявку</button>",
+      "css": ".ds-primary { font-family: var(--font-text, Pliant), sans-serif; border: 0; border-radius: 14px; padding: 16px 22px; background: var(--orange, #f86725); color: var(--cocoa, #2b0c09); font-size: clamp(18px, 3.6vw, 30px); font-weight: 700; min-height: 48px; cursor: pointer; transition: background 180ms ease-out; } .ds-primary:hover:not(:disabled) { background: #ff7c3e; } .ds-primary:disabled { cursor: wait; opacity: .62; } .ds-primary:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } @media (prefers-reduced-motion: reduce) { .ds-primary { transition: none; } }"
+    },
+    {
+      "name": "Underlined action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Product, advice, and delivery actions return to the shared callback form.",
+      "html": "<button class=\"ds-text-action\" type=\"button\">Поможем выбрать кофе<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button>",
+      "css": ".ds-text-action { font-family: var(--font-text, Pliant), sans-serif; color: var(--cocoa, #2b0c09); display: inline-flex; align-items: center; gap: 12px; background: transparent; border: 0; text-decoration: underline; text-underline-offset: .2em; padding: 12px 0; min-height: 44px; font-size: 16px; cursor: pointer; } .ds-text-action:hover { color: var(--orange-dark, #b63d0b); } .ds-text-action:disabled { cursor: wait; opacity: .62; } .ds-text-action:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-text-action svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }"
+    },
+    {
+      "name": "Labeled text field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Persistent label, visible control border, phone help, and inline invalid state.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-phone\">Телефон</label><input id=\"ds-phone\" type=\"tel\" autocomplete=\"tel\" placeholder=\"+375 (__) ___-__-__\" aria-describedby=\"ds-phone-help\"><span id=\"ds-phone-help\" class=\"ds-phone-help\">Белорусский номер, например +375 29 123-45-67</span></div>",
+      "css": ".ds-field { font-family: var(--font-text, Pliant), sans-serif; display: grid; gap: 6px; color: var(--cocoa, #2b0c09); } .ds-field label { font-size: clamp(16px, 2.8vw, 24px); line-height: 1.2; } .ds-field input { font-family: var(--font-text, Pliant), sans-serif; width: 100%; min-width: 0; border: 1px solid var(--control-line, #9c7b67); border-radius: 12px; color: var(--cocoa, #2b0c09); background: transparent; padding: 11px 18px; font-size: clamp(16px, 2.7vw, 24px); min-height: 46px; caret-color: var(--orange-dark, #b63d0b); } .ds-field input::placeholder { color: var(--muted, #795240); opacity: 1; } .ds-field input[aria-invalid=true] { border-color: var(--error, #a12c1d); } .ds-field-error { color: var(--error, #a12c1d); font-size: 14px; } .ds-phone-help { color: var(--muted, #795240); font-size: clamp(11px, 1.6vw, 14px); line-height: 1.3; } .ds-field input:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; }"
+    },
+    {
+      "name": "Interest radios",
+      "kind": "input",
+      "refersTo": "radio",
+      "description": "Three wrapping options with a visible orange selected center.",
+      "html": "<fieldset class=\"ds-interest\"><legend>Интересует</legend><div class=\"ds-radio-row\"><label><input type=\"radio\" name=\"ds-interest\" value=\"one-time\" checked>Разовый заказ</label><label><input type=\"radio\" name=\"ds-interest\" value=\"subscription\">Подписка</label><label><input type=\"radio\" name=\"ds-interest\" value=\"question\">Вопрос</label></div></fieldset>",
+      "css": ".ds-interest { font-family: var(--font-text, Pliant), sans-serif; border: 0; padding: 0; margin: 0; min-width: 0; color: var(--cocoa, #2b0c09); } .ds-interest legend { font-size: clamp(16px, 2.8vw, 24px); line-height: 1.2; margin-bottom: 5px; padding: 0; } .ds-radio-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 14px; } .ds-radio-row label { display: flex; align-items: center; gap: 9px; min-height: 44px; font-size: clamp(14px, 2.7vw, 24px); cursor: pointer; } .ds-radio-row input { appearance: none; margin: 0; width: clamp(23px, 4.8vw, 40px); height: clamp(23px, 4.8vw, 40px); border-radius: 50%; border: 1px solid var(--muted, #795240); display: grid; place-content: center; cursor: pointer; } .ds-radio-row input:checked { border-color: var(--cocoa, #2b0c09); } .ds-radio-row input:checked::after { content: \"\"; width: clamp(13px, 2.5vw, 23px); height: clamp(13px, 2.5vw, 23px); background: var(--orange, #f86725); border: 1px solid var(--orange-dark, #b63d0b); border-radius: 50%; } .ds-radio-row input:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } @media (max-width: 600px) { .ds-radio-row { gap: 2px 10px; } .ds-radio-row label { gap: 6px; } }"
+    },
+    {
+      "name": "Navigation disclosure",
+      "kind": "nav",
+      "refersTo": "menu-panel",
+      "description": "Native menu disclosure with a cream popover and peach link hover; application Escape/close handlers remain in SiteHeader.",
+      "html": "<details class=\"ds-menu\"><summary aria-label=\"Меню\"><svg viewBox=\"0 0 60 40\" width=\"60\" height=\"40\" aria-hidden=\"true\"><path d=\"M5 3h53M5 19h53M5 35h53\" /></svg></summary><nav aria-label=\"Основная навигация\"><a href=\"#coffee\">Кофе на выбор</a><a href=\"#subscription\">Подписка</a><a href=\"#story\">О мастерской</a><a href=\"#delivery\">Доставка и самовывоз</a><a href=\"#callback\">Оставить заявку</a></nav></details>",
+      "css": ".ds-menu { font-family: var(--font-text, Pliant), sans-serif; position: relative; z-index: 5; color: var(--cocoa, #2b0c09); } .ds-menu summary { list-style: none; width: clamp(44px, 7vw, 60px); height: 44px; display: grid; place-items: center; cursor: pointer; } .ds-menu summary::-webkit-details-marker { display: none; } .ds-menu summary svg { width: clamp(28px, 7vw, 60px); height: auto; fill: none; stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; } .ds-menu nav { position: absolute; right: 0; top: 58px; min-width: 265px; padding: 18px; background: var(--cream, #fff8f0); border-radius: 20px; box-shadow: 0 12px 32px #2b0c0920; } .ds-menu nav a { display: block; color: inherit; padding: 12px; font-size: 17px; text-decoration: none; border-radius: 8px; } .ds-menu nav a:hover { background: var(--peach, #fcede3); } .ds-menu summary:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-menu a:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; }"
+    },
+    {
+      "name": "Optional comment disclosure",
+      "kind": "custom",
+      "refersTo": "comment-disclosure",
+      "description": "Tonal native disclosure with rotating chevron and resizable comment field.",
+      "html": "<details class=\"ds-comment\"><summary><svg class=\"ds-plus\" viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\" /></svg>Комментарий <span>(необязательно)</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"m5 9 7 7 7-7\" /></svg></summary><label class=\"ds-sr-only\" for=\"ds-comment-text\">Ваш комментарий</label><textarea id=\"ds-comment-text\" rows=\"3\" placeholder=\"Например, как вы готовите кофе\"></textarea></details>",
+      "css": ".ds-comment { font-family: var(--font-text, Pliant), sans-serif; border-radius: 14px; background: #f8e9de; color: var(--cocoa, #2b0c09); } .ds-comment summary { display: flex; align-items: center; gap: 8px; min-height: clamp(46px, 7.4vw, 63px); padding: 10px 16px; font-size: clamp(13px, 2.7vw, 24px); list-style: none; cursor: pointer; } .ds-comment summary::-webkit-details-marker { display: none; } .ds-comment summary svg:last-child { margin-left: auto; } .ds-comment[open] summary svg:last-child { transform: rotate(180deg); } .ds-comment summary span { margin-left: -3px; } .ds-plus { margin-right: 5px; } .ds-comment textarea { font-family: var(--font-text, Pliant), sans-serif; display: block; width: calc(100% - 24px); min-width: 0; margin: 0 12px 12px; resize: vertical; border: 1px solid var(--control-line, #9c7b67); border-radius: 12px; color: var(--cocoa, #2b0c09); background: transparent; padding: 11px 18px; font-size: clamp(16px, 2.7vw, 24px); min-height: 46px; caret-color: var(--orange-dark, #b63d0b); } .ds-comment textarea::placeholder { color: var(--muted, #795240); opacity: 1; } .ds-comment textarea[aria-invalid=true] { border-color: var(--error, #a12c1d); } .ds-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } .ds-comment summary:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-comment textarea:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-comment svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }"
+    },
+    {
+      "name": "Inline form feedback",
+      "kind": "custom",
+      "refersTo": "feedback",
+      "description": "Shared tonal region for pending, saved, duplicate, and recoverable error feedback; error text changes to error red.",
+      "html": "<div class=\"ds-feedback\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" tabindex=\"-1\">Спасибо! Заявка у нас. Перезвоним и поможем с выбором.</div>",
+      "css": ".ds-feedback { font-family: var(--font-text, Pliant), sans-serif; margin-top: 18px; padding: 15px; border-radius: 12px; background: #f5e6d6; color: var(--cocoa, #2b0c09); font-size: 16px; line-height: 1.5; } .ds-feedback.ds-error { color: var(--error, #a12c1d); } .ds-feedback:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; }"
+    },
+    {
+      "name": "Subscription panel",
+      "kind": "card",
+      "refersTo": "subscription-panel",
+      "description": "Flat warm panel; two columns become one at the existing 600px breakpoint.",
+      "html": "<section class=\"ds-subscription\"><div class=\"ds-subscription-intro\"><h2>Чтобы кофе<br>был дома.</h2><p>Две пачки по 250 г каждый месяц.<br>На ваши утренние чашки и тёплые паузы.</p></div><div class=\"ds-subscription-offer\"><p class=\"ds-subscription-price\">54 <span>BYN / месяц</span></p><p>Доставка по Минску включена.</p><button type=\"button\" class=\"ds-subscription-action\">Хочу подписку<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button><p class=\"ds-subscription-small\">Состав подписки обсудим, когда перезвоним.</p></div></section>",
+      "css": ".ds-subscription { font-family: var(--font-text, Pliant), sans-serif; background: #f5d9c3; color: var(--cocoa, #2b0c09); border-radius: 36px; padding: 5% 3%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; } .ds-subscription h2 { margin: 0; font-size: clamp(28px, 5.6vw, 54px); line-height: 1.06; letter-spacing: -.03em; font-weight: 700; } .ds-subscription-intro > p { margin: 20px 0 0; font-size: 19px; line-height: 1.45; } .ds-subscription-offer { align-self: center; } .ds-subscription-price { margin: 0; font-size: clamp(46px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.035em; white-space: nowrap; font-variant-numeric: tabular-nums; } .ds-subscription-price span { font-size: 18px; font-weight: 400; letter-spacing: -.01em; } .ds-subscription-offer > p:nth-child(2) { margin: 10px 0 0; font-size: 17px; } .ds-subscription-action { font-family: var(--font-text, Pliant), sans-serif; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; margin-top: 24px; border: 0; border-radius: 14px; padding: 16px 22px; background: var(--orange, #f86725); color: var(--cocoa, #2b0c09); font-size: 21px; font-weight: 700; min-height: 48px; cursor: pointer; transition: background 180ms ease-out; } .ds-subscription-action:hover:not(:disabled) { background: #ff7c3e; } .ds-subscription-action:disabled { cursor: wait; opacity: .62; } .ds-subscription-small { color: var(--muted, #795240); margin: 14px 0 0; font-size: 14px; line-height: 1.5; } .ds-subscription-action:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-subscription-action svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } @media (max-width: 600px) { .ds-subscription { grid-template-columns: 1fr; gap: 28px; border-radius: 28px; padding: 28px 20px; } .ds-subscription-intro > p { font-size: 17px; } .ds-subscription-price { font-size: 52px; } } @media (prefers-reduced-motion: reduce) { .ds-subscription-action { transition: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Your morning table",
+    "overview": "The user-selected [original cosy-pack composition](../.impeccable/mocks/decision/cosy-pack.png)\nestablishes a warm, plainspoken world: peach paper, cream panels, cocoa text,\norange actions, and a coffee bag and ceramic cup arranged as one organic still\nlife. Broad Cyrillic lettering and compact sans-serif copy make the invitation\ndirect and familiar.\n\nThis document records the implemented local landing page, extracted from\n[global styles](../src/app/globals.css), [page styles](../src/app/page.module.css),\nand the [page](../src/app/page.tsx), [form](../src/app/lead-form.tsx), and\n[header](../src/app/site-header.tsx). The still life and build plan were approved;\nuser approval of the assembled first viewport remains pending. This record does\nnot mark F4 complete. The [roadmap](roadmap.md) owns completion status.",
+    "keyCharacteristics": [
+      "Warm peach and cream surfaces with cocoa text and orange actions.",
+      "Broad geometric Cyrillic wordmarks and tightly stacked sans-serif headings.",
+      "One complete organic coffee still life with a transparent exterior.",
+      "Rounded callback controls, flat editorial product rows, and restrained motion."
+    ],
+    "rules": [
+      {
+        "name": "The Readable Controls Rule",
+        "body": "Keep the dedicated control border and persistent labels; decorative section dividers do not replace field boundaries.",
+        "section": "colors"
+      },
+      {
+        "name": "The Wordmark Scope Rule",
+        "body": "Use the supplied Unbounded subset only for «КВАРТА»; use the complete local Pliant font for interface and editorial text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Surface Rule",
+        "body": "Keep ordinary panels flat; reserve the existing soft shadow for the overlaid navigation menu.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the user-selected peach, cream, cocoa, and orange world.",
+      "Do keep persistent labels, dedicated control borders, and visible keyboard focus.",
+      "Do use Pliant for readable Cyrillic interface text and the supplied Unbounded subset for «КВАРТА».",
+      "Do keep the organic still life complete and serve imagery and fonts locally.",
+      "Do retain inline feedback and entered values through recoverable form failures.",
+      "Do honor reduced motion for scrolling and interaction transitions."
+    ],
+    "donts": [
+      "Don't replace the approved original composition with the unselected serif experiment.",
+      "Don't make decorative section dividers stand in for text-field borders.",
+      "Don't rasterize headings, product facts, or controls into the hero image.",
+      "Don't add card shadows to ordinary panels or promote catalog rows into enclosed cards without a new design decision.",
+      "Don't treat this implementation record as assembled-hero approval or release completion."
+    ]
+  }
+}

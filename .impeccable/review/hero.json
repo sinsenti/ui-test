@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "stage": "hero",
+  "id": "hero",
+  "title": "Kvarta · implemented first viewport",
+  "comp": {"path": ".impeccable/mocks/decision/cosy-pack.png", "width": 853, "height": 1844},
+  "components": [{
+    "id": "first-viewport",
+    "name": "First viewport",
+    "medium": "Next.js / HTML / CSS",
+    "note": "Assembled first viewport of the actual Next.js landing page; live local production preview at port 3001.",
+    "box": {"x": 0, "y": 0, "w": 1, "h": 1},
+    "preview": {"kind": "page", "path": "src/app/page.tsx"},
+    "dependencies": [
+      "src/app/layout.tsx", "src/app/globals.css", "src/app/page.module.css",
+      "src/app/lead-form.tsx", "src/app/site-header.tsx",
+      "src/lib/catalog.ts", "src/lib/attribution.ts",
+      "assets/plates/coffee-still-life.png",
+      "assets/fonts/Pliant-Variable.woff2", "assets/fonts/Unbounded-Wordmark.woff2"
+    ]
+  }]
+}

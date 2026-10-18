@@ -41,6 +41,9 @@ for environment and reliability decisions.
   deployed yet. Verify one bounded batch per invocation meets the operational need.
 - [ ] Update `.env.example` with placeholders for every required variable and
   document actual runtime, retry, and transport settings in the development guide.
+- [ ] Set `SITE_URL` to the real public HTTPS origin before building/deploying;
+  verify absolute Open Graph/Twitter image URLs on the deployed page. Rebuild
+  after changing this variable.
 - [ ] Check the Vercel Node.js runtime and database pool lifecycle/connection budget.
   Confirm no secret is exposed via a public environment variable, page, or response.
 

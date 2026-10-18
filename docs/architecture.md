@@ -1,22 +1,22 @@
 # Architecture
 
 Status as of 2026-10-18: the local foundation, lead intake, and durable notification
-worker are implemented. Real Telegram verification and the full landing page
-remain planned. Use the [roadmap](roadmap.md) for verified progress and the
+worker and responsive landing page are implemented. Real Telegram verification
+and cloud deployment remain planned. Use the [roadmap](roadmap.md) for verified progress and the
 [product document](PRODUCT.md) for requirements.
 
 ## Stack and boundaries
 
 | Area | Selected approach | Current state |
 | --- | --- | --- |
-| Application | Next.js App Router, TypeScript, Node.js 24, npm | Implemented; placeholder page only. |
-| UI | CSS Modules, CSS custom properties, local Cyrillic fonts and imagery | Planned against the approved original `cosy-pack.png`. |
+| Application | Next.js App Router, TypeScript, Node.js 24, npm | Static landing page and server-side lead/notification APIs. |
+| UI | CSS Modules, CSS custom properties, local Cyrillic fonts and imagery | Implements the approved original `cosy-pack.png`; semantic text and controls over a separate production photograph. |
 | Lead endpoint | `POST /api/lead`, Node.js runtime, Zod, `libphonenumber-js/max` | Implemented; see the [API contract](api.md). |
 | Database | PostgreSQL 17; `pg` with parameterized SQL | Docker and lazy server-only pool implemented. |
 | Migrations | Timestamped SQL through stable `node-pg-migrate` | Implemented; `app.leads` and `app.notification_outbox` persist accepted requests/jobs. |
-| Catalog | Typed source content and local assets | Planned; no catalog database or CMS needed. |
+| Catalog | Typed source content and local assets | `src/lib/catalog.ts`; no catalog database or CMS. |
 | Notifications | PostgreSQL outbox and bounded Telegram delivery worker | Local simulator, transport adapter, leases, retries, and authenticated recovery implemented; real service verification belongs to release. |
-| Verification | Node.js test runner, disposable real PostgreSQL, isolated Next.js HTTP server | Migration, validation, concurrency, boundary, and rollback checks implemented; browser form coverage planned. |
+| Verification | Node.js runner, Playwright/axe, disposable PostgreSQL, isolated Next.js server | Migration, API, worker, browser submission/failure, and responsive/accessibility checks. |
 | Hosting | Vercel application + Neon PostgreSQL | Selected; provision only in the final release feature. |
 
 One application serves the page and API. Server components can render the static
@@ -34,7 +34,32 @@ at release; do not initialize migrations during a request or application build.
 ## Lead flow
 
 Validation, duplicate coordination, and atomic lead/job persistence are
-implemented, including delivery attempts after commit. The visitor form belongs to F4.
+implemented, including delivery attempts after commit and the shared visitor form.
+
+`page.tsx` renders the catalog, story, delivery content and local Next.js Image
+as server components. A small client `LeadFlow` owns one form and its offer
+selection context; server-rendered sections pass through its children/afterForm
+slots. `OfferButton` and the native disclosure navigation are the other client
+boundaries. Client code never imports database or Telegram modules.
+
+The browser checks required fields, then sends JSON to the existing API for
+authoritative Belarusian phone validation. Pending blocks repeated submissions
+and offer changes. Saved and duplicate responses acknowledge storage only.
+Validation focuses the affected input; network, timeout, malformed response or
+storage failure retains entered values and makes retry available. A 12-second
+client timeout is ambiguous, so retry uses the same phone and the server's
+duplicate protection. No local/session storage contains contact details.
+
+Advertising attribution is captured once after hydration and retained in memory
+through in-page navigation, offer changes and retries. Unknown, malformed or
+oversized optional ad values are omitted; the attribution JSON has a 6,000-byte
+budget below the API's whole-body limit. The original referrer is retained when
+the browser provides it. New page loads start a new entry snapshot.
+
+Local variable WOFF2 fonts are served through `next/font/local`; no font service
+or image host is needed. Next.js generates the local social preview at build
+time. Set `SITE_URL` to the real public HTTPS origin before the release build
+so absolute preview URLs resolve correctly; the local fallback is localhost.
 
 ```mermaid
 flowchart TD

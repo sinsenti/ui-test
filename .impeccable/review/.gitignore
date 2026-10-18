@@ -1,0 +1,6 @@
+# Regenerable comparison renders; keep actual reports and viewport captures.
+diff/**/regions/
+diff/**/heatmap.png
+diff/**/side-by-side.png
+diff/hero/raw-report.json
+lighthouse-mobile-before.report.json

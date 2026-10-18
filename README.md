@@ -3,8 +3,9 @@
 Landing page for a fictional Minsk coffee roastery. The local Next.js + TypeScript
 and Docker PostgreSQL 17 foundation is complete (`f44feb7`). Lead intake and local
 notification delivery passed independent testing and review. The worker includes
-an offline simulator, leases, backoff, and protected recovery. The home page is
-currently a placeholder; the approved cosy design comes next.
+an offline simulator, leases, backoff, and protected recovery. The responsive
+landing page uses the approved cosy design with local imagery/fonts and one
+shared callback form.
 Vercel + Neon setup comes last.
 
 ## Run locally
@@ -23,7 +24,8 @@ npm run dev
 
 Open http://127.0.0.1:3000. The initial dependency/image downloads need internet;
 subsequent development uses cached local resources. Run `npm run check` for lint,
-types, isolated PostgreSQL integration tests, and a production build.
+types, isolated PostgreSQL/API/browser integration tests, and a production build.
+Install Chromium once with `npx playwright install chromium` before the checks.
 `npm run db:down` preserves local data; adding `--volumes` erases it.
 
 ## Documentation

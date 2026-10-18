@@ -6,10 +6,12 @@ the next feature, dependencies, and observable completion criteria.
 | Document | Purpose |
 | --- | --- |
 | [Product](PRODUCT.md) | Agreed scope, audience, business facts, design direction, and constraints. |
+| [Design system](DESIGN.md) | Implemented visual tokens, typography, layout, components, states, and pending assembled-hero approval. |
 | [Original brief](kvarta-brief.md) | Preserved assignment text. Later user decisions in the product document take precedence. |
 | [Architecture](architecture.md) | Selected stack, data ownership, request flow, Telegram reliability, and environment boundaries. |
 | [Lead and notification APIs](api.md) | Request fields, limits, responses, duplicate behavior, and authenticated drain/retry contracts. |
 | [Local development](development.md) | Setup, commands, database lifecycle, migrations, verification, and current tooling limits. |
+| [Asset sources](assets.md) | Prepared local font licenses and generated image provenance; current approval status. |
 | [Roadmap and backlog](roadmap.md) | One shared implementation plan, including release and deferred work. |
 | [Release checklist](release.md) | Final cloud setup, deployed verification, recovery preparation, and submission evidence. |
 
@@ -19,9 +21,11 @@ workflow. The root `PRODUCT.md` is a relative symbolic link to this folder's
 product document because the local Impeccable skill reads that conventional
 path. Edit `docs/PRODUCT.md`; there is only one copy of its content. If a checkout
 does not preserve symbolic links, restore this link before using Impeccable.
-The UI feature will add `docs/DESIGN.md` when fonts, tokens, and components are
-implemented, with a root compatibility link if needed by the skill. There is no
-implemented design-system document to move yet.
+The root `DESIGN.md` is likewise a relative symbolic link to
+`docs/DESIGN.md`, which records the implemented visual system. Edit its content
+under `docs/`; `.impeccable/design.json` is the companion for design tooling.
+The design record does not replace the roadmap's completion gates or the user's
+pending review of the assembled first viewport.
 
 Approved mockups, their original prompts, and selection metadata stay in
 `.impeccable/`; the typography reference stays in `assets/`. Their existing paths
