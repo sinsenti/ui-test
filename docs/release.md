@@ -1,7 +1,8 @@
 # Release checklist
 
 This is a future checklist for F5, not a record of a configured cloud deployment.
-As of 2026-10-18, the local foundation and lead intake are complete. Keep cloud account/project
+As of 2026-10-18, the local foundation, lead intake, and simulated notification
+delivery are implemented. Keep cloud account/project
 setup and the real Telegram bot connection until the earlier local features pass.
 See the [roadmap](roadmap.md) for dependencies and [architecture](architecture.md)
 for environment and reliability decisions.
@@ -31,8 +32,13 @@ for environment and reliability decisions.
   variables. Preview must never inherit the production database or chat target.
 - [ ] Select the bot/chat for real delivery, configure the implementation's actual
   server-only secrets, and use a mock or separate test destination in preview.
+  Set production `TELEGRAM_TRANSPORT=telegram`, `TELEGRAM_BOT_TOKEN`, and
+  `TELEGRAM_CHAT_ID` explicitly; simulation marked `sent` is not real delivery.
 - [ ] Configure the protected retry path and daily recovery trigger using F3's
   authentication contract. Verify the then-current scheduler frequency/timing limit.
+  Use `CRON_SECRET` for the authenticated `GET /api/notifications/drain` cron and
+  the [manual procedure](development.md#notification-operations); no scheduler is
+  deployed yet. Verify one bounded batch per invocation meets the operational need.
 - [ ] Update `.env.example` with placeholders for every required variable and
   document actual runtime, retry, and transport settings in the development guide.
 - [ ] Check the Vercel Node.js runtime and database pool lifecycle/connection budget.

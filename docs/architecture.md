@@ -1,8 +1,8 @@
 # Architecture
 
-Status as of 2026-10-18: the local foundation and lead intake are implemented,
-independently tested, and reviewed. Telegram delivery and the full landing page
-remain planned. Use the [roadmap](roadmap.md) for progress and the
+Status as of 2026-10-18: the local foundation, lead intake, and durable notification
+worker are implemented. Real Telegram verification and the full landing page
+remain planned. Use the [roadmap](roadmap.md) for verified progress and the
 [product document](PRODUCT.md) for requirements.
 
 ## Stack and boundaries
@@ -15,7 +15,7 @@ remain planned. Use the [roadmap](roadmap.md) for progress and the
 | Database | PostgreSQL 17; `pg` with parameterized SQL | Docker and lazy server-only pool implemented. |
 | Migrations | Timestamped SQL through stable `node-pg-migrate` | Implemented; `app.leads` and `app.notification_outbox` persist accepted requests/jobs. |
 | Catalog | Typed source content and local assets | Planned; no catalog database or CMS needed. |
-| Notifications | PostgreSQL outbox and bounded Telegram delivery worker | Atomic pending jobs implemented; delivery/mock/retries planned for F3. |
+| Notifications | PostgreSQL outbox and bounded Telegram delivery worker | Local simulator, transport adapter, leases, retries, and authenticated recovery implemented; real service verification belongs to release. |
 | Verification | Node.js test runner, disposable real PostgreSQL, isolated Next.js HTTP server | Migration, validation, concurrency, boundary, and rollback checks implemented; browser form coverage planned. |
 | Hosting | Vercel application + Neon PostgreSQL | Selected; provision only in the final release feature. |
 
@@ -34,8 +34,7 @@ at release; do not initialize migrations during a request or application build.
 ## Lead flow
 
 Validation, duplicate coordination, and atomic lead/job persistence are
-implemented. Steps after commit that attempt delivery belong to F3; the visitor
-form belongs to F4.
+implemented, including delivery attempts after commit. The visitor form belongs to F4.
 
 ```mermaid
 flowchart TD
@@ -83,8 +82,8 @@ The second SQL migration defines the lead and outbox tables. `accepted_at` and
 the outbox timestamps use PostgreSQL `timestamptz`; IDs are UUIDs. The lead lookup
 is indexed on `(phone, accepted_at DESC)`. The outbox has a unique `lead_id` foreign
 key and constraints for allowed status, lease, and sent-time combinations. Pending
-and processing indexes prepare for F3. The API creates only pending jobs with zero
-attempts; delivery-state transitions are not implemented yet.
+and processing indexes support delivery. The lead transaction creates pending
+jobs with zero attempts; the worker owns subsequent delivery-state transitions.
 
 | Data | Owner and lifecycle |
 | --- | --- |
@@ -98,27 +97,39 @@ attempts; delivery-state transitions are not implemented yet.
 
 There is no customer account or manager UI in the initial scope. Authorized
 operators can inspect leads and notification state through database access and
-the planned protected retry mechanism. Decide an appropriate retention and
+the protected retry mechanism. Decide an appropriate retention and
 deletion practice before collecting real contacts; do not add unrelated tracking
 or log submitted phone numbers/comments for debugging.
 
-## Planned Telegram reliability
+## Telegram reliability
 
-Lead intake includes the outbox table and atomic job creation. The following
-feature adds delivery, so it does not have to retrofit reliable job creation
-onto an already working endpoint.
+The existing outbox schema supports delivery without an additional migration.
 
-- Use a simulated transport locally and in automated tests. It must support
+- Use a simulated transport locally and in automated tests. It supports
   success, transient failure, throttling, terminal failure, and timeout scenarios.
-- Attempt delivery promptly after commit using Next.js `after()`. Bound execution
-  time and batch size; unfinished work remains in PostgreSQL.
+- Attempt delivery after commit using Next.js `after()`, prioritizing the new
+  lead internally. Saved/duplicate responses remain unchanged even if scheduling
+  fails. A drain claims at most three jobs sequentially, starts no new job after
+  a 20-second budget, and bounds each send at three seconds. Routes advertise a
+  60-second platform limit; deployment interruption still requires recovery.
 - Claim due jobs atomically, prevent ordinary simultaneous sends of one job,
-  and recover claims abandoned by a terminated process using an expiring lease.
+  and recover abandoned claims using a 30-second database-time lease. A short
+  transaction uses `FOR UPDATE SKIP LOCKED` to claim one job just before sending,
+  increments its lifetime attempts, and installs a fresh UUID token. No database
+  connection is held during network work. Result writes require the same token,
+  processing state, and an unexpired lease. Stale workers cannot overwrite recovery.
+  Database statements have two-second timeouts and one-second lock limits.
 - Persist attempt results, retry transient failures with backoff, and honor
   Telegram's `retry_after`. Retain terminal failures for correction and manual
-  retry; do not silently delete them.
+  retry; do not silently delete them. Transients retry indefinitely at 30 seconds
+  times two to the power of attempts minus one, capped at one hour. A valid
+  provider delay is a lower bound and may exceed that cap. Throttling stops the
+  current batch; timing is persisted per job, not a global bot rate limiter.
 - Send a bounded plain-text or correctly escaped message containing the stable
   lead ID, contact, interest, context, comment, and useful attribution.
+  The adapter sends plain text without markup parsing and disables link previews.
+  Messages fit within 3,900 UTF-16 units; long comments/attribution are explicitly
+  shortened while complete values remain in PostgreSQL. No payload is logged.
 - Drain due jobs on subsequent lead requests, provide an authenticated manual
   retry path, and add a daily recovery cron during release. A public lead request
   must not act as an unrestricted job-management endpoint.
@@ -141,8 +152,8 @@ APIs; these links are references, not evidence of a deployed integration.
 
 | Environment | Database | Telegram | Provisioning |
 | --- | --- | --- | --- |
-| Local development | Docker PostgreSQL 17, named volume | Simulated transport | Available now; transport comes with its feature. |
-| Automated database tests | Separate generated Compose project, random loopback port, temporary storage | Simulated transport when added | Current database harness creates and removes its own resources. |
+| Local development | Docker PostgreSQL 17, named volume | Simulated transport | Available now. |
+| Automated database tests | Separate generated Compose project, random loopback port, temporary storage | Forced simulated transport; real adapter uses stubbed fetch | Current harness creates and removes its own resources. |
 | Preview | Separate Neon development/preview branch; never production data | Mock or separate test target | Final release feature. |
 | Production | Neon PostgreSQL 17, persistent lead/outbox tables | Real configured bot/chat | Final release feature. |
 
@@ -150,8 +161,9 @@ Runtime uses `DATABASE_URL`; migrations prefer `DATABASE_URL_DIRECT` and fall
 back to the runtime URL locally. At release, use Neon's pooled URL for runtime
 and direct URL for migration advisory locking. Require the provider's supported
 TLS settings and scope environment values separately for preview and production.
-Only the database variables exist in `.env.example` today; add notification and
-retry authentication configuration with the corresponding implementation.
+`.env.example` includes database, transport, simulator, bot/chat placeholders,
+and `CRON_SECRET` for recovery authentication. The [development guide](development.md)
+documents exact settings and operating procedures. No real credentials are required locally.
 
 The [release checklist](release.md) covers migrations, environment separation,
 actual external-service verification, and operating/recovery instructions.

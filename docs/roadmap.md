@@ -10,16 +10,16 @@ in [AGENTS.md](../AGENTS.md).
 | ID | Feature | Status | Depends on |
 | --- | --- | --- | --- |
 | F1 | Local application and database foundation | Done — `f44feb7` | None |
-| F2 | Reliable lead intake | Done — evidence below | F1 |
-| F3 | Required Telegram delivery | Next | F2 and its atomic outbox |
-| F4 | Complete responsive landing page | Planned | F2–F3 for end-to-end local verification |
+| F2 | Reliable lead intake | Done — `f06ad9c` | F1 |
+| F3 | Required Telegram delivery | Done — local evidence below | F2 and its atomic outbox |
+| F4 | Complete responsive landing page | Next | F2–F3 for end-to-end local verification |
 | F5 | Cloud connection, release, and submission | Planned | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
 approved design. Vercel + Neon and Docker PostgreSQL for offline development
 are decided. Telegram is required. Cloud account setup and the real bot connection
 remain the final feature. The current home page is a placeholder; the lead API
-is implemented with pending notification jobs, but no delivery attempt yet.
+and notification worker use an offline simulator for local verification.
 
 Work on one feature at a time. The following sections can be broken into smaller
 implementation commits while retaining these dependency and completion gates.
@@ -101,17 +101,17 @@ cannot lose the lead or turn a saved submission into an error for the visitor.
 
 Work to do:
 
-- [ ] Implement a transport boundary and deterministic local Telegram simulator.
-- [ ] Format a bounded, readable message with stable lead ID, contact, interest,
+- [x] Implement a transport boundary and deterministic local Telegram simulator.
+- [x] Format a bounded, readable message with stable lead ID, contact, interest,
   context, comment, and useful attribution; safely handle user-supplied text.
-- [ ] Attempt delivery after commit using `after()` with a bounded timeout.
-- [ ] Atomically claim jobs, record attempts, recover expired claims, persist
+- [x] Attempt delivery after commit using `after()` with a bounded timeout.
+- [x] Atomically claim jobs, record attempts, recover expired claims, persist
   delivery state, and schedule backoff, including Telegram `retry_after`.
-- [ ] Retain terminal failures, add a protected manual retry path, and drain due
+- [x] Retain terminal failures, add a protected manual retry path, and drain due
   jobs in bounded batches on subsequent lead requests.
-- [ ] Add placeholder configuration and operator instructions with the actual
+- [x] Add placeholder configuration and operator instructions with the actual
   chosen variable names; keep real bot credentials and cloud cron setup for F5.
-- [ ] Test success, throttling, transient/terminal failures, ambiguous timeouts,
+- [x] Test success, throttling, transient/terminal failures, ambiguous timeouts,
   concurrent workers, process interruption, and recovery; obtain independent review.
 
 Acceptance criteria:
@@ -124,6 +124,23 @@ Acceptance criteria:
   Logs and responses do not expose credentials or submitted personal details.
 - Tests make no real Telegram calls. At-least-once delivery and possible repeats
   after an ambiguous timeout are documented honestly.
+
+Completion evidence (2026-10-18): `npm run check` passed lint, generated types,
+all 24 real-PostgreSQL/Next.js integration checks, and the production build.
+Independent testing passed 15 production probe groups: all simulator failure modes
+returned saved responses in 350–374 ms with durable delivery state; restart and
+duplicate-request recovery; invalid requests leaving due jobs untouched; eight
+concurrent drains across two production instances sending 17 jobs with one claim
+each; failed-only manual recovery preserving attempts/future eligibility; and
+management rejection before database access. A production app killed during
+`after()` recovered in a fresh process after the genuine 30-second lease, without
+editing its expiry. Response/log privacy and resource cleanup passed.
+Independent review passed with no material findings; its framework HEAD/OPTIONS
+documentation correction was incorporated. Existing migrations were unchanged;
+51 local documentation links resolved and the root product symlink was preserved.
+See [API](api.md) and [notification operations](development.md#notification-operations).
+No real Telegram, browser form, cloud, or hosting lifecycle verification is claimed;
+those remain explicit F4/F5 gates. Detailed role evidence stays in the conversation.
 
 ## F4 — Complete responsive landing page
 
@@ -207,7 +224,7 @@ in architecture/product docs. These remaining items have a planned home:
 | Item | When and default approach |
 | --- | --- |
 | API field limits, statuses, tables/indexes and lock strategy | Resolved in F2; see [API](api.md), [architecture](architecture.md), and the lead-intake migration. |
-| Retry timing, lease durations, mock controls, protected-operation configuration | F3; bounded work and durable state, with exact values covered by tests. |
+| Retry timing, lease durations, mock controls, protected-operation configuration | Resolved in F3; see [API](api.md), [architecture](architecture.md), and [notification operations](development.md#notification-operations). |
 | Exact Cyrillic font files, image assets, desktop composition, design tokens | F4; preserve the approved original design and local asset requirement. |
 | Delivery charge below 50 BYN and subscription composition | Do not invent them; page/form directs the visitor to manager confirmation. |
 | Provider account access, actual limits/region, bot/chat target, secret values | F5 only; request access when needed and keep credentials out of docs/chat evidence. |

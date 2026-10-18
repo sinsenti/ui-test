@@ -11,10 +11,20 @@ const sample = { name: "Анна", phone: "+375291234567", interest: "one-time" 
 let base: string;
 
 async function post(input: unknown = sample) {
-  return fetch(`${base}/api/lead`, {
+  const response = await fetch(`${base}/api/lead`, {
     method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify(input), signal: AbortSignal.timeout(20_000),
   });
+  if (response.ok) {
+    // Observe after() finishing before assertions or the next test's TRUNCATE.
+    for (let attempt = 0; attempt < 300; attempt++) {
+      const { rows: [state] } = await getPool().query("SELECT count(*)::int AS active FROM app.notification_outbox WHERE status IN ('pending', 'processing')");
+      if (state.active === 0) return response;
+      await delay(10);
+    }
+    assert.fail("Mock delivery did not settle.");
+  }
+  return response;
 }
 
 async function counts() {
@@ -38,7 +48,7 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
   beforeEach(async () => { await getPool().query("TRUNCATE app.leads CASCADE"); });
   after(closePool);
 
-  test("persists normalized contacts, context, attribution and one pending job", async () => {
+  test("persists normalized contacts, context, attribution and one delivered job", async () => {
     const attribution = {
       utm_source: "instagram", utm_medium: "paid_social", utm_campaign: "Осенний кофе",
       utm_content: "bag-a", utm_term: "зерно", utm_id: "campaign-1",
@@ -60,9 +70,10 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.match(lead.id, /^[0-9a-f-]{36}$/);
     const { rows: [job] } = await getPool().query("SELECT * FROM app.notification_outbox");
     assert.equal(job.lead_id, lead.id);
-    assert.equal(job.status, "pending");
-    assert.equal(job.attempts, 0);
-    for (const key of ["lock_token", "locked_until", "sent_at", "last_error"]) assert.equal(job[key], null);
+    assert.equal(job.status, "sent");
+    assert.equal(job.attempts, 1);
+    for (const key of ["lock_token", "locked_until", "last_error"]) assert.equal(job[key], null);
+    assert.ok(job.sent_at >= job.created_at);
     assert.equal(job.created_at.getTime(), lead.accepted_at.getTime());
     assert.equal(job.next_attempt_at.getTime(), lead.accepted_at.getTime());
     await closePool();
@@ -247,6 +258,6 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     await assert.rejects(getPool().query("UPDATE app.leads SET product_id = 'subscription'"));
     await assert.rejects(getPool().query("UPDATE app.leads SET attribution = '[]'::jsonb"));
     await assert.rejects(getPool().query("UPDATE app.notification_outbox SET status = 'processing'"));
-    await assert.rejects(getPool().query("UPDATE app.notification_outbox SET status = 'sent'"));
+    await assert.rejects(getPool().query("UPDATE app.notification_outbox SET status = 'sent', sent_at = NULL"));
   });
 });

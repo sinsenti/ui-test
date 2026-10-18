@@ -23,7 +23,7 @@ export const acceptLeadSql = `
   SELECT id FROM accepted
 `;
 
-export async function saveLead(input: LeadInput): Promise<"saved" | "duplicate"> {
+export async function saveLead(input: LeadInput): Promise<{ status: "saved" | "duplicate"; leadId?: string }> {
   const client = await getPool().connect();
   let discardConnection = false;
   try {
@@ -39,7 +39,7 @@ export async function saveLead(input: LeadInput): Promise<"saved" | "duplicate">
       input.comment ?? null, input.productId ?? null, JSON.stringify(input.attribution),
     ]);
     await client.query("COMMIT");
-    return result.rowCount === 1 ? "saved" : "duplicate";
+    return result.rowCount === 1 ? { status: "saved", leadId: result.rows[0].id } : { status: "duplicate" };
   } catch (error) {
     try { await client.query("ROLLBACK"); } catch { discardConnection = true; }
     throw error;

@@ -1,7 +1,7 @@
 # Local development
 
-These commands describe the implemented foundation and [lead API](api.md).
-Telegram delivery, browser form checks, and release operations remain planned. The
+These commands describe the implemented foundation, [lead API](api.md), and local
+notification delivery. Browser form checks and cloud release remain planned. The
 [roadmap](roadmap.md) records what is still planned.
 
 ## First setup
@@ -25,7 +25,7 @@ Credentials in Compose and `.env.example` are local examples, not production sec
 
 The first package install and Docker image pull require internet. After those
 downloads, development, migrations, tests, and builds use local cached resources.
-Keep future fonts and imagery local, and use the planned simulated Telegram
+Keep future fonts and imagery local, and use the simulated Telegram
 transport to preserve offline development. A real Telegram send requires internet
 and is a release check, not a prerequisite for local work.
 
@@ -62,11 +62,88 @@ application or database container does not normally remove this volume.
 | --- | --- |
 | `DATABASE_URL` | Server-only application connection to local PostgreSQL. |
 | `DATABASE_URL_DIRECT` | Preferred migration connection; optional locally because migration scripts fall back to `DATABASE_URL`. Required as a separate direct URL in the planned Neon setup. |
+| `TELEGRAM_TRANSPORT` | `mock` (default) or explicit `telegram`. Real mode requires valid bot/chat settings and never falls back to mock. |
+| `TELEGRAM_MOCK_SCENARIO` | `success` by default; also `transient`, `transient-once`, `throttled`, `throttled-once`, `terminal`, or `timeout`. Applied server-side, never from visitor fields. |
+| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | Server-only real adapter configuration. Leave blank locally; configure/verify the actual bot only in F5. |
+| `CRON_SECRET` | Optional protected-operation credential: at least 32 printable ASCII characters, no spaces. Blank disables management; ordinary lead intake still works. Use a fresh random value per environment at release. |
 
 Scripts use Next.js environment-file precedence, including shell overrides.
 Keep `.env.local` and real credentials ignored. Commit placeholders only in
 `.env.example`. The database test harness intentionally does not load your env
-file and overrides inherited database URLs for its child test process.
+file and overrides inherited database URLs for its child test process. Tests also
+force the successful mock transport, clear bot/chat values, and create an ephemeral
+management secret, so a caller's real Telegram settings cannot leak into the suite.
+
+## Notification operations
+
+The simulator performs no network request and never logs rendered messages or
+submitted contacts. `success` marks a job sent **in simulation only**. `transient`
+keeps retrying; `transient-once` succeeds after the first claim. Throttling behaves
+similarly, with a 120-second minimum delay; the `-once` variant succeeds on later
+claims. `terminal` retains a failed job. `timeout` waits for the three-second send
+deadline and returns a retryable ambiguous result. Restart the local app after
+changing environment settings; lifetime attempt counts determine `-once` behavior.
+
+Every valid saved or duplicate lead request schedules at most three eligible
+notifications after the response. The worker prioritizes a new lead, then older
+due jobs. It claims one job at a time with a 30-second lease and UUID token;
+expired claims recover automatically during later drains. A 20-second start
+budget stops new claims; an already started attempt may finish afterward.
+Each send is bounded to three seconds and database work has its own short
+timeouts. There is no resident worker or local background timer. During an idle
+outage, trigger recovery manually; daily cloud recovery is configured in F5.
+
+To enable local management, generate a random value and place it in the ignored
+`.env.local` as `CRON_SECRET` (do not paste it into shared evidence):
+
+```sh
+node -e 'console.log(require("node:crypto").randomBytes(32).toString("hex"))'
+```
+
+Use the same value in your shell's `CRON_SECRET` variable when calling management
+routes. Do not put it in a URL. Drain eligible jobs with:
+
+```sh
+curl --fail-with-body -X POST http://127.0.0.1:3000/api/notifications/drain \
+  -H "Authorization: Bearer $CRON_SECRET"
+```
+
+Inspect delivery state through your database client using this contact-free query:
+
+```sql
+SELECT lead_id, status, attempts, next_attempt_at, locked_until, sent_at, last_error
+FROM app.notification_outbox ORDER BY created_at;
+```
+
+`pending` waits for eligibility; `processing` is leased; `sent` is acknowledged by
+the selected transport; `failed` requires correcting configuration/target or
+another terminal cause. `last_error` is a fixed category only: configuration,
+rejected, network, timeout, upstream, protocol, or throttled. No raw Telegram
+description, token, or submitted text is stored as an error.
+
+Retryable failures use 30-second exponential backoff capped at one hour, with
+valid Telegram `retry_after` as a lower bound (even beyond one hour). Attempts are
+not exhausted automatically. Throttling stops the current batch; there is no
+global bot/chat rate limiter. Management cannot force a pending job before its
+eligible time. A terminal job can be requeued after correction, using the lead
+UUID from the database or notification:
+
+```sh
+curl --fail-with-body -X POST \
+  http://127.0.0.1:3000/api/notifications/retry/REPLACE_WITH_LEAD_UUID \
+  -H "Authorization: Bearer $CRON_SECRET"
+```
+
+The 202 response confirms requeueing, preserving lifetime attempts and any future
+eligibility. Check the subsequent state rather than treating 202 as delivery.
+Sent/active/pending jobs cannot be force-requeued. GET/POST drain (and Next.js's
+automatic HEAD alias) and retry authenticate before database work; exact response
+codes are in [API](api.md).
+
+Delivery is at least once. A crash after a send, lost acknowledgement, expired
+lease, or network timeout may repeat a message. Use its stable lead ID to recognize
+repeats. No real notification has been verified yet; simulation is local evidence,
+and a real synthetic delivery plus scheduled recovery remain release gates.
 
 ## Migrations and database tests
 
@@ -98,7 +175,11 @@ schema rollback guard, parameterized SQL, actual HTTP validation, attribution,
 formatted-phone and concurrent duplicates, different-phone submissions, exact
 microsecond window boundaries using the actual acceptance SQL, post-lock clock
 sampling, outbox-insert rollback, recoverable query failure, and database
-constraints. Tests use synthetic contacts and make no Telegram calls. Browser
+constraints. Notification checks cover after-response delivery, concurrent claims,
+worker termination/recovery, stale ownership, backoff/throttling, bounded timeouts,
+terminal/manual recovery, result-write failure, authorization, and message bounds.
+The real HTTP adapter is tested with injected stub responses only. Tests use
+synthetic contacts and make no Telegram calls. Browser
 interaction coverage comes with the actual form in F4.
 
 For a local production smoke check, stop any server occupying port 3000, then:

@@ -1,8 +1,9 @@
 # Lead API
 
 `POST /api/lead` is implemented in the Node.js runtime. The page is still a
-placeholder; F4 will connect the shared visitor form. F3 will deliver the pending
-notification jobs; this endpoint currently makes no Telegram call.
+placeholder; F4 will connect the shared visitor form. After commit, this endpoint
+schedules a bounded notification drain using `after()`. The default local
+transport is an offline simulator; the real bot connection belongs to release.
 
 ## Request
 
@@ -68,7 +69,7 @@ No response includes contact details, existing lead ID, or duplicate timestamp.
 | HTTP | Body fields | Meaning |
 | --- | --- | --- |
 | 201 | `ok: true`, `status: "saved"`, `message` | Lead and one pending job committed. |
-| 200 | `ok: true`, `status: "duplicate"`, `message` | A lead for the normalized phone was accepted less than ten minutes ago. No write. |
+| 200 | `ok: true`, `status: "duplicate"`, `message` | A lead for the normalized phone was accepted less than ten minutes ago. No extra lead/job. |
 | 400 | `ok: false`, `status: "invalid"`, `message`, `fieldErrors` | Invalid fields/schema; correct the indicated fields. |
 | 400 | `ok: false`, `status: "error"`, `code: "invalid_json"`, `message` | Malformed JSON, invalid UTF-8, or unreadable body. |
 | 413 | `ok: false`, `status: "error"`, `code: "body_too_large"`, `message` | Body exceeds 16 KiB; shorten it. |
@@ -99,6 +100,47 @@ Different application instances use the same database coordination.
 
 If a response is lost after commit, retrying the same phone inside the window
 returns a duplicate acknowledgement. This also handles an ambiguous connection
-failure during commit. Pending jobs survive application restarts; delivery and
-recovery are F3 work. The API is not an operator endpoint and returns no stored
-lead contents. Current logs contain only a fixed storage-failure category.
+failure during commit. Pending jobs survive application restarts. Saved and
+duplicate requests schedule a drain of at most three eligible jobs; a new lead's
+job has priority. Invalid input schedules no work. Scheduling or delivery failure
+does not change the committed success response. The API returns no stored lead
+contents. Logs use fixed safe error categories, never submitted values or raw exceptions.
+
+## Notification management
+
+The management handlers below use the Node.js runtime and return JSON with
+`Cache-Control: no-store`.
+Authenticate with the exact `Authorization: Bearer <CRON_SECRET>` header. A missing,
+shorter-than-32-character, or non-printable-ASCII server secret disables management
+with 503 `management_unavailable`; missing/incorrect authorization returns 401
+`unauthorized`. Authentication happens before database access or ID validation.
+Secrets in query strings, cookies, or bodies do not authorize requests.
+
+| Route | Behavior |
+| --- | --- |
+| `GET` or `POST /api/notifications/drain` | Synchronously attempt at most three due or abandoned jobs. No caller-controlled batch size or eligibility override. GET is provided for the future authenticated release cron. |
+| `POST /api/notifications/retry/[leadId]` | Requeue only a terminal `failed` job, preserving its attempts and any future eligible time, then schedule a bounded drain with `after()`. |
+
+Next.js automatically handles `HEAD /api/notifications/drain` through the same
+authenticated GET handler: it performs the bounded drain and omits the response
+body. Use GET/POST for explicit operations rather than HEAD as a health probe.
+Framework-generated `OPTIONS` returns 204 with an `Allow` header; it performs no
+database work and is outside the handlers' JSON/no-store response contract.
+
+Drain returns 200 with `{ok:true, attempted, sent, pending, failed, stale,
+unavailable:false}`. Counts describe this invocation; `stale` means result
+ownership was lost. If database work fails it returns 503 with `ok:false` and
+`unavailable:true`; previously committed results remain recorded. A delivery failure
+handled durably is counted as pending/failed and does not itself make the drain 503.
+
+Retry returns 202 `{ok:true,status:"queued"}` when the transition is committed;
+it does not promise immediate successful delivery. Invalid UUID is 400
+`invalid_lead_id`, missing job is 404 `missing`, and pending/processing/sent is 409
+`not_retryable`. Storage failure is 503 `temporarily_unavailable`. Error bodies
+contain `{ok:false,code}`. Other unsupported methods receive Next.js's 405.
+Responses contain neither contact information nor credentials. There is no job
+listing endpoint or public force-retry operation.
+
+See [notification operations](development.md#notification-operations) for simulator
+settings and safe recovery. At-least-once delivery can repeat a message after
+an ambiguous timeout or a crash between the send and its database acknowledgement.

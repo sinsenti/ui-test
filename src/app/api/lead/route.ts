@@ -1,7 +1,10 @@
+import { after } from "next/server";
 import { fieldErrors, leadSchema } from "../../../lib/lead-schema.ts";
 import { saveLead } from "../../../lib/lead-store.ts";
+import { drainNotifications } from "../../../lib/notification-worker.ts";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 const maxBodyBytes = 16 * 1024;
 
 function json(body: object, status: number) {
@@ -48,7 +51,10 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   try {
-    const status = await saveLead(result.data);
+    const { status, leadId } = await saveLead(result.data);
+    // Scheduling/delivery failure cannot change an already committed lead response.
+    try { after(async () => { await drainNotifications(leadId); }); }
+    catch { console.error("Notification scheduling temporarily unavailable."); }
     return json({ ok: true, status, message: status === "saved"
       ? "Спасибо! Заявка сохранена. Мы вам перезвоним."
       : "Заявка с этим номером уже получена. Мы вам перезвоним." }, status === "saved" ? 201 : 200);

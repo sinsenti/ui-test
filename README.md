@@ -1,9 +1,10 @@
 # Кварта
 
 Landing page for a fictional Minsk coffee roastery. The local Next.js + TypeScript
-and Docker PostgreSQL 17 foundation is complete (`f44feb7`). Lead intake has passed
-independent testing and review. The home page is currently
-a placeholder; required Telegram delivery and the approved cosy design come next.
+and Docker PostgreSQL 17 foundation is complete (`f44feb7`). Lead intake and local
+notification delivery passed independent testing and review. The worker includes
+an offline simulator, leases, backoff, and protected recovery. The home page is
+currently a placeholder; the approved cosy design comes next.
 Vercel + Neon setup comes last.
 
 ## Run locally
@@ -31,6 +32,7 @@ types, isolated PostgreSQL integration tests, and a production build.
 - [Documentation index](docs/README.md) — product, original brief, architecture, development, and release checklist.
 - [Development guide](docs/development.md) — all commands, migrations, environment variables, and known tooling limits.
 - [Lead API](docs/api.md) — request fields, responses, attribution, and duplicate protection.
+- [Notification operations](docs/development.md#notification-operations) — simulator settings, delivery state, and protected retries.
 - [AI workflow](AGENTS.md) — task → data-modeler → builder → test → review.
 
 The user selected the original

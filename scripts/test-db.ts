@@ -101,10 +101,12 @@ try {
   const databaseUrl = `postgresql://kvarta_test:kvarta_test@127.0.0.1:${match[1]}/kvarta_test`;
   const testEnv = {
     ...process.env, DATABASE_URL: databaseUrl, DATABASE_URL_DIRECT: databaseUrl,
+    TELEGRAM_TRANSPORT: "mock", TELEGRAM_MOCK_SCENARIO: "success",
+    TELEGRAM_BOT_TOKEN: "", TELEGRAM_CHAT_ID: "", CRON_SECRET: randomUUID(),
   };
   const appUrl = await startApplication(testEnv);
   const result = await run(process.execPath, ["--conditions=react-server", "--test", "--test-concurrency=1",
-    "tests/database.test.ts", "tests/lead.test.ts"], false, { ...testEnv, TEST_APP_URL: appUrl });
+    "tests/database.test.ts", "tests/lead.test.ts", "tests/notification.test.ts"], false, { ...testEnv, TEST_APP_URL: appUrl });
   process.exitCode = result.status ?? 1;
 } catch {
   console.error(interrupted
