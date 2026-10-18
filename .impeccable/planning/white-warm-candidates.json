@@ -1,0 +1,55 @@
+{
+  "seedReference": "seed:f2905f40be1c8cac",
+  "scope": "surface",
+  "visualAuthority": "User-pinned white base, bright warm accents, typography reference assets/screen.png.",
+  "candidates": [
+    {
+      "position": 1,
+      "id": "white-manifesto",
+      "label": "Coffee in plain words",
+      "structure": "Wide wordmark and tightly stacked fresh-coffee statement; real order controls interrupt the type rhythm on a white field."
+    },
+    {
+      "position": 2,
+      "id": "white-origin-list",
+      "label": "Choose an origin",
+      "structure": "An asymmetric origin-and-price ledger expands one selected product into the request slip; white space and warm marks organize comparison."
+    },
+    {
+      "position": 3,
+      "id": "white-rhythm",
+      "label": "Thursday → Friday",
+      "structure": "Two oversized day markers organize a short, factual roast-to-delivery sequence; the callback form continues its white-space rhythm."
+    },
+    {
+      "position": 4,
+      "id": "white-workshop-story",
+      "label": "Inside the workshop",
+      "structure": "A single candid workshop-image strip anchors a typographic narrative, with price and the request controls held on uninterrupted white."
+    },
+    {
+      "position": 5,
+      "id": "white-dispatch",
+      "label": "A note from Kvarta",
+      "structure": "A compact dispatch note leads with the customer offer and direct request slip; small weekly schedule annotations explain freshness."
+    },
+    {
+      "position": 6,
+      "id": "white-pack",
+      "label": "One fresh pack",
+      "structure": "One white coffee pack with an orange typographic label becomes the main product artifact; adjacent narrative is avoided and the request sits in the same vertical path."
+    },
+    {
+      "position": 7,
+      "id": "white-weekly-list",
+      "label": "This week's coffee",
+      "structure": "A dense but airy weekly coffee list begins with all four real prices and an integrated selection-to-request rail; lower story sections remain quiet."
+    }
+  ],
+  "dealt": [
+    5,
+    6,
+    3
+  ],
+  "challengers": "No catalog challenger replaces the grounded compositions: their alternate worlds do not improve product clarity within the user-pinned identity."
+}

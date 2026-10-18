@@ -1,0 +1,9 @@
+Create a high-fidelity mobile landing-page UI for fictional Minsk coffee roastery «Кварта». Render a 390×844 CSS-pixel viewport at 2×, portrait 780×1688, edge to edge with readable Russian text, no device or browser frame.
+
+The attached image is typography inspiration only: broad bold geometric wordmark and tightly stacked plain sans-serif text, adapted to Cyrillic. Do not copy RANAK, its content, registered mark or layout. Keep page and form surfaces pure white, text near-black, accents vivid warm orange/coral with small amber details. White stays dominant; no beige paper, rustic texture, dark fields, serif or condensed poster lettering.
+
+One white matte 250 g coffee pack with an orange typographic label «КВАРТА / БРАЗИЛИЯ СЕРРАДО» is the focal artifact. The ENTIRE page follows one single-column vertical reading path: compact wordmark and menu; short full-width hook «ВАШ КОФЕ. / СВЕЖАЯ ОБЖАРКА.»; the pack centered in its own full-width image row; plain offer and schedule lines below the pack; directly usable callback fields. The pack never sits beside any headline, copy, price or fact list. No split hero, side columns, icon badges, benefit cards or equal-card rows. Its shadow is small and soft.
+
+State «Бразилия Серрадо · 250 г · 26 BYN», «Подписка — 54 BYN / месяц», «В четверг обжариваем — в пятницу привозим», and «Партиями по 5 кг» as quiet readable text.
+
+Show a single-column request form with persistent labels «Имя», «Телефон», ONE mutually exclusive interest group «Разовый заказ / Подписка / Вопрос», one optional «Комментарий», orange button «Оставить заявку», and «Перезвоним и поможем с выбором». Begin the next section «Кофе на выбор» with «Эфиопия Иргачеффе · 250 г · 32 BYN». No invented claims, tasting notes, discounts or contacts.

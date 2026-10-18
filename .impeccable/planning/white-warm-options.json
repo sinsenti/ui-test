@@ -1,0 +1,72 @@
+{
+  "title": "Kvarta: white + warm accents",
+  "question": "Three new layouts using your white background, bright warm accents and typography reference. Compare the composition and ordering experience; the business facts are the same.",
+  "options": [
+    {
+      "id": "white-dispatch",
+      "kind": "assigned",
+      "label": "A note from Kvarta",
+      "thesis": "A direct invitation from the workshop, with the offer and callback slip in one clear white composition.",
+      "palette": [
+        "#FFFFFF",
+        "#171717",
+        "#F45B32",
+        "#FFB000"
+      ],
+      "materials": [
+        "clean white surfaces",
+        "wide geometric Cyrillic type",
+        "small bright warm markers"
+      ],
+      "viewport": "An asymmetric typographic dispatch note puts the real offer and request fields first; the Thursday/Friday schedule supports it.",
+      "risk": "The typography needs enough character and breathing room to avoid looking like a plain form.",
+      "comp": ".impeccable/mocks/decision/white-dispatch.png"
+    },
+    {
+      "id": "white-pack",
+      "kind": "dealt",
+      "label": "One fresh pack",
+      "thesis": "A single white coffee pack with a vivid orange label gives the offer a tangible focal point.",
+      "palette": [
+        "#FFFFFF",
+        "#171717",
+        "#F45B32",
+        "#FFB000"
+      ],
+      "materials": [
+        "white product photography",
+        "orange label ink",
+        "plain sans-serif text"
+      ],
+      "viewport": "One product artifact anchors a vertical white page; prices and a labelled callback slip sit in the same reading path, without a copy/photo split.",
+      "risk": "Strong packaging photography is essential, and the product must not push the action too far down.",
+      "comp": ".impeccable/mocks/decision/white-pack.png"
+    },
+    {
+      "id": "white-rhythm",
+      "kind": "dealt",
+      "label": "Thursday → Friday",
+      "thesis": "Two bold day markers make the freshness promise the structure of the opening.",
+      "palette": [
+        "#FFFFFF",
+        "#171717",
+        "#F45B32",
+        "#FFB000"
+      ],
+      "materials": [
+        "white space",
+        "black geometric lettering",
+        "coral and amber schedule marks"
+      ],
+      "viewport": "A short chronological sequence leads directly into the real offers and callback form; the first catalog entry begins below.",
+      "risk": "The day typography must remain warm and simple rather than turning the page into an infographic.",
+      "comp": ".impeccable/mocks/decision/white-rhythm.png"
+    }
+  ],
+  "reroll": true,
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "steer": true
+}

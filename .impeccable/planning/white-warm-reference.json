@@ -1,0 +1,65 @@
+{
+  "scope": "Three alternative mobile compositions within the user-pinned white/warm visual direction.",
+  "reference": {
+    "path": "assets/screen.png",
+    "role": "Typography inspiration only",
+    "observed": [
+      "Broad heavy geometric uppercase wordmark",
+      "Tight plain sans-serif line stacking",
+      "Black text with ample white space"
+    ],
+    "notIdentified": "The screenshot does not establish an exact font family or Cyrillic font license.",
+    "doNotCopy": [
+      "RANAK brand name",
+      "Registered-trademark mark",
+      "Pastries/sandwiches or other unrelated business content"
+    ]
+  },
+  "constraints": {
+    "surface": "Predominantly clean white, including form surfaces",
+    "accents": "Bright warm orange, coral, and optional amber",
+    "type": "Broad geometric Cyrillic wordmark with compact plain sans-serif text",
+    "layout": "Mobile-first, one clear reading path and one dominant visual move",
+    "businessTruth": "All prices, roast cadence and form requirements come from PRODUCT.md"
+  },
+  "round": {
+    "seedReference": "seed:f2905f40be1c8cac",
+    "payload": ".impeccable/planning/white-warm-options.json",
+    "previousRoundPreserved": true,
+    "status": "awaiting-user-selection"
+  },
+  "generation": {
+    "mode": "built-in image_gen",
+    "referenceImage": "assets/screen.png",
+    "promptDirectory": ".impeccable/planning/prompts",
+    "targets": [
+      "white-dispatch.png",
+      "white-pack.png",
+      "white-rhythm.png"
+    ]
+  },
+  "review": {
+    "white-dispatch": "Type-first white opening, warm schedule annotations, factual offers and one labelled callback form. Removed an unwanted large pack image from the first generation.",
+    "white-pack": "Vertical product artifact and orange label; removed initial split hero. The larger photograph makes the form more compact.",
+    "white-rhythm": "Two expressive day markers and small coffee details lead directly to offers and form. User-pinned palette and type character retained.",
+    "shared": "Generated studies are not verified responsive implementations. All three retain the same real offers and request fields."
+  },
+  "font_candidates": [
+    {
+      "role": "display",
+      "family": "Unbounded",
+      "cyrillic": true,
+      "metadata_license": "OFL",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/unbounded/METADATA.pb",
+      "selected": false
+    },
+    {
+      "role": "body",
+      "family": "Golos Text",
+      "cyrillic": true,
+      "metadata_license": "OFL",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/golostext/METADATA.pb",
+      "selected": false
+    }
+  ]
+}

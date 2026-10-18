@@ -76,9 +76,16 @@ asks for a distinctive design for this particular roastery without premium gloss
 or a generic generated appearance. A text wordmark is allowed. The user wants
 the local Impeccable skill to guide the UI work.
 
-The user has no additional visual requirements or external references beyond
-`kvarta-brief.md` and this product record. Visual concepts will be developed from
-those constraints and compared before implementation.
+The user requests a white color scheme with bright warm-tone accents. White is
+the main page surface; warm orange, coral, or amber may emphasize actions and
+selected details. The new concepts must preserve this preference.
+
+Typography reference: `assets/screen.png`, supplied by the user. Use its broad,
+bold geometric wordmark character and compact, tightly stacked plain sans-serif
+copy as inspiration for a Cyrillic Kvarta identity. The exact font has not been
+identified or selected. Do not copy the reference brand name, registered mark,
+food offerings, or other business claims. Compare layouts within this visual
+direction before implementation.
 
 ## Evidence on Hand
 
