@@ -1,5 +1,5 @@
 {
-  "status": "awaiting-typography-review",
+  "status": "original-selected",
   "selected_composition": ".impeccable/mocks/decision/cosy-pack.png",
   "revision": ".impeccable/mocks/decision/cosy-pack-serif.png",
   "prompt_file": ".impeccable/planning/prompts/cosy-pack-serif.txt",
@@ -14,5 +14,7 @@
     "The serif headline contrasts with the bold wordmark and suits the cozy photo.",
     "The selected vertical composition, offers, form and catalog opening remain consistent."
   ],
-  "limitations": "Generated visual study. Final headline will be semantic responsive text; exact type metrics are not verified by the image."
+  "limitations": "Generated visual study. Final headline will be semantic responsive text; exact type metrics are not verified by the image.",
+  "approved_comp": ".impeccable/mocks/decision/cosy-pack.png",
+  "decision": "The user chose the original cosy-pack.png. Keep the serif revision as an unselected exploration, with no pending typography approval."
 }

@@ -6,12 +6,12 @@
     "/home/user/git/personal/ui-test/assets/screen.png"
   ],
   "purpose": "surface-decision-comp",
-  "approved": false,
+  "approved": true,
   "prompt_file": ".impeccable/planning/prompts/cosy-pack-v2.txt",
   "dimensions": [
     853,
     1844
   ],
-  "selected_for_refinement": true,
-  "selection_scope": "Preferred composition; headline font revision requested. Final revised comp is not yet approved."
+  "selection_scope": "Approved design baseline: the original cosy-pack.png, including its headline direction. Further design additions may follow later.",
+  "approval_source": "User explicitly reconfirmed cosy-pack.png and said to stick to it before discussing architecture."
 }

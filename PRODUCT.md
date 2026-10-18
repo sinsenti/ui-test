@@ -15,8 +15,15 @@ application or scaffold.
 
 Implementation defaults selected within the user's delegated scope: TypeScript,
 CSS Modules with CSS custom properties, a `POST /api/lead` Route Handler, Zod,
-`libphonenumber-js/max`, the Neon serverless driver, and versioned SQL migrations.
+`libphonenumber-js/max`, the standard `pg` PostgreSQL client, and versioned SQL migrations.
 These are implementation choices rather than unresolved business requirements.
+
+Local development must work offline after dependencies and the database image
+have been downloaded. The user selected PostgreSQL in Docker. Run Next.js on the
+host and PostgreSQL through Docker Compose, with a named volume for persistent
+local data. Use the same PostgreSQL major version locally and on Neon. The `pg`
+client replaces the earlier Neon-specific driver default so application SQL and
+database access work against both environments.
 
 ## Users
 
@@ -93,9 +100,11 @@ direction before implementation.
 The user selected `.impeccable/mocks/decision/cosy-pack.png` ("Your morning
 table") as the preferred composition: peach canvas, a coffee bag and ceramic
 cup inside a large organic oval, followed by the offers and rounded callback
-panel. Preserve this composition while refining the headline font above the
-photograph. The heavy headline font is open for revision; no exact replacement
-family is approved yet.
+panel. The user subsequently confirmed the original `cosy-pack.png` as the design
+to keep, including its original headline direction. The serif experiment is
+unselected. Use the original as the approved baseline; further design additions
+can be explored later. Exact font assets still need to be matched to this visual
+direction during implementation.
 
 ## Evidence on Hand
 
