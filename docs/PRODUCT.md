@@ -86,7 +86,11 @@ customers receive beans 1–3 days after roasting. Freshness is the central bene
   The server saves every selected line with quantity and its own price snapshot.
   Free delivery uses the combined coffee total of at least 50 BYN; delivery below
   that amount is confirmed by the manager.
-- Validate Belarusian numbers and show understandable feedback.
+- Show pack controls as «Количество», with the same wording in accessible labels.
+- Group phone numbers with spaces and hyphens while typing or pasting, for example
+  `+375 29 123-45-67`. Keep local-number entry and editing usable; preserve every
+  digit and leave unsupported input available for validation. Validate Belarusian
+  numbers on the server and show understandable feedback.
 - The same normalized phone number must not create a second lead within ten
   minutes, including simultaneous requests and repeated clicks.
 - Persist leads across application restarts and deployments. Enforce duplicate

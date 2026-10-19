@@ -1,0 +1,96 @@
+{
+  "url": "http://127.0.0.1:3001",
+  "capturedAt": "2026-10-19T09:14:40.805Z",
+  "browser": "155.0.8059.39",
+  "baseCommit": "b68a7b83a499da01713afce6c82789bd31baf311",
+  "source": "Uncommitted phone/quantity refinement on the named base commit; file hashes identify the build inputs.",
+  "buildId": "-GUC71HpGwOnINTWMSPu0",
+  "sourceHashes": {
+    "src/app/lead-form.tsx": "b1fac61ec44c271ecee0c12277578c74a752ee96519693471959cec883108bac",
+    "src/lib/phone-input.ts": "d0a8aecc08edc0e9c966d9bdde1234bc098690f4b47e835eda13439e3bb48ce7",
+    "src/app/page.module.css": "62a8d1d000340127dfc3e3b45b5c0c8be0bd08ebccc9c0c0d22e45e6fdeb27c0"
+  },
+  "syntheticData": true,
+  "submitted": false,
+  "captures": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "loadedFonts": 2,
+      "imageLoaded": true,
+      "phoneDisplay": "+375 29 123-45-67",
+      "quantityLabels": [
+        "Количество: Эфиопия Иргачеффе",
+        "Количество: Колумбия Уила",
+        "Количество: Бразилия Серрадо",
+        "Количество: Дрип-пакеты, ассорти"
+      ],
+      "catalogSelectedTotal": "За кофе: 99 BYN\nДоставка по Минску — бесплатно.",
+      "formCoffeeContext": "cleared",
+      "errors": [],
+      "submissions": 0,
+      "files": [
+        "phone-mobile-form.png",
+        "phone-mobile-catalog.png"
+      ],
+      "catalogCapture": {
+        "method": "Full-document screenshot with document-coordinate catalog clip; body focus and pointer outside catalog avoid off-viewport fixed-link and hover contamination.",
+        "capturedAt": "2026-10-19T09:17:43.590Z",
+        "clip": {
+          "x": 25.34375,
+          "y": 1580.90625,
+          "width": 339.3125,
+          "height": 2225.4375
+        },
+        "active": "BODY",
+        "scrollY": 0,
+        "skipBottom": -11.5,
+        "hoveredCatalogButton": false,
+        "errors": [],
+        "submissions": 0
+      }
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "loadedFonts": 2,
+      "imageLoaded": true,
+      "phoneDisplay": "+375 29 123-45-67",
+      "quantityLabels": [
+        "Количество: Эфиопия Иргачеффе",
+        "Количество: Колумбия Уила",
+        "Количество: Бразилия Серрадо",
+        "Количество: Дрип-пакеты, ассорти"
+      ],
+      "catalogSelectedTotal": "За кофе: 99 BYN\nДоставка по Минску — бесплатно.",
+      "formCoffeeContext": "cleared",
+      "errors": [],
+      "submissions": 0,
+      "files": [
+        "phone-desktop-form.png",
+        "phone-desktop-catalog.png"
+      ],
+      "catalogCapture": {
+        "method": "Full-document screenshot with document-coordinate catalog clip; body focus and pointer outside catalog avoid off-viewport fixed-link and hover contamination.",
+        "capturedAt": "2026-10-19T09:17:44.103Z",
+        "clip": {
+          "x": 232.796875,
+          "y": 2611.484375,
+          "width": 974.40625,
+          "height": 1361.75
+        },
+        "active": "BODY",
+        "scrollY": 0,
+        "skipBottom": -11.5,
+        "hoveredCatalogButton": false,
+        "errors": [],
+        "submissions": 0
+      }
+    }
+  ],
+  "method": "Forms use locator captures after scheduled contact focus settles, with synthetic contact input and cleared coffee context. Catalogs use full-document screenshots with document-coordinate catalog clips, at body focus with pointer outside catalog; three selected coffees total 99 BYN. No submissions."
+}

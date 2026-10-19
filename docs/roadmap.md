@@ -232,6 +232,19 @@ reviews still apply. These are local lab measurements, not deployed or real-user
 performance. The requested interface acceptance and fresh measurement are complete;
 cloud setup, real Telegram and public-URL verification remain F5.
 
+Subsequent user-requested refinement (2026-10-19): catalog controls now say
+«Количество», with matching product-specific accessible group names. The phone
+field groups supported Belarusian input with spaces and hyphens, such as
+`+375 29 123-45-67`, while preserving local prefixes, editable digits and existing
+server validation/normalization. No schema, API, migration or client dependency
+was added. The final `npm run check` passed lint, types, all 52 tests including
+19 browser groups, and the production build. Tests caught selected-separator
+deletion losing a digit; the correction passed all eight separator/key cases.
+[Production captures and verification limits](development.md#visual-and-performance-evidence)
+record the scoped change. Independent code and scoped design review passed
+with no material findings. Earlier Lighthouse reports remain measurements of their
+named source/build; they were not rerun for this input refinement.
+
 Work to do:
 
 - [x] Use the local Impeccable skill and the approved original composition.

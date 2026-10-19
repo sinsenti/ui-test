@@ -216,6 +216,29 @@ Do not make future builds run migrations or send real notifications.
 
 ## Visual and performance evidence
 
+The later user-requested quantity wording and phone-entry refinement is captured
+in the [mobile form](../.impeccable/review/phone-mobile-form.png),
+[desktop form](../.impeccable/review/phone-desktop-form.png), and
+[mobile](../.impeccable/review/phone-mobile-catalog.png) and
+[desktop](../.impeccable/review/phone-desktop-catalog.png) catalogs.
+[Capture metadata](../.impeccable/review/phone-capture.json) identifies the
+production build and source-file hashes. The catalog shows three coffees at
+99 BYN; the form shows synthetic contacts after clearing the coffee context.
+Neither capture submitted a lead. Both viewport checks loaded two local fonts
+and the image, with no page errors or horizontal overflow. The source
+[design detector](../.impeccable/review/phone-detector.json) reported no findings.
+
+For this refinement, `npm run check` with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`
+pointing to cached Chromium passed lint, types, all 52 isolated PostgreSQL/API/notification/browser
+tests (including 19 browser groups), and the production build. New browser checks
+cover actual typing and clipboard paste, seven accepted dial-prefix formats,
+normalized duplicate protection, middle insertion/replacement/cut and caret
+position, collapsed and selected-separator deletion, and unchanged unsupported
+input. A selected-separator test exposed accidental digit deletion; the native
+`beforeinput` selection check fixed it before the final passing run. Autocomplete
+uses whole-value input simulation; physical devices and saved OS contacts were
+not checked. These changes follow the Lighthouse runs below; no new score is claimed.
+
 With a production server running, capture the real page with:
 
 ```sh

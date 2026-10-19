@@ -506,6 +506,14 @@ Text fields use a transparent fill within the cream panel, a 1px control-border
 stroke, the control radius, 11px 18px padding, and a minimum 46px height. Labels
 remain visible above fields. Placeholders and phone help use soft cocoa.
 
+The phone placeholder and help share the example «+375 29 123-45-67».
+Recognizable Belarusian numbers gain spaces and hyphens during entry or paste;
+local and national dial prefixes remain supported. Formatting preserves digits
+and the editing position. Foreign, overlong, and unsupported text remains
+available for server validation instead of being silently rewritten or truncated.
+This is presentation only: storage and duplicate protection use the existing
+server-normalized number. No masking library is added to the client bundle.
+
 Invalid fields switch their stroke to error red and display a nearby textual
 error; `aria-describedby` associates the message. Validation focuses the first
 invalid field and opens the comment disclosure when its field is invalid. The
@@ -535,6 +543,8 @@ inline messages and focus behavior.
 ### Pack quantity control
 
 A compact outlined group repeats in each card and each selected-coffee row.
+The visible card label is «Количество»; each group's accessible name is
+«Количество: [название кофе]».
 The minus and plus buttons have 44px square targets, transparent fills, and a
 cream hover fill when enabled. A centered 18px tabular count has a 30px minimum
 width. The count is bounded from 1 to 99; the unavailable boundary button uses a

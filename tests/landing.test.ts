@@ -139,20 +139,157 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(page.locator("#name-error")).toHaveText("Подскажите, как к вам обращаться.");
     assert.equal(requests, 0);
     await fill("+1 202 555 0123", "Анна");
-    for (const phone of ["+1 202 555 0123", "+375111111111"]) {
+    for (const [phone, display] of [["+1 202 555 0123", "+1 202 555 0123"], ["+375111111111", "+375 11 111-11-11"]]) {
       await page.getByLabel("Телефон", { exact: true }).fill(phone);
       await send(400);
       await expect(page.getByLabel("Телефон", { exact: true })).toBeFocused();
       await expect(page.getByLabel("Телефон", { exact: true })).toHaveAttribute("aria-invalid", "true");
       await expect(page.locator("#phone-error")).toHaveText("Укажите действующий белорусский номер.");
       await expect(page.getByLabel("Телефон", { exact: true })).toHaveAttribute("aria-describedby", /phone-help.*phone-error/);
-      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue(phone);
+      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue(display);
       await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Анна");
     }
     assert.equal(requests, 2);
     assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
     const accessibility = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
     assert.deepEqual(accessibility.violations.map(({ id, nodes }) => ({ id, targets: nodes.map((node) => node.target) })), []);
+  });
+
+  test("phone typing and native paste show readable grouping while keeping telephone and autocomplete semantics", async () => {
+    await page.goto(base);
+    const phone = page.getByLabel("Телефон", { exact: true });
+    await expect(phone).toHaveAttribute("type", "tel");
+    await expect(phone).toHaveAttribute("inputmode", "tel");
+    await expect(phone).toHaveAttribute("autocomplete", "tel");
+    await expect(phone).toHaveAttribute("maxlength", "64");
+    await expect(phone).toHaveAttribute("aria-describedby", "phone-help");
+    await expect(phone).toHaveAttribute("placeholder", "+375 29 123-45-67");
+    await phone.pressSequentially("+37529");
+    await expect(phone).toHaveValue("+375 29");
+    await phone.pressSequentially("123");
+    await expect(phone).toHaveValue("+375 29 123");
+    await phone.pressSequentially("4567");
+    await expect(phone).toHaveValue("+375 29 123-45-67");
+    await phone.press("ControlOrMeta+a");
+    await phone.press("Backspace");
+    await expect(phone).toHaveValue("");
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.evaluate(() => navigator.clipboard.writeText("+375291234567"));
+    await phone.press("ControlOrMeta+v");
+    await expect(phone).toHaveValue("+375 29 123-45-67");
+    await expect.poll(() => phone.evaluate((element) => (element as HTMLInputElement).selectionStart)).toBe(17);
+    await page.getByLabel("Имя", { exact: true }).fill("Проверка вставки");
+    await send(201, saved);
+    await oneDelivered("+375291234567");
+    assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
+  });
+
+  test("whole-value phone fills preserve supported prefixes and normalize to one saved phone and duplicate key", async () => {
+    await page.goto(base);
+    await page.getByLabel("Имя", { exact: true }).fill("Проверка автозаполнения");
+    const phone = page.getByLabel("Телефон", { exact: true });
+    const variants = [
+      ["+375291234567", "+375 29 123-45-67"],
+      ["375291234567", "375 29 123-45-67"],
+      ["8 (029) 123-45-67", "8 029 123-45-67"],
+      ["80291234567", "8 029 123-45-67"],
+      ["0291234567", "029 123-45-67"],
+      ["291234567", "29 123-45-67"],
+      ["810375291234567", "810375 29 123-45-67"],
+    ];
+    let leadId: string | undefined;
+    for (const [index, [input, display]] of variants.entries()) {
+      // A complete value arriving in one input event also covers the shape of
+      // browser/keyboard autocomplete without relying on a saved OS contact.
+      await phone.fill(input);
+      await expect(phone).toHaveValue(display);
+      assert.equal((await phone.inputValue()).replace(/[^0-9]/g, ""), input.replace(/[^0-9]/g, ""));
+      await send(index === 0 ? 201 : 200, index === 0 ? saved : duplicate);
+      const lead = await oneDelivered("+375291234567");
+      leadId ??= lead.id;
+      assert.equal(lead.id, leadId);
+      assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
+    }
+  });
+
+  test("phone edits keep insertion, replacement, cut and collapsed separator deletion beside the intended digits", async () => {
+    await page.goto(base);
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    const phone = page.getByLabel("Телефон", { exact: true });
+    async function select(start: number, end = start) {
+      await phone.focus();
+      await phone.evaluate((element, range) => (element as HTMLInputElement).setSelectionRange(range.start, range.end), { start, end });
+    }
+    await phone.fill("+37529124567");
+    await expect(phone).toHaveValue("+375 29 124-56-7");
+    await select(10);
+    await phone.pressSequentially("3");
+    await expect(phone).toHaveValue("+375 29 123-45-67");
+    assert.equal(await phone.evaluate((element) => (element as HTMLInputElement).selectionStart), 11);
+    await select(5, 7);
+    await phone.pressSequentially("33");
+    await expect(phone).toHaveValue("+375 33 123-45-67");
+    assert.equal(await phone.evaluate((element) => (element as HTMLInputElement).selectionStart), 7);
+    await select(5, 7);
+    await phone.pressSequentially("29");
+    await select(8, 12);
+    await phone.press("ControlOrMeta+x");
+    await expect(phone).toHaveValue("+375 29 456-7");
+    await phone.press("ControlOrMeta+v");
+    await expect(phone).toHaveValue("+375 29 123-45-67");
+    for (const [position, key, display, caret, restore] of [
+      [12, "Backspace", "+375 29 124-56-7", 10, "3"],
+      [11, "Delete", "+375 29 123-56-7", 11, "4"],
+      [8, "Backspace", "+375 21 234-56-7", 6, "9"],
+      [7, "Delete", "+375 29 234-56-7", 7, "1"],
+    ] as const) {
+      await phone.fill("+375291234567");
+      await select(position);
+      await phone.press(key);
+      await expect(phone).toHaveValue(display);
+      assert.equal(await phone.evaluate((element) => (element as HTMLInputElement).selectionStart), caret, `${key} at ${position}`);
+      await phone.pressSequentially(restore);
+      await expect(phone).toHaveValue("+375 29 123-45-67");
+    }
+    await phone.press("ControlOrMeta+a");
+    await phone.press("Delete");
+    await expect(phone).toHaveValue("");
+    await phone.pressSequentially("+375291234567");
+    await expect(phone).toHaveValue("+375 29 123-45-67");
+    assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
+  });
+
+  test("deleting a selected phone separator keeps every digit", async () => {
+    await page.goto(base);
+    const phone = page.getByLabel("Телефон", { exact: true });
+    for (const [start, end] of [[4, 5], [7, 8], [11, 12], [14, 15]]) {
+      for (const key of ["Backspace", "Delete"]) {
+        await phone.fill("+375291234567");
+        await phone.evaluate((element, range) => (element as HTMLInputElement).setSelectionRange(range.start, range.end), { start, end });
+        await phone.press(key);
+        await expect(phone).toHaveValue("+375 29 123-45-67");
+      }
+    }
+  });
+
+  test("foreign, overlong, prose and extension phone values stay unchanged and cannot save a lead", async () => {
+    await page.goto(base);
+    await page.getByLabel("Имя", { exact: true }).fill("Проверка границ");
+    const phone = page.getByLabel("Телефон", { exact: true });
+    for (const input of [
+      "+1 202 555 0123", "+7 (495) 123-45-67", "+810375291234567",
+      "+3752912345678", "3752912345678", "802912345678", "02912345678", "2912345678", "8103752912345678",
+      "call +375291234567 please", "+375291234567 ext 2", "+375291234567#2",
+    ]) {
+      await phone.fill(input);
+      await expect(phone).toHaveValue(input);
+      await send(400, "Проверьте поля формы.");
+      await expect(phone).toHaveValue(input);
+      await expect(phone).toBeFocused();
+      await expect(phone).toHaveAttribute("aria-invalid", "true");
+      await expect(page.locator("#phone-error")).toHaveText("Укажите действующий белорусский номер.");
+    }
+    assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
   });
 
   test("all four products and both subscription actions reach the shared form with compatible saved context", async () => {
@@ -162,13 +299,17 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     for (const [index, [id, name]] of products.entries()) {
       const phone = `+37529123450${index + 1}`;
       await fill(phone, "Анна");
+      await expect(card(name).getByText("Количество", { exact: true })).toBeVisible();
+      await expect(card(name).getByText("Упаковок", { exact: true })).toHaveCount(0);
+      await expect(card(name).getByRole("group", { name: `Количество: ${name}`, exact: true })).toHaveText("1");
       await page.getByRole("button", { name: `Выбрать ${name}`, exact: true }).click();
       await expect(page.getByRole("button", { name: `Выбрано ${name}`, exact: true })).toHaveAttribute("aria-pressed", "true");
       await card(name).getByRole("button", { name: "Перейти к заявке", exact: true }).click();
       await expect(form().getByRole("radio", { name: "Разовый заказ", exact: true })).toBeChecked();
       await expect(summary()).toContainText(name);
       await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Анна");
-      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue(phone);
+      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue(`+375 29 123-45-0${index + 1}`);
+      await expect(form().getByRole("group", { name: `Количество: ${name}`, exact: true })).toHaveText("1");
       await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Нужен помол для фильтра");
       await expect(page.getByLabel("Телефон", { exact: true })).toBeFocused();
       await send(201, saved);
@@ -201,8 +342,8 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await page.getByLabel("Ваш комментарий").fill("Для фильтра, после 18:00");
     const ethiopia = card("Эфиопия Иргачеффе");
     const colombia = card("Колумбия Уила");
-    const ethiopiaQuantity = ethiopia.getByRole("group", { name: /Количество упаковок/ });
-    const colombiaQuantity = colombia.getByRole("group", { name: /Количество упаковок/ });
+    const ethiopiaQuantity = ethiopia.getByRole("group", { name: /^Количество: / });
+    const colombiaQuantity = colombia.getByRole("group", { name: /^Количество: / });
     await expect(ethiopiaQuantity).toHaveText("1");
     await expect(ethiopiaQuantity.getByRole("button", { name: /Уменьшить/ })).toBeDisabled();
     await colombiaQuantity.getByRole("button", { name: /Увеличить/ }).click();
@@ -246,7 +387,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(page.getByLabel("Телефон", { exact: true })).toBeFocused();
     await expect(summary()).toContainText("За кофе: 183 BYN");
     await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
-    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
+    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 29 123-45-67");
     await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Для фильтра, после 18:00");
     await send(201, saved);
     const lead = await oneDelivered("+375291234567");
@@ -283,9 +424,9 @@ describe("responsive landing and real browser callback flow with isolated Postgr
   test("form and card share the 1–99 pack limits, keyboard controls and drip-box pricing", async () => {
     await page.goto(base);
     const drip = card("Дрип-пакеты, ассорти");
-    const cardQuantity = drip.getByRole("group", { name: "Количество упаковок: Дрип-пакеты, ассорти", exact: true });
+    const cardQuantity = drip.getByRole("group", { name: "Количество: Дрип-пакеты, ассорти", exact: true });
     await drip.getByRole("button", { name: "Выбрать Дрип-пакеты, ассорти", exact: true }).click();
-    const formQuantity = form().getByRole("group", { name: "Количество упаковок: Дрип-пакеты, ассорти", exact: true });
+    const formQuantity = form().getByRole("group", { name: "Количество: Дрип-пакеты, ассорти", exact: true });
     await expect(formQuantity).toHaveText("1");
     await expect(formQuantity.getByRole("button", { name: /Уменьшить/ })).toBeDisabled();
     await formQuantity.getByRole("button", { name: /Увеличить/ }).focus();
@@ -349,7 +490,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await form().getByRole("radio", { name: "Подписка", exact: true }).check();
     await expect(summary()).toContainText("Подписка");
     await expect(summary()).toContainText("2 × 250 г");
-    await expect(form().getByRole("group", { name: /Количество упаковок/ })).toHaveCount(0);
+    await expect(form().getByRole("group", { name: /^Количество: / })).toHaveCount(0);
     await expect(page.getByRole("button", { pressed: true })).toHaveCount(0);
     await fill("+375291234569");
     await send(201, saved);
@@ -412,7 +553,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await submit().click();
     await expect(feedback()).toHaveText(recoverable);
     await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
-    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
+    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 29 123-45-67");
     await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Перезвоните после 18:00");
     await expect(summary()).toContainText("2 × 250 г");
     await expect(summary()).toContainText("За кофе: 76 BYN");
@@ -469,7 +610,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       await expect(page.getByLabel("Ваш комментарий")).toBeDisabled();
       await expect(page.getByRole("button", { name: "Хочу подписку", exact: true })).toBeDisabled();
       for (const control of await page.getByRole("article").getByRole("button").all()) await expect(control).toBeDisabled();
-      for (const control of await form().getByRole("group", { name: /Количество упаковок/ }).getByRole("button").all()) await expect(control).toBeDisabled();
+      for (const control of await form().getByRole("group", { name: /^Количество: / }).getByRole("button").all()) await expect(control).toBeDisabled();
       for (const control of await form().getByRole("radio").all()) await expect(control).toBeDisabled();
       await expect(form().getByRole("button", { name: "Убрать выбранное предложение" })).toBeDisabled();
       for (const control of await selectedItems().getByRole("button", { name: /^Убрать / }).all()) await expect(control).toBeDisabled();
@@ -481,7 +622,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(feedback()).toHaveText(recoverable);
     await expect(form()).toHaveAttribute("aria-busy", "false");
     await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
-    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
+    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 29 123-45-67");
     await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Сохраните две коробки");
     await expect(summary()).toContainText("2 × 10 дрип-пакетов");
     await expect(summary()).toContainText("За кофе: 62 BYN");
@@ -505,7 +646,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await page.goto(base);
     await page.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
     await page.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true }).click();
-    const quantity = form().getByRole("group", { name: "Количество упаковок: Колумбия Уила", exact: true });
+    const quantity = form().getByRole("group", { name: "Количество: Колумбия Уила", exact: true });
     await quantity.getByRole("button", { name: /Увеличить/ }).click();
     await fill();
     const quantityError = "Укажите целое количество от 1 до 99.";
@@ -519,11 +660,11 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(summary()).toContainText("За кофе: 90 BYN");
     await expect(selectedItems()).toHaveCount(2);
     await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
-    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
+    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 29 123-45-67");
     assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
     await quantity.getByRole("button", { name: /Увеличить/ }).click();
     await expect(page.locator("#quantity-error")).toHaveCount(0);
-    await expect(card("Колумбия Уила").getByRole("group", { name: /Количество упаковок/ })).toHaveText("3");
+    await expect(card("Колумбия Уила").getByRole("group", { name: /^Количество: / })).toHaveText("3");
     await send(201, saved);
     const lead = await oneDelivered("+375291234567");
     assert.equal(lead.product_id, null);
@@ -542,7 +683,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     try {
       await send(503, recoverable);
       await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Browser database retry");
-      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375291234567");
+      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 29 123-45-67");
       await expect(summary()).toContainText("2 × 250 г");
       await expect(summary()).toContainText("За кофе: 52 BYN");
       assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
@@ -569,7 +710,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       await expect(feedback()).toHaveText(recoverable);
       await expect(form()).toHaveAttribute("aria-busy", "false");
       await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
-      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
+      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 29 123-45-67");
       assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
     } finally { await blocked?.abort("timedout").catch(() => undefined); }
     await send(201, saved);
@@ -585,7 +726,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       await page.getByRole("button", { name: `Выбрать ${name}`, exact: true }).click();
       await form().getByRole("button", { name: `Увеличить количество: ${name}`, exact: true }).focus();
       for (let count = 1; count < 99; count++) await page.keyboard.press("Enter");
-      await expect(card(name).getByRole("group", { name: /Количество упаковок/ })).toHaveText("99");
+      await expect(card(name).getByRole("group", { name: /^Количество: / })).toHaveText("99");
     }
     await expect(selectedItems()).toHaveCount(4);
     await expect(selectedItems().filter({ hasText: "Дрип-пакеты, ассорти" })).toContainText("99 × 10 дрип-пакетов");
@@ -625,7 +766,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       for (const control of [submit(), page.getByLabel("Имя", { exact: true }), page.getByLabel("Телефон", { exact: true }), page.getByRole("button", { name: "Хочу подписку", exact: true })]) {
         assert.ok((await control.boundingBox())!.height >= 44, `Main touch target shorter than 44 px at ${width}`);
       }
-      for (const control of await form().getByRole("group", { name: /Количество упаковок/ }).getByRole("button").all()) {
+      for (const control of await form().getByRole("group", { name: /^Количество: / }).getByRole("button").all()) {
         const bounds = await control.boundingBox();
         assert.ok(bounds && bounds.width >= 44 && bounds.height >= 44 && bounds.x >= 0 && bounds.x + bounds.width <= width + 1,
           `Form pack control is too small or leaves the viewport at ${width}`);
