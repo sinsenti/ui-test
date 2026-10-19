@@ -1,0 +1,30 @@
+{
+  "url": "http://127.0.0.1:3001",
+  "capturedAt": "2026-10-19T07:37:45.803Z",
+  "browser": "155.0.8059.39",
+  "buildId": "nihMiirY2VJnYixD5GoAm",
+  "captures": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "selected": "brazil-cerrado",
+      "quantity": 2,
+      "selectionText": "Вы выбрали:\nБразилия Серрадо\n2 × 250 г\nЗа кофе: 52 BYN\nДоставка по Минску — бесплатно.",
+      "scrollWidth": 390,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "selected": "brazil-cerrado",
+      "quantity": 2,
+      "selectionText": "Вы выбрали:\nБразилия Серрадо\n2 × 250 г\nЗа кофе: 52 BYN\nДоставка по Минску — бесплатно.",
+      "scrollWidth": 1440,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    }
+  ]
+}

@@ -36,11 +36,18 @@ at release; do not initialize migrations during a request or application build.
 Validation, duplicate coordination, and atomic lead/job persistence are
 implemented, including delivery attempts after commit and the shared visitor form.
 
-`page.tsx` renders the catalog, story, delivery content and local Next.js Image
-as server components. A small client `LeadFlow` owns one form and its offer
+`page.tsx` renders the section structure, story, delivery content and local
+Next.js Image as server components. A client `LeadFlow` owns one form and its offer
 selection context; server-rendered sections pass through its children/afterForm
-slots. `OfferButton` and the native disclosure navigation are the other client
+slots. `ProductCard`, `OfferButton` and the native disclosure navigation are client
 boundaries. Client code never imports database or Telegram modules.
+
+Interactive product cards share selection and per-product draft pack counts with
+the form through `LeadFlow`. Choosing a card stays in the catalog and visibly
+marks it selected; its separate continuation action scrolls to the form. The
+same quantity and subtotal appear in both places. Switching to subscription or
+clearing selection omits individual-product quantity from the API request.
+Draft quantities and contact values remain in browser memory only.
 
 The browser checks required fields, then sends JSON to the existing API for
 authoritative Belarusian phone validation. Pending blocks repeated submissions
@@ -103,7 +110,18 @@ The browser preserves entered values on recoverable errors.
 
 ## Data ownership
 
-The second SQL migration defines the lead and outbox tables. `accepted_at` and
+The second SQL migration defines the lead and outbox tables. The third adds
+individual-product quantity and an accepted unit-price snapshot in integer kopecks;
+PostgreSQL generates the subtotal. Application code supplies the catalog price,
+never a visitor-supplied price. An explicit `CASE` constraint requires valid
+quantity/price for individual products and null enrichment for general or
+subscription requests. Legacy individual-product rows are backfilled as one pack
+at the previously advertised price; that is a compatibility default, not evidence
+that older visitors supplied a quantity. Rolling back the third migration drops
+this enrichment and preserves the original leads and outbox. Roll back application
+code before removing its required columns.
+
+`accepted_at` and
 the outbox timestamps use PostgreSQL `timestamptz`; IDs are UUIDs. The lead lookup
 is indexed on `(phone, accepted_at DESC)`. The outbox has a unique `lead_id` foreign
 key and constraints for allowed status, lease, and sent-time combinations. Pending
@@ -112,7 +130,7 @@ jobs with zero attempts; the worker owns subsequent delivery-state transitions.
 
 | Data | Owner and lifecycle |
 | --- | --- |
-| Lead | PostgreSQL: stable ID, accepted timestamp, name, normalized phone, interest, optional comment, product context, and attribution. Persists independently of app deployments. |
+| Lead | PostgreSQL: stable ID, accepted timestamp, name, normalized phone, interest, optional comment, product context, quantity and accepted price snapshot for individual products, generated product subtotal, and attribution. Persists independently of app deployments. |
 | Duplicate coordination | Database transaction/constraint or lock strategy keyed by normalized phone; no process-local cache as the authority. |
 | Notification outbox | PostgreSQL: one pending job per accepted lead, delivery state, attempt count, next eligible time, claim/lease information, and safe failure details. Created with the lead. |
 | Attribution | Capture UTM parameters, applicable advertising click IDs, landing URL, and available referrer; bound and validate these as untrusted input. Preserve them through form retries. |

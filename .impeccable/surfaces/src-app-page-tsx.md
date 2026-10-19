@@ -30,3 +30,9 @@ surrounding composition and shared callback behavior. Use flat warm-toned cards
 in two columns on wider screens and one on phones, with clear product facts,
 prices and dedicated selection buttons. This authorizes the catalog component
 change; it does not record assembled-page approval or replace the opening comp.
+
+The user then requested clear selection feedback, pack quantities and prices.
+Keep selection on the card with a visible pressed state, a shared +/− pack
+control and updated subtotal. A separate «Перейти к заявке» action opens the
+form, which repeats the chosen variety, quantity, subtotal and truthful delivery
+information. One variety per request; subscription remains the fixed offer.

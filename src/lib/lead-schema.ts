@@ -1,5 +1,6 @@
 import { parsePhoneNumberWithError } from "libphonenumber-js/max";
 import { z } from "zod";
+import { getProduct, maxQuantity } from "./catalog.ts";
 
 export const interests = ["subscription", "one-time", "question"] as const;
 export const productIds = [
@@ -68,11 +69,20 @@ export const leadSchema = z.strictObject({
   interest: z.enum(interests, { error: "Выберите подписку, разовый заказ или вопрос." }),
   comment: optionalText(2000, true),
   productId: z.enum(productIds, { error: "Выберите продукт из ассортимента." }).optional(),
+  quantity: z.number({ error: "Укажите целое количество от 1 до 99." })
+    .int({ error: "Укажите целое количество от 1 до 99." })
+    .min(1, { error: "Укажите целое количество от 1 до 99." })
+    .max(maxQuantity, { error: "Укажите целое количество от 1 до 99." }).optional(),
   attribution: attributionSchema.optional().default({}),
 }).refine((value) => !value.productId || value.interest === "question"
   || (value.productId === "subscription" ? value.interest === "subscription" : value.interest === "one-time"), {
   path: ["productId"], message: "Выбранный продукт не соответствует интересу.",
-});
+}).refine((value) => value.quantity === undefined || getProduct(value.productId) !== undefined, {
+  path: ["quantity"], message: "Количество можно указать только для выбранного кофе.",
+}).transform((value) => ({
+  ...value,
+  quantity: getProduct(value.productId) ? value.quantity ?? 1 : undefined,
+}));
 
 export type LeadInput = z.output<typeof leadSchema>;
 

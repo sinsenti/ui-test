@@ -18,6 +18,7 @@ The root and attribution objects reject unknown keys, arrays, and null.
   "interest": "one-time",
   "comment": "Подскажите помол для фильтра.",
   "productId": "brazil-cerrado",
+  "quantity": 2,
   "attribution": {
     "utm_source": "instagram",
     "utm_campaign": "autumn",
@@ -37,6 +38,7 @@ This is synthetic example data. Run local migrations before trying the endpoint.
 | `interest` | Required: `subscription`, `one-time`, or `question`. |
 | `comment` | Optional string, at most 2,000 characters before trimming; ordinary line breaks/tabs allowed. Blank becomes SQL null. |
 | `productId` | Optional identifier from the list below; absent becomes SQL null. |
+| `quantity` | Optional JSON number, integer 1–99, for an individual coffee offer only. Omitted defaults to 1 for an individual product; otherwise it remains SQL null. |
 | `attribution` | Optional strict object; absent becomes `{}`. All contained values are optional strings; blanks are omitted. |
 
 Control characters are rejected in single-line fields; comments permit tab,
@@ -48,6 +50,22 @@ Product IDs: `ethiopia-yirgacheffe`, `colombia-huila`, `brazil-cerrado`,
 `drip-assortment`, and `subscription`. Individual products require `one-time` or
 `question` interest; `subscription` context requires `subscription` or `question`.
 Product context may be omitted for any valid interest.
+
+Quantity counts packages: each bean package is 250 g; one drip assortment is a
+box of 10. This is one selected variety per callback request. Explicit quantity
+without an individual product (including subscription) returns the ordinary 400
+invalid response with `fieldErrors.quantity`:
+«Количество можно указать только для выбранного кофе.» Wrong types, null,
+fractions, zero, negative values and values above 99 return
+«Укажите целое количество от 1 до 99.» This is a request validation limit, not
+an inventory or minimum-order claim. Subscription quantity stays fixed by its offer.
+
+Prices come from the versioned server catalog. The strict request schema rejects
+client-supplied prices or totals as unknown fields. An accepted individual-product
+lead stores quantity and unit price in integer kopecks; PostgreSQL generates its
+product subtotal. Delivery charges are not part of that subtotal. Changes to
+quantity or product inside the ten-minute duplicate window do not modify the
+previously accepted request or create another notification.
 
 Attribution keys:
 

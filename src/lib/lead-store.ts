@@ -2,6 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { getPool } from "./db.ts";
 import type { LeadInput } from "./lead-schema.ts";
+import { getProduct } from "./catalog.ts";
 
 export const phoneLockSql = "SELECT pg_advisory_xact_lock(hashtextextended('kvarta:lead:' || $1::text, 0))";
 
@@ -9,8 +10,9 @@ export const phoneLockSql = "SELECT pg_advisory_xact_lock(hashtextextended('kvar
 // transaction lock. A text timestamp preserves PostgreSQL's sub-millisecond precision.
 export const acceptLeadSql = `
   WITH accepted AS (
-    INSERT INTO app.leads (id, accepted_at, name, phone, interest, comment, product_id, attribution)
-    SELECT $1::uuid, $2::timestamptz, $3, $4, $5, $6, $7, $8::jsonb
+    INSERT INTO app.leads (id, accepted_at, name, phone, interest, comment, product_id, attribution,
+      quantity, unit_price_kopecks)
+    SELECT $1::uuid, $2::timestamptz, $3, $4, $5, $6, $7, $8::jsonb, $9::smallint, $10::integer
     WHERE NOT EXISTS (
       SELECT 1 FROM app.leads
       WHERE phone = $4 AND accepted_at > $2::timestamptz - interval '10 minutes'
@@ -24,6 +26,7 @@ export const acceptLeadSql = `
 `;
 
 export async function saveLead(input: LeadInput): Promise<{ status: "saved" | "duplicate"; leadId?: string }> {
+  const product = getProduct(input.productId);
   const client = await getPool().connect();
   let discardConnection = false;
   try {
@@ -37,6 +40,7 @@ export async function saveLead(input: LeadInput): Promise<{ status: "saved" | "d
     const result = await client.query(acceptLeadSql, [
       randomUUID(), rows[0].time, input.name, input.phone, input.interest,
       input.comment ?? null, input.productId ?? null, JSON.stringify(input.attribution),
+      product ? input.quantity ?? 1 : null, product ? Math.round(product.price * 100) : null,
     ]);
     await client.query("COMMIT");
     return result.rowCount === 1 ? { status: "saved", leadId: result.rows[0].id } : { status: "duplicate" };

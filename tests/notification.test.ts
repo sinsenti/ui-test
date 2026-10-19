@@ -45,7 +45,7 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
     base = process.env.TEST_APP_URL!;
     assert.equal(new URL(base).hostname, "127.0.0.1");
   });
-  beforeEach(async () => { await getPool().query("TRUNCATE app.leads CASCADE"); });
+  beforeEach(async () => { await getPool().query("TRUNCATE app.notification_outbox, app.leads"); });
   after(closePool);
 
   test("a new lead is promptly delivered via after(), and duplicates retain one sent job", async () => {
@@ -63,6 +63,7 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
   test("bounded plaintext preserves ID/contact, handles markup and supplementary Unicode", () => {
     const lead: NotificationLead = { id: randomUUID(), accepted_at: new Date("2026-10-18T12:00:00Z"),
       ...contact, name: "😀".repeat(100), product_id: "brazil-cerrado",
+      quantity: 2, unit_price_kopecks: 2600, total_price_kopecks: 5200,
       comment: "<b>Тест</b> _текст_\nID: fake\u202e" + "😀".repeat(2000),
       attribution: { utm_campaign: "a".repeat(256), landingUrl: "https://example.com/" + "z".repeat(2000) } };
     const message = formatNotification(lead);
@@ -72,6 +73,23 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
     assert.ok(message.includes("<b>Тест</b> _текст_\n  ID: fake"));
     assert.ok(!message.includes("\u202e"));
     assert.ok(message.includes("Бразилия Серрадо") && message.includes("…"));
+  });
+
+  test("notification quantities use real packaging and stored prices while other contexts keep their copy", () => {
+    const lead: NotificationLead = { id: randomUUID(), accepted_at: new Date("2026-10-18T12:00:00Z"),
+      ...contact, product_id: "ethiopia-yirgacheffe", quantity: 2, unit_price_kopecks: 3200,
+      total_price_kopecks: 6400, comment: null, attribution: {} };
+    const coffee = formatNotification(lead);
+    assert.ok(coffee.includes("Количество: 2 × 250 г\nЦена за упаковку: 32 BYN\nСумма за кофе: 64 BYN"));
+    const drip = formatNotification({ ...lead, product_id: "drip-assortment", unit_price_kopecks: 1700, total_price_kopecks: 3400 });
+    assert.ok(drip.includes("Количество: 2 × коробка по 10 дрип-пакетов"));
+    assert.ok(drip.includes("Цена за упаковку: 17 BYN\nСумма за кофе: 34 BYN"), "Stored snapshot takes precedence over the current catalog price.");
+    for (const product_id of [null, "subscription"] as const) {
+      const message = formatNotification({ ...lead, product_id, interest: "question", quantity: null,
+        unit_price_kopecks: null, total_price_kopecks: null });
+      assert.ok(!message.includes("Количество:") && !message.includes("Цена за упаковку:") && !message.includes("Сумма за кофе:"));
+    }
+    assert.ok(!coffee.includes("Доставка:"));
   });
 
   test("concurrent workers claim each job once, honor preference, and stop at three per drain", async () => {
@@ -141,7 +159,7 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
     assert.equal(await retryFailedNotification(id), "not_retryable");
     await getPool().query("UPDATE app.notification_outbox SET next_attempt_at = clock_timestamp()");
     assert.equal((await drainNotifications(undefined, mockTransport("transient-once"))).sent, 1);
-    await getPool().query("TRUNCATE app.leads CASCADE");
+    await getPool().query("TRUNCATE app.notification_outbox, app.leads");
     const [throttled] = await seed(3);
     const result = await drainNotifications(undefined, async () => ({ kind: "retry", error: "throttled", retryAfter: 7200 }));
     assert.equal(result.attempted, 1);

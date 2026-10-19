@@ -45,7 +45,9 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.equal(new URL(base).hostname, "127.0.0.1");
     await migrate(databaseUrl, "up");
   });
-  beforeEach(async () => { await getPool().query("TRUNCATE app.leads CASCADE"); });
+  // after() may still make a final empty claim after the last job settles.
+  // Lock outbox before leads, matching that query, to avoid a cleanup deadlock.
+  beforeEach(async () => { await getPool().query("TRUNCATE app.notification_outbox, app.leads"); });
   after(closePool);
 
   test("persists normalized contacts, context, attribution and one delivered job", async () => {
@@ -66,6 +68,9 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.equal(lead.phone, sample.phone);
     assert.equal(lead.comment, "Подскажите помол\nдля фильтра.");
     assert.equal(lead.product_id, "brazil-cerrado");
+    assert.equal(lead.quantity, 1);
+    assert.equal(lead.unit_price_kopecks, 2600);
+    assert.equal(lead.total_price_kopecks, 2600);
     assert.deepEqual(lead.attribution, attribution);
     assert.match(lead.id, /^[0-9a-f-]{36}$/);
     const { rows: [job] } = await getPool().query("SELECT * FROM app.notification_outbox");
@@ -95,13 +100,59 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
 
   test("concurrent formatting variants create one lead/job; different phones remain independent", async () => {
     const formats = [sample.phone, "+375 (29) 123-45-67", "8 (029) 123-45-67"];
-    const responses = await Promise.all(Array.from({ length: 18 }, (_, i) => post({ ...sample, phone: formats[i % 3] })));
+    const responses = await Promise.all(Array.from({ length: 18 }, (_, i) => post({ ...sample,
+      phone: formats[i % 3], productId: "ethiopia-yirgacheffe", quantity: i + 1 })));
     assert.equal(responses.filter((response) => response.status === 201).length, 1);
     assert.equal(responses.filter((response) => response.status === 200).length, 17);
+    const acceptedQuantity = responses.findIndex((response) => response.status === 201) + 1;
+    assert.deepEqual((await getPool().query("SELECT quantity, unit_price_kopecks, total_price_kopecks FROM app.leads")).rows[0],
+      { quantity: acceptedQuantity, unit_price_kopecks: 3200, total_price_kopecks: acceptedQuantity * 3200 });
     assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
     const others = await Promise.all(["+375291234568", "+375291234569"].map((phone) => post({ ...sample, phone })));
     assert.deepEqual(others.map((response) => response.status), [201, 201]);
     assert.deepEqual(await counts(), { leads: 3, jobs: 3 });
+  });
+
+  test("stores server catalog prices and generated totals, preserving the first snapshot on duplicates", async () => {
+    const offers = [
+      { productId: "ethiopia-yirgacheffe", quantity: 2, unit: 3200 },
+      { productId: "colombia-huila", quantity: 99, unit: 2900 },
+      { productId: "brazil-cerrado", quantity: 3, unit: 2600 },
+      { productId: "drip-assortment", quantity: 2, unit: 1800 },
+    ];
+    for (const [index, offer] of offers.entries()) {
+      const phone = `+37529123456${index + 1}`;
+      assert.equal((await post({ ...sample, phone, productId: offer.productId, quantity: offer.quantity })).status, 201);
+      const { rows: [lead] } = await getPool().query("SELECT quantity, unit_price_kopecks, total_price_kopecks FROM app.leads WHERE phone = $1", [phone]);
+      assert.deepEqual(lead, { quantity: offer.quantity, unit_price_kopecks: offer.unit, total_price_kopecks: offer.quantity * offer.unit });
+    }
+    const before = (await getPool().query("SELECT * FROM app.leads WHERE phone = '+375291234561'")).rows[0];
+    const jobs = (await getPool().query("SELECT * FROM app.notification_outbox ORDER BY id")).rows;
+    assert.equal((await post({ ...sample, phone: "+375291234561", productId: "drip-assortment", quantity: 9 })).status, 200);
+    assert.deepEqual((await getPool().query("SELECT * FROM app.leads WHERE phone = '+375291234561'")).rows[0], before);
+    assert.deepEqual((await getPool().query("SELECT * FROM app.notification_outbox ORDER BY id")).rows, jobs);
+    assert.deepEqual(await counts(), { leads: 4, jobs: 4 });
+  });
+
+  test("rejects invalid quantities, incompatible contexts and client price fields without writes", async () => {
+    for (const quantity of [null, "2", false, [], {}, 0, -1, 1.5, 100]) {
+      const response = await post({ ...sample, productId: "ethiopia-yirgacheffe", quantity });
+      assert.equal(response.status, 400, JSON.stringify(quantity));
+      assert.deepEqual(await response.json(), { ok: false, status: "invalid", message: "Проверьте поля формы.",
+        fieldErrors: { quantity: "Укажите целое количество от 1 до 99." } });
+    }
+    for (const context of [{}, { interest: "question" },
+      { interest: "subscription", productId: "subscription" }, { interest: "question", productId: "subscription" }]) {
+      const response = await post({ ...sample, ...context, quantity: 1 });
+      assert.equal(response.status, 400);
+      assert.deepEqual((await response.json()).fieldErrors, { quantity: "Количество можно указать только для выбранного кофе." });
+    }
+    for (const key of ["unitPrice", "totalPrice", "unit_price_kopecks", "total_price_kopecks"]) {
+      const response = await post({ ...sample, productId: "ethiopia-yirgacheffe", quantity: 2, [key]: 1 });
+      assert.equal(response.status, 400);
+      assert.deepEqual((await response.json()).fieldErrors, { form: "В заявке есть неизвестные поля." });
+    }
+    assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
   });
 
   test("validates types, bounds, phone country/extensions, product compatibility and attribution", async () => {
@@ -142,8 +193,8 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.equal(response.status, 201);
     assert.equal((await post({ ...sample, phone: "+375291234568", interest: "question",
       productId: "subscription", comment: "  ", attribution: { referrer: "", utm_source: " " } })).status, 201);
-    const blank = (await getPool().query("SELECT comment, attribution FROM app.leads WHERE phone = $1", ["+375291234568"])).rows[0];
-    assert.deepEqual(blank, { comment: null, attribution: {} });
+    const blank = (await getPool().query("SELECT comment, attribution, quantity, unit_price_kopecks, total_price_kopecks FROM app.leads WHERE phone = $1", ["+375291234568"])).rows[0];
+    assert.deepEqual(blank, { comment: null, attribution: {}, quantity: null, unit_price_kopecks: null, total_price_kopecks: null });
     assert.equal((await post({ ...sample, phone: "+375291234569", interest: "question", productId: "drip-assortment" })).status, 201);
   });
 
@@ -177,7 +228,7 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.equal((await post()).status, 201);
     const client = await getPool().connect();
     const time = "2026-10-18 12:00:00.123456+00";
-    const values = [randomUUID(), time, sample.name, sample.phone, sample.interest, null, null, "{}"];
+    const values = [randomUUID(), time, sample.name, sample.phone, sample.interest, null, null, "{}", null, null];
     try {
       await client.query("BEGIN");
       await client.query(phoneLockSql, [sample.phone]);
@@ -226,14 +277,16 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
   test("outbox insertion failure rolls back the lead and permits a successful retry", async () => {
     await getPool().query("ALTER TABLE app.notification_outbox ADD CONSTRAINT test_reject CHECK (false) NOT VALID");
     try {
-      const response = await post();
+      const response = await post({ ...sample, productId: "ethiopia-yirgacheffe", quantity: 2 });
       assert.equal(response.status, 503);
       assert.deepEqual(await response.json(), { ok: false, status: "error", code: "temporarily_unavailable",
         message: "Не удалось сохранить заявку. Попробуйте ещё раз." });
       assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
     } finally { await getPool().query("ALTER TABLE app.notification_outbox DROP CONSTRAINT test_reject"); }
-    assert.equal((await post()).status, 201);
+    assert.equal((await post({ ...sample, productId: "ethiopia-yirgacheffe", quantity: 2 })).status, 201);
     assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
+    assert.deepEqual((await getPool().query("SELECT quantity, unit_price_kopecks, total_price_kopecks FROM app.leads")).rows[0],
+      { quantity: 2, unit_price_kopecks: 3200, total_price_kopecks: 6400 });
   });
 
   test("a database query failure returns a recoverable response without internal details", async () => {
@@ -259,5 +312,12 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     await assert.rejects(getPool().query("UPDATE app.leads SET attribution = '[]'::jsonb"));
     await assert.rejects(getPool().query("UPDATE app.notification_outbox SET status = 'processing'"));
     await assert.rejects(getPool().query("UPDATE app.notification_outbox SET status = 'sent', sent_at = NULL"));
+    await assert.rejects(getPool().query("UPDATE app.leads SET quantity = 1"));
+    await assert.rejects(getPool().query("UPDATE app.leads SET unit_price_kopecks = 2600"));
+    await getPool().query("UPDATE app.leads SET product_id = 'brazil-cerrado', quantity = 2, unit_price_kopecks = 2600");
+    for (const update of ["quantity = NULL", "quantity = 0", "quantity = 100", "unit_price_kopecks = NULL", "unit_price_kopecks = 0", "total_price_kopecks = 1"]) {
+      await assert.rejects(getPool().query(`UPDATE app.leads SET ${update}`));
+    }
+    assert.equal((await getPool().query("SELECT total_price_kopecks FROM app.leads")).rows[0].total_price_kopecks, 5200);
   });
 });

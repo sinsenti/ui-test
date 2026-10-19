@@ -1,7 +1,7 @@
 import Image from "next/image";
 import coffee from "../../assets/plates/coffee-still-life.png";
 import { products } from "../lib/catalog";
-import { LeadFlow, OfferButton } from "./lead-form";
+import { LeadFlow, OfferButton, ProductCard } from "./lead-form";
 import { SiteHeader } from "./site-header";
 import styles from "./page.module.css";
 
@@ -12,10 +12,7 @@ export default function Home() {
       <LeadFlow afterForm={<>
         <section className={styles.catalog} id="coffee" aria-labelledby="coffee-heading">
           <h2 id="coffee-heading">Кофе на выбор</h2>
-          <div className={styles.productList}>{products.map((product) => <article className={`${styles.product} ${styles[product.id]}`} key={product.id}>
-            <div><h3>{product.name}</h3><p className={styles.productSize}>{product.size}</p><p className={styles.tasting}>{product.notes}</p><p className={styles.productDetail}>{product.detail}</p></div>
-            <div className={styles.productAction}><p className={styles.price}>{product.price} <span>BYN</span></p><OfferButton interest="one-time" productId={product.id} className={styles.productButton}>Выбрать<span className={styles.srOnly}> {product.name}</span><Arrow /></OfferButton></div>
-          </article>)}</div>
+          <div className={styles.productList}>{products.map((product) => <ProductCard productId={product.id} key={product.id} />)}</div>
           <p className={styles.catalogNote}>Не знаете, с чего начать? <OfferButton interest="question" className={styles.textButton}>Поможем выбрать кофе<Arrow /></OfferButton></p>
         </section>
         <section className={styles.subscription} id="subscription" aria-labelledby="subscription-heading">

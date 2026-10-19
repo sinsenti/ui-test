@@ -8,6 +8,17 @@ export const products = [
   { id: "drip-assortment", name: "Дрип-пакеты, ассорти", notes: "Любимый кофе — где угодно", detail: "Нужны только чашка и горячая вода", size: "10 штук", price: 18 },
 ] as const satisfies readonly { id: ProductId; name: string; notes: string; detail: string; size: string; price: number }[];
 
+export type CoffeeId = (typeof products)[number]["id"];
+export const maxQuantity = 99;
+
+export function getProduct(id: ProductId | undefined) {
+  return products.find((product) => product.id === id);
+}
+
+export function packDescription(id: CoffeeId, quantity: number) {
+  return `${quantity} × ${id === "drip-assortment" ? "10 дрип-пакетов" : "250 г"}`;
+}
+
 export function productName(id: ProductId) {
-  return id === "subscription" ? "Подписка · 2 × 250 г" : products.find((product) => product.id === id)!.name;
+  return id === "subscription" ? "Подписка · 2 × 250 г" : getProduct(id)!.name;
 }

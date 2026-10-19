@@ -183,6 +183,22 @@ records this refinement; the earlier Lighthouse result predates it. The scoped
 review's design-record finding was resolved in `docs/DESIGN.md` and its machine
 companion, then independently scored resolved with a ship verdict for that fix.
 
+Quantity follow-up (2026-10-19): the user requested visible selection feedback,
+pack counts and totals. Selection now stays on the card with a pressed state;
+separate continuation opens the callback form. Shared pack controls and subtotals
+stay synchronized, with one variety per request and the fixed subscription intact.
+Migration `1792281602000` adds validated quantity, a server-owned unit-price
+snapshot and a database-generated subtotal. Notifications use that saved snapshot.
+Lint, types and production build passed. Independent isolated testing passed
+40/40 checks, including 13 browser groups, maximum-quantity layout at six widths,
+zero axe violations, API validation, duplicate/rollback behavior and legacy
+migration backfill/down preservation. A validation-focus race was corrected and
+the full suite rerun successfully. Independent source/data/UI review found no
+material defect; source-derived design records and current
+[quantity captures](development.md#visual-and-performance-evidence) are updated.
+Local `db:up`, `db:migrate` and `db:check` passed. No real Telegram, cloud or
+deployed performance verification is claimed; F4 opening approval remains pending.
+
 Work to do:
 
 - [x] Use the local Impeccable skill and the approved original composition.
@@ -195,6 +211,8 @@ Work to do:
 - [x] Add all required content: freshness/story, four products with correct
   prices, subscription, Friday delivery, pickup address/hours, and contacts.
 - [x] Extend the catalog with individual warm-toned product cards as requested.
+- [x] Show visible selection, editable pack quantity and matching card/form totals;
+  persist quantity and trusted prices and include them in local notifications.
 - [x] Give product and subscription actions equal useful access to one shared
   form; preselect interest and preserve relevant product context.
 - [x] Build labeled name/phone/interest fields and optional comment, phone help,

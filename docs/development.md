@@ -231,6 +231,16 @@ captures: [mobile catalog](../.impeccable/review/coffee-mobile.png),
 build, viewport, browser, and local asset loading. These preserve the earlier
 opening-comparison evidence rather than replacing it.
 
+The later quantity and visible-selection extension is captured separately in
+[mobile](../.impeccable/review/quantity-mobile-catalog.png) and
+[desktop](../.impeccable/review/quantity-desktop-catalog.png) catalog views,
+the selected [mobile form](../.impeccable/review/quantity-mobile-form.png),
+and full-page [mobile](../.impeccable/review/quantity-mobile-page.png) and
+[desktop](../.impeccable/review/quantity-desktop-page.png) renders.
+[Quantity capture metadata](../.impeccable/review/quantity-capture.json) identifies
+the actual build and shows two packs of Brazil coffee at 52 BYN. Earlier coffee
+captures document the preceding card layout. No new Lighthouse score is claimed.
+
 Measured before that catalog refinement on 2026-10-19 (local date), using the
 production application at
 `http://127.0.0.1:3001`, Lighthouse 13.5.0 / headless Chrome 155:

@@ -8,6 +8,9 @@ export type NotificationLead = {
   phone: string;
   interest: LeadInput["interest"];
   product_id: LeadInput["productId"] | null;
+  quantity: number | null;
+  unit_price_kopecks: number | null;
+  total_price_kopecks: number | null;
   comment: string | null;
   attribution: LeadInput["attribution"];
 };
@@ -32,6 +35,13 @@ export function formatNotification(lead: NotificationLead): string {
     `Интерес: ${interests[lead.interest]}`,
   ];
   if (lead.product_id) lines.push(`Предложение: ${productLabels[lead.product_id]}`);
+  if (lead.quantity !== null && lead.unit_price_kopecks !== null && lead.total_price_kopecks !== null) {
+    const pack = lead.product_id === "drip-assortment" ? "коробка по 10 дрип-пакетов" : "250 г";
+    const price = (kopecks: number) => `${kopecks / 100} BYN`;
+    lines.push(`Количество: ${lead.quantity} × ${pack}`,
+      `Цена за упаковку: ${price(lead.unit_price_kopecks)}`,
+      `Сумма за кофе: ${price(lead.total_price_kopecks)}`);
+  }
   if (lead.comment) lines.push("Комментарий:", ...clip(lead.comment, 1200).split(/\r\n?|\n/).map((line) => `  ${line}`));
   for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
     "gclid", "fbclid", "yclid", "landingUrl", "referrer"] as const) {

@@ -75,6 +75,13 @@ customers receive beans 1–3 days after roasting. Freshness is the central bene
   order, question), and comment.
 - One shared form; product and subscription actions preselect the interest and
   preserve the relevant product context.
+- Individual coffee cards show a visible selected state, pack quantity and
+  product subtotal. Visitors choose one variety per callback request and can
+  adjust its pack count on the card or in the form. A pack is 250 g of beans or
+  one box of 10 drip bags. Selection stays on the card; «Перейти к заявке» opens
+  the shared form with the same selection and total. The subscription remains
+  the fixed monthly offer. The server saves quantity and its own price snapshot;
+  delivery below 50 BYN is confirmed by the manager.
 - Validate Belarusian numbers and show understandable feedback.
 - The same normalized phone number must not create a second lead within ten
   minutes, including simultaneous requests and repeated clicks.
