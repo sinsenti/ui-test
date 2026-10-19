@@ -5,6 +5,7 @@ the next feature, dependencies, and observable completion criteria.
 
 | Document | Purpose |
 | --- | --- |
+| [Project guide](project-guide.md) | Original README content: project overview, local setup, checks and technical documentation links. |
 | [Product](PRODUCT.md) | Agreed scope, audience, business facts, design direction, and constraints. |
 | [Design system](DESIGN.md) | Implemented visual tokens, typography, layout, components, states, and recorded interface approval. |
 | [Original brief](kvarta-brief.md) | Preserved assignment text. Later user decisions in the product document take precedence. |
@@ -15,7 +16,9 @@ the next feature, dependencies, and observable completion criteria.
 | [Roadmap and backlog](roadmap.md) | One shared implementation plan, including release and deferred work. |
 | [Release checklist](release.md) | Final cloud setup, deployed verification, recovery preparation, and submission evidence. |
 
-The root [README](../README.md) is the repository entry point.
+The root [README](../README.md) is the repository entry point, covering AI use,
+the user's manual review, Lighthouse evidence and implemented features. Local
+setup and the former README content live in the [project guide](project-guide.md).
 [AGENTS.md](../AGENTS.md) stays at the root so coding agents discover the shared
 workflow. The root `PRODUCT.md` is a relative symbolic link to this folder's
 product document because the local Impeccable skill reads that conventional

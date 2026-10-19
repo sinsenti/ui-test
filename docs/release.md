@@ -1,7 +1,9 @@
 # Release checklist
 
 F5 is in progress. Checked items and results below record actual verification;
-unmarked items are still release work. No Vercel deployment is live yet.
+unmarked items are still release work. The user supplied a
+[Lighthouse screenshot](../assets/Lighthouse.png) from the public Vercel page;
+the captured deployment is evidence of page rendering, not completed release gates.
 As of 2026-10-19, the local application, multi-coffee lead intake, and simulated
 notifications are implemented and independently tested. The user approved the
 interface; fresh local Lighthouse results are recorded in
@@ -102,7 +104,7 @@ the configured service; simulated tests do not satisfy these items.
 - [ ] State the actual recovery limit: prompt normal delivery, durable retry state,
   possible repeated Telegram messages, and no rapid outage recovery guarantee
   under the selected daily schedule.
-- [ ] Finalize the concise root README: choices/assumptions, human versus AI work,
+- [x] Finalize the concise root README: choices/assumptions, human versus AI work,
   a real caught mistake and correction, and honest unfinished work or limitations.
 - [ ] Confirm the repository has coherent incremental commits, no secrets, and the
   access required by the assignment recipient.
@@ -128,8 +130,8 @@ build on isolated PostgreSQL 18.6. This does not satisfy public deployment gates
 | Local | Docker PostgreSQL 18.6, loopback port 54329, `kvarta_postgres18_data`; original `.env.local` unchanged. |
 | Intended production database | User-created Neon project in AWS Frankfurt, `neondb`, PostgreSQL 18.6; direct and pooled connections independently verified with authorized TLS 1.3. Four migrations applied; reapply zero; application pool check passed. |
 | Preview | Not provisioned; must receive an isolated database and mock/test Telegram settings before use. |
-| Vercel application | Not deployed. `vercel.json` selects `fra1` and `0 5 * * *` for `/api/notifications/drain`; actual scheduled execution remains unverified. |
-| Real Telegram | Not configured or verified. No real message has been sent. |
+| Vercel application | User-supplied Lighthouse screenshot shows `https://kvarta-seven.vercel.app/` with the earlier peach design. The deployed commit and full production flow remain unverified. `vercel.json` selects `fra1` and `0 5 * * *` for `/api/notifications/drain`; actual scheduled execution remains unverified. |
+| Real Telegram | End-to-end delivery remains unverified in the recorded release checks; no real message delivery is claimed by local simulator evidence. |
 
 Private URLs are stored only in ignored `.env.deploy`. It is explicitly loaded
 for release database commands, not substituted into local Docker settings.
@@ -156,11 +158,11 @@ batches. No real scheduled execution or rapid outage-recovery guarantee is claim
 | Evidence | Actual result |
 | --- | --- |
 | Reviewed/deployed commit | Pending |
-| Production URL and repository access | Pending |
+| Production URL and repository access | Public page URL shown in the supplied screenshot: [kvarta-seven.vercel.app](https://kvarta-seven.vercel.app/). Recipient repository access remains to be confirmed. |
 | Production/preview isolation check | Pending |
 | Applied migration history and persistence check | Neon PostgreSQL 18.6: four migrations applied via direct connection, reapply zero, pooled application check passed, no business rows; live redeployment persistence pending. |
 | Real Telegram delivery and recovery check | Pending |
 | Scheduler execution evidence | Pending |
-| Deployed mobile Lighthouse report and conditions | Pending |
-| Authentic AI work evidence | Pending |
+| Deployed mobile Lighthouse report and conditions | [User-supplied screenshot](../assets/Lighthouse.png): performance 85; accessibility, best practices and SEO 100. It shows the earlier peach design and a phone-sized report thumbnail; full device/throttling conditions and a measurement of the current white-canvas build remain unrecorded. |
+| Authentic AI work evidence | [README](../README.md) contains the user-requested contribution summary; authentic session export or key AI-session screenshots remain pending. |
 | Known limitations and operating owner | Pending |

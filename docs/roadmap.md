@@ -13,13 +13,15 @@ in [AGENTS.md](../AGENTS.md).
 | F2 | Reliable lead intake | Done — `f06ad9c` | F1 |
 | F3 | Required Telegram delivery | Done — local evidence below | F2 and its atomic outbox |
 | F4 | Complete responsive landing page | Verified locally — interface approved; fresh performance evidence below | F2–F3 for end-to-end local verification |
-| F5 | Cloud connection, release, and submission | In progress — PostgreSQL 18 alignment; Vercel/Telegram pending | F1–F4 passing local checks and review |
+| F5 | Cloud connection, release, and submission | In progress — PostgreSQL 18 aligned; public-page screenshot supplied; end-to-end release checks pending | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
 approved composition, extended by the user's white-canvas and orange-linework
 direction recorded in [Design](DESIGN.md). Vercel + Neon and Docker PostgreSQL for offline development
 are decided. Telegram is required. Cloud account setup and the real bot connection
-remain the final feature. The landing page connects to the lead API; notification
+remain the final feature's release checks. The supplied public-page screenshot is
+recorded in the [README](../README.md) and [release results](release.md#release-results).
+The landing page connects to the lead API; notification
 checks use an offline simulator for local verification.
 
 Work on one feature at a time. The following sections can be broken into smaller
@@ -327,7 +329,7 @@ Work to do:
   plus one real Telegram delivery with synthetic contact data.
 - [ ] Verify preview isolation, failure behavior, link previews, responsive pages,
   and mobile Lighthouse on the deployed URL; fix material findings.
-- [ ] Finalize the concise root README with decisions, assumptions, actual human/AI
+- [x] Finalize the concise root README with decisions, assumptions, actual human/AI
   contributions, caught mistakes, and remaining limitations.
 - [ ] Prepare live/repository URLs, genuine AI session export or screenshots, and
   mobile Lighthouse evidence; complete final review of the deliverable.
@@ -353,6 +355,17 @@ notification rows were created. Preview isolation, Vercel deployment, real
 Telegram, live persistence/recovery and the remaining release checks are still
 pending. Independent review passed this database/deployment preparation step;
 F5 is not complete.
+
+Submission documentation (2026-10-19): the root [README](../README.md) now records
+the user's AI workflow, step-by-step review and manual testing, concrete human
+feedback and automated-test findings, the supplied public Lighthouse screenshot,
+implementation scope and remaining verification. The former README's setup
+instructions are preserved in the [project guide](project-guide.md). Relative
+file/heading links and preservation of setup commands passed checks; independent
+documentation review passed with no material findings. Data modeling and runtime
+tests were not applicable to this documentation-only change. The screenshot
+records an earlier peach deployment at 85/100/100/100; it does not verify the
+current white build's performance or the remaining production release gates.
 
 ## Decisions and remaining implementation choices
 
