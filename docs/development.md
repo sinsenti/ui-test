@@ -56,6 +56,13 @@ Do not add `--volumes` to development database teardown unless you intend to
 erase local data. The named volume is `kvarta_postgres_data`. Recreating the
 application or database container does not normally remove this volume.
 
+Migration `1792281603000` introduces multi-coffee line items. Its down migration
+refuses while any request contains multiple coffees, since the older schema
+cannot retain that list. Never delete customer data to make the rollback pass.
+For a database containing only singleton/general/subscription requests, it
+projects saved singleton snapshots to the legacy parent before dropping the new
+table. Roll back application code before removing a schema it depends on.
+
 ## Environment variables
 
 | Variable | Current use |
@@ -240,6 +247,17 @@ and full-page [mobile](../.impeccable/review/quantity-mobile-page.png) and
 [Quantity capture metadata](../.impeccable/review/quantity-capture.json) identifies
 the actual build and shows two packs of Brazil coffee at 52 BYN. Earlier coffee
 captures document the preceding card layout. No new Lighthouse score is claimed.
+
+The current simultaneous-selection extension has [mobile](../.impeccable/review/multi-mobile-catalog.png)
+and [desktop](../.impeccable/review/multi-desktop-catalog.png) catalog captures,
+matching [mobile form](../.impeccable/review/multi-mobile-form.png) and
+[desktop form](../.impeccable/review/multi-desktop-form.png), plus full-page
+[mobile](../.impeccable/review/multi-mobile-page.png) and
+[desktop](../.impeccable/review/multi-desktop-page.png) renders.
+[Multi-selection metadata](../.impeccable/review/multi-capture.json) records three
+coffees totaling 99 BYN and verifies a visible focused contact field with all four
+selected at six widths. The earlier quantity captures show the former single-item
+behavior, and remain historical evidence.
 
 Measured before that catalog refinement on 2026-10-19 (local date), using the
 production application at

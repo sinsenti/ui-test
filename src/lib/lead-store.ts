@@ -6,7 +6,7 @@ import { getProduct } from "./catalog.ts";
 
 export const phoneLockSql = "SELECT pg_advisory_xact_lock(hashtextextended('kvarta:lead:' || $1::text, 0))";
 
-// One statement inserts both records or neither. The caller must hold the phone
+// One statement inserts the lead, its items and outbox job or none. The caller must hold the phone
 // transaction lock. A text timestamp preserves PostgreSQL's sub-millisecond precision.
 export const acceptLeadSql = `
   WITH accepted AS (
@@ -18,6 +18,10 @@ export const acceptLeadSql = `
       WHERE phone = $4 AND accepted_at > $2::timestamptz - interval '10 minutes'
     )
     RETURNING id
+  ), saved_items AS (
+    INSERT INTO app.lead_items (lead_id, product_id, quantity, unit_price_kopecks)
+    SELECT a.id, i.product_id, i.quantity, i.unit_price_kopecks FROM accepted a
+    CROSS JOIN jsonb_to_recordset($11::jsonb) AS i(product_id text, quantity smallint, unit_price_kopecks integer)
   ), notified AS (
     INSERT INTO app.notification_outbox (lead_id, created_at, next_attempt_at)
     SELECT id, $2::timestamptz, $2::timestamptz FROM accepted
@@ -26,7 +30,14 @@ export const acceptLeadSql = `
 `;
 
 export async function saveLead(input: LeadInput): Promise<{ status: "saved" | "duplicate"; leadId?: string }> {
-  const product = getProduct(input.productId);
+  const items = (input.items ?? []).map((item) => ({
+    product_id: item.productId,
+    quantity: item.quantity,
+    unit_price_kopecks: Math.round(getProduct(item.productId)!.price * 100),
+  }));
+  // Retain the legacy columns as a singleton projection; they are not multi-item totals.
+  const singleton = items.length === 1 ? items[0] : undefined;
+  const productId = singleton?.product_id ?? (input.productId === "subscription" ? "subscription" : null);
   const client = await getPool().connect();
   let discardConnection = false;
   try {
@@ -39,8 +50,8 @@ export async function saveLead(input: LeadInput): Promise<{ status: "saved" | "d
     const { rows } = await client.query<{ time: string }>("SELECT clock_timestamp()::text AS time");
     const result = await client.query(acceptLeadSql, [
       randomUUID(), rows[0].time, input.name, input.phone, input.interest,
-      input.comment ?? null, input.productId ?? null, JSON.stringify(input.attribution),
-      product ? input.quantity ?? 1 : null, product ? Math.round(product.price * 100) : null,
+      input.comment ?? null, productId, JSON.stringify(input.attribution),
+      singleton?.quantity ?? null, singleton?.unit_price_kopecks ?? null, JSON.stringify(items),
     ]);
     await client.query("COMMIT");
     return result.rowCount === 1 ? { status: "saved", leadId: result.rows[0].id } : { status: "duplicate" };

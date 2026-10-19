@@ -17,8 +17,10 @@ The root and attribution objects reject unknown keys, arrays, and null.
   "phone": "+375 (29) 123-45-67",
   "interest": "one-time",
   "comment": "Подскажите помол для фильтра.",
-  "productId": "brazil-cerrado",
-  "quantity": 2,
+  "items": [
+    { "productId": "brazil-cerrado", "quantity": 2 },
+    { "productId": "colombia-huila", "quantity": 1 }
+  ],
   "attribution": {
     "utm_source": "instagram",
     "utm_campaign": "autumn",
@@ -37,8 +39,9 @@ This is synthetic example data. Run local migrations before trying the endpoint.
 | `phone` | Required string, at most 64 characters before trimming; valid Belarusian number with whole-input `libphonenumber-js/max` parsing, default country BY. Extensions rejected; stored as E.164. |
 | `interest` | Required: `subscription`, `one-time`, or `question`. |
 | `comment` | Optional string, at most 2,000 characters before trimming; ordinary line breaks/tabs allowed. Blank becomes SQL null. |
-| `productId` | Optional identifier from the list below; absent becomes SQL null. |
-| `quantity` | Optional JSON number, integer 1–99, for an individual coffee offer only. Omitted defaults to 1 for an individual product; otherwise it remains SQL null. |
+| `items` | Optional array of 1–4 unique individual coffee selections, each a strict `{productId, quantity}` object with required numeric integer quantity 1–99. Allowed with `one-time` or `question`; omit for a general request or subscription. |
+| `productId` | Optional legacy scalar identifier or subscription context. Cannot be combined with `items`. |
+| `quantity` | Optional legacy numeric integer 1–99 for a scalar individual coffee offer only. Omitted defaults to 1 for that product; cannot be combined with `items`. |
 | `attribution` | Optional strict object; absent becomes `{}`. All contained values are optional strings; blanks are omitted. |
 
 Control characters are rejected in single-line fields; comments permit tab,
@@ -51,9 +54,18 @@ Product IDs: `ethiopia-yirgacheffe`, `colombia-huila`, `brazil-cerrado`,
 `question` interest; `subscription` context requires `subscription` or `question`.
 Product context may be omitted for any valid interest.
 
+Multiple coffees use `items`. Every entry must have a different individual coffee
+ID and a quantity; empty/null/oversized lists, duplicate IDs, subscription IDs,
+unknown nested fields and supplied prices are rejected. A request mixing `items`
+with either root `productId` or `quantity` is rejected, including matching values.
+Validation uses the existing 400 response; nested paths may be `items.0.quantity`.
+The browser sends only `items` for individual coffee selections and uses scalar
+`productId: "subscription"` without quantity for the fixed monthly offer.
+
+Legacy individual-product requests are normalized into the same item list.
 Quantity counts packages: each bean package is 250 g; one drip assortment is a
-box of 10. This is one selected variety per callback request. Explicit quantity
-without an individual product (including subscription) returns the ordinary 400
+box of 10. Legacy explicit quantity without an individual product (including
+subscription) returns the ordinary 400
 invalid response with `fieldErrors.quantity`:
 «Количество можно указать только для выбранного кофе.» Wrong types, null,
 fractions, zero, negative values and values above 99 return
@@ -62,10 +74,13 @@ an inventory or minimum-order claim. Subscription quantity stays fixed by its of
 
 Prices come from the versioned server catalog. The strict request schema rejects
 client-supplied prices or totals as unknown fields. An accepted individual-product
-lead stores quantity and unit price in integer kopecks; PostgreSQL generates its
-product subtotal. Delivery charges are not part of that subtotal. Changes to
-quantity or product inside the ten-minute duplicate window do not modify the
-previously accepted request or create another notification.
+lead stores each line in `app.lead_items`, including quantity and unit price in
+integer kopecks; PostgreSQL generates each line subtotal. Their sum is the combined
+coffee subtotal. Legacy parent fields mirror a single line and are null for
+multiple coffees; the parent's old generated total is not a multi-item total.
+Delivery charges are excluded, and the free-delivery threshold uses the combined
+subtotal. Changes to products or quantities inside the ten-minute duplicate window
+do not modify the accepted request, its lines, or notification.
 
 Attribution keys:
 

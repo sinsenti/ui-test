@@ -24,7 +24,7 @@ content; client code handles the form and necessary interactions. Database code
 and credentials stay server-only. Leads are stored in PostgreSQL so deployments
 and process restarts do not erase them. A filesystem file or function memory is
 not the lead store. No ORM, separate backend, authentication system, admin app,
-cart, or payment service is required for the agreed scope.
+or payment service is required for the agreed scope.
 
 The current pool is initialized on first database use and reused during local
 hot reload. It is capped at five connections. Builds of the current static page
@@ -42,11 +42,12 @@ selection context; server-rendered sections pass through its children/afterForm
 slots. `ProductCard`, `OfferButton` and the native disclosure navigation are client
 boundaries. Client code never imports database or Telegram modules.
 
-Interactive product cards share selection and per-product draft pack counts with
+Interactive product cards share selections and per-product draft pack counts with
 the form through `LeadFlow`. Choosing a card stays in the catalog and visibly
 marks it selected; its separate continuation action scrolls to the form. The
-same quantity and subtotal appear in both places. Switching to subscription or
-clearing selection omits individual-product quantity from the API request.
+same line quantities and combined subtotal appear in both places. Adding a coffee
+keeps the others selected; removing one line keeps the rest. Canonical requests
+send `items`; switching to subscription or clearing all selections omits that list.
 Draft quantities and contact values remain in browser memory only.
 
 The browser checks required fields, then sends JSON to the existing API for
@@ -121,6 +122,23 @@ that older visitors supplied a quantity. Rolling back the third migration drops
 this enrichment and preserves the original leads and outbox. Roll back application
 code before removing its required columns.
 
+The fourth migration adds canonical `app.lead_items`: one row per selected coffee,
+with a `(lead_id, product_id)` primary key, bounded quantity, server-owned unit-price
+snapshot and generated line subtotal. Its foreign key cascades when a lead is
+deleted. Backfill copies the already saved parent snapshots, preserving historical
+prices and every parent/job field. The combined coffee subtotal is the sum of child
+subtotals. Legacy parent fields mirror a singleton; multi-item leads leave them
+null. The acceptance transaction owns this parent/child consistency.
+
+The phone-lock transaction atomically saves the lead, all its lines, and one outbox
+job. A failure in any line or the outbox rolls everything back. Duplicate requests
+leave the entire accepted item set unchanged. Notification claiming aggregates
+children into one claimed job, and formatting uses the saved lines before optional
+comments/attribution. The fourth migration's rollback refuses when any lead has
+multiple lines; an older schema cannot represent those requests without loss.
+When every request has at most one line, rollback projects singleton snapshots
+back to the parent and removes the child table. Do not bypass this guard.
+
 `accepted_at` and
 the outbox timestamps use PostgreSQL `timestamptz`; IDs are UUIDs. The lead lookup
 is indexed on `(phone, accepted_at DESC)`. The outbox has a unique `lead_id` foreign
@@ -130,7 +148,7 @@ jobs with zero attempts; the worker owns subsequent delivery-state transitions.
 
 | Data | Owner and lifecycle |
 | --- | --- |
-| Lead | PostgreSQL: stable ID, accepted timestamp, name, normalized phone, interest, optional comment, product context, quantity and accepted price snapshot for individual products, generated product subtotal, and attribution. Persists independently of app deployments. |
+| Lead and coffee lines | PostgreSQL: stable lead ID, accepted timestamp, contact, interest, optional comment, attribution and subscription context; child rows store every coffee's quantity, accepted price and generated line subtotal. Legacy singleton parent fields remain a compatibility projection. Persists independently of app deployments. |
 | Duplicate coordination | Database transaction/constraint or lock strategy keyed by normalized phone; no process-local cache as the authority. |
 | Notification outbox | PostgreSQL: one pending job per accepted lead, delivery state, attempt count, next eligible time, claim/lease information, and safe failure details. Created with the lead. |
 | Attribution | Capture UTM parameters, applicable advertising click IDs, landing URL, and available referrer; bound and validate these as untrusted input. Preserve them through form retries. |

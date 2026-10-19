@@ -47,7 +47,7 @@ They need to understand the offer, choose an interest, and request a callback.
 
 A landing page for the fictional Minsk coffee roastery «Кварта». Success is a
 persisted request for a subscription, one-time order, or question. A manager calls
-the visitor and finalizes the order. No cart or online payment is required.
+the visitor and finalizes the order. No online payment is required.
 
 ## Positioning
 
@@ -76,12 +76,16 @@ customers receive beans 1–3 days after roasting. Freshness is the central bene
 - One shared form; product and subscription actions preselect the interest and
   preserve the relevant product context.
 - Individual coffee cards show a visible selected state, pack quantity and
-  product subtotal. Visitors choose one variety per callback request and can
-  adjust its pack count on the card or in the form. A pack is 250 g of beans or
+  product subtotal. Visitors can choose several varieties together, independently
+  adjust each pack count on the cards or in the form, and remove individual
+  selections. The catalog and form show the full list and combined coffee total.
+  A pack is 250 g of beans or
   one box of 10 drip bags. Selection stays on the card; «Перейти к заявке» opens
-  the shared form with the same selection and total. The subscription remains
-  the fixed monthly offer. The server saves quantity and its own price snapshot;
-  delivery below 50 BYN is confirmed by the manager.
+  the shared form with the same selections and total. Subscription is a separate
+  fixed monthly offer; choosing it clears the individual coffee selections.
+  The server saves every selected line with quantity and its own price snapshot.
+  Free delivery uses the combined coffee total of at least 50 BYN; delivery below
+  that amount is confirmed by the manager.
 - Validate Belarusian numbers and show understandable feedback.
 - The same normalized phone number must not create a second lead within ten
   minutes, including simultaneous requests and repeated clicks.

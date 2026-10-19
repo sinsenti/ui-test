@@ -3,9 +3,8 @@ import { z } from "zod";
 import { getProduct, maxQuantity } from "./catalog.ts";
 
 export const interests = ["subscription", "one-time", "question"] as const;
-export const productIds = [
-  "ethiopia-yirgacheffe", "colombia-huila", "brazil-cerrado", "drip-assortment", "subscription",
-] as const;
+export const coffeeIds = ["ethiopia-yirgacheffe", "colombia-huila", "brazil-cerrado", "drip-assortment"] as const;
+export const productIds = [...coffeeIds, "subscription"] as const;
 export const productLabels: Record<typeof productIds[number], string> = {
   "ethiopia-yirgacheffe": "Эфиопия Иргачеффе",
   "colombia-huila": "Колумбия Уила",
@@ -63,26 +62,46 @@ export const attributionSchema = z.strictObject({
   referrer: optionalUrl,
 });
 
+const quantitySchema = z.number({ error: "Укажите целое количество от 1 до 99." })
+  .int({ error: "Укажите целое количество от 1 до 99." })
+  .min(1, { error: "Укажите целое количество от 1 до 99." })
+  .max(maxQuantity, { error: "Укажите целое количество от 1 до 99." });
+
+const itemsSchema = z.array(z.strictObject({
+  productId: z.enum(coffeeIds, { error: "Выберите кофе из ассортимента." }),
+  quantity: quantitySchema,
+})).min(1, { error: "Выберите хотя бы один кофе." })
+  .max(coffeeIds.length, { error: "В заявке может быть не больше четырёх видов кофе." })
+  .refine((items) => new Set(items.map((item) => item.productId)).size === items.length, {
+    error: "Каждый кофе можно выбрать только один раз.",
+  });
+
 export const leadSchema = z.strictObject({
   name: text(100).pipe(z.string().min(1, { error: "Укажите имя." })),
   phone,
   interest: z.enum(interests, { error: "Выберите подписку, разовый заказ или вопрос." }),
   comment: optionalText(2000, true),
   productId: z.enum(productIds, { error: "Выберите продукт из ассортимента." }).optional(),
-  quantity: z.number({ error: "Укажите целое количество от 1 до 99." })
-    .int({ error: "Укажите целое количество от 1 до 99." })
-    .min(1, { error: "Укажите целое количество от 1 до 99." })
-    .max(maxQuantity, { error: "Укажите целое количество от 1 до 99." }).optional(),
+  quantity: quantitySchema.optional(),
+  items: itemsSchema.optional(),
   attribution: attributionSchema.optional().default({}),
 }).refine((value) => !value.productId || value.interest === "question"
   || (value.productId === "subscription" ? value.interest === "subscription" : value.interest === "one-time"), {
   path: ["productId"], message: "Выбранный продукт не соответствует интересу.",
 }).refine((value) => value.quantity === undefined || getProduct(value.productId) !== undefined, {
   path: ["quantity"], message: "Количество можно указать только для выбранного кофе.",
-}).transform((value) => ({
-  ...value,
-  quantity: getProduct(value.productId) ? value.quantity ?? 1 : undefined,
-}));
+}).refine((value) => value.items === undefined || (value.productId === undefined && value.quantity === undefined), {
+  path: ["items"], message: "Передайте список кофе без отдельных полей продукта и количества.",
+}).refine((value) => value.items === undefined || value.interest !== "subscription", {
+  path: ["items"], message: "Для подписки нельзя выбрать отдельные виды кофе.",
+}).transform((value) => {
+  const product = getProduct(value.productId);
+  return {
+    ...value,
+    quantity: product ? value.quantity ?? 1 : undefined,
+    items: value.items ?? (product ? [{ productId: product.id, quantity: value.quantity ?? 1 }] : undefined),
+  };
+});
 
 export type LeadInput = z.output<typeof leadSchema>;
 

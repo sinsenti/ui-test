@@ -47,7 +47,7 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
   });
   // after() may still make a final empty claim after the last job settles.
   // Lock outbox before leads, matching that query, to avoid a cleanup deadlock.
-  beforeEach(async () => { await getPool().query("TRUNCATE app.notification_outbox, app.leads"); });
+  beforeEach(async () => { await getPool().query("TRUNCATE app.notification_outbox, app.lead_items, app.leads"); });
   after(closePool);
 
   test("persists normalized contacts, context, attribution and one delivered job", async () => {
@@ -71,6 +71,8 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.equal(lead.quantity, 1);
     assert.equal(lead.unit_price_kopecks, 2600);
     assert.equal(lead.total_price_kopecks, 2600);
+    assert.deepEqual((await getPool().query("SELECT product_id, quantity, unit_price_kopecks, total_price_kopecks FROM app.lead_items WHERE lead_id = $1", [lead.id])).rows,
+      [{ product_id: "brazil-cerrado", quantity: 1, unit_price_kopecks: 2600, total_price_kopecks: 2600 }]);
     assert.deepEqual(lead.attribution, attribution);
     assert.match(lead.id, /^[0-9a-f-]{36}$/);
     const { rows: [job] } = await getPool().query("SELECT * FROM app.notification_outbox");
@@ -132,6 +134,100 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.deepEqual((await getPool().query("SELECT * FROM app.leads WHERE phone = '+375291234561'")).rows[0], before);
     assert.deepEqual((await getPool().query("SELECT * FROM app.notification_outbox ORDER BY id")).rows, jobs);
     assert.deepEqual(await counts(), { leads: 4, jobs: 4 });
+  });
+
+  test("stores all four selected coffees and individual counts with one lead and one immutable job", async () => {
+    const items = [
+      { productId: "ethiopia-yirgacheffe", quantity: 2 },
+      { productId: "colombia-huila", quantity: 99 },
+      { productId: "brazil-cerrado", quantity: 3 },
+      { productId: "drip-assortment", quantity: 4 },
+    ];
+    assert.equal((await post({ ...sample, items })).status, 201);
+    const leads = (await getPool().query("SELECT * FROM app.leads")).rows;
+    const jobs = (await getPool().query("SELECT * FROM app.notification_outbox")).rows;
+    assert.equal(leads.length, 1);
+    const lead = leads[0];
+    for (const key of ["product_id", "quantity", "unit_price_kopecks", "total_price_kopecks"]) assert.equal(lead[key], null);
+    const savedItems = (await getPool().query("SELECT * FROM app.lead_items ORDER BY product_id")).rows;
+    assert.deepEqual(savedItems, [
+      { lead_id: lead.id, product_id: "brazil-cerrado", quantity: 3, unit_price_kopecks: 2600, total_price_kopecks: 7800 },
+      { lead_id: lead.id, product_id: "colombia-huila", quantity: 99, unit_price_kopecks: 2900, total_price_kopecks: 287100 },
+      { lead_id: lead.id, product_id: "drip-assortment", quantity: 4, unit_price_kopecks: 1800, total_price_kopecks: 7200 },
+      { lead_id: lead.id, product_id: "ethiopia-yirgacheffe", quantity: 2, unit_price_kopecks: 3200, total_price_kopecks: 6400 },
+    ]);
+    assert.equal(Number((await getPool().query("SELECT sum(total_price_kopecks) AS total FROM app.lead_items")).rows[0].total), 308500);
+    assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
+
+    // Neither a changed list nor a legacy retry may change the accepted selection.
+    for (const selection of [{ items: [{ productId: "drip-assortment", quantity: 1 }] },
+      { productId: "brazil-cerrado", quantity: 9 }]) {
+      assert.equal((await post({ ...sample, ...selection, phone: "8 (029) 123-45-67" })).status, 200);
+    }
+    assert.deepEqual((await getPool().query("SELECT * FROM app.leads")).rows, leads);
+    assert.deepEqual((await getPool().query("SELECT * FROM app.lead_items ORDER BY product_id")).rows, savedItems);
+    assert.deepEqual((await getPool().query("SELECT * FROM app.notification_outbox")).rows, jobs);
+  });
+
+  test("concurrent multi-coffee requests retain every line from exactly one accepted request", async () => {
+    const requests = Array.from({ length: 12 }, (_, index) => ({ ...sample,
+      phone: index % 2 ? "+375 (29) 123-45-67" : sample.phone,
+      items: [{ productId: "ethiopia-yirgacheffe", quantity: index + 1 },
+        { productId: "drip-assortment", quantity: 99 - index }],
+    }));
+    const responses = await Promise.all(requests.map((request) => post(request)));
+    assert.equal(responses.filter((response) => response.status === 201).length, 1);
+    assert.equal(responses.filter((response) => response.status === 200).length, 11);
+    const winner = requests[responses.findIndex((response) => response.status === 201)];
+    assert.deepEqual((await getPool().query("SELECT product_id, quantity, unit_price_kopecks, total_price_kopecks FROM app.lead_items ORDER BY product_id")).rows, [
+      { product_id: "drip-assortment", quantity: winner.items[1].quantity, unit_price_kopecks: 1800,
+        total_price_kopecks: winner.items[1].quantity * 1800 },
+      { product_id: "ethiopia-yirgacheffe", quantity: winner.items[0].quantity, unit_price_kopecks: 3200,
+        total_price_kopecks: winner.items[0].quantity * 3200 },
+    ]);
+    assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
+  });
+
+  test("normalizes canonical singletons and legacy coffee context, and permits selected coffee questions", async () => {
+    assert.deepEqual(leadSchema.parse({ ...sample, productId: "ethiopia-yirgacheffe" }).items,
+      [{ productId: "ethiopia-yirgacheffe", quantity: 1 }]);
+    const items = [{ productId: "colombia-huila", quantity: 2 }];
+    assert.equal((await post({ ...sample, interest: "question", items })).status, 201);
+    assert.deepEqual((await getPool().query("SELECT product_id, quantity, unit_price_kopecks, total_price_kopecks FROM app.leads")).rows[0],
+      { product_id: "colombia-huila", quantity: 2, unit_price_kopecks: 2900, total_price_kopecks: 5800 });
+    assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 1);
+    for (const [index, context] of [{}, { interest: "subscription", productId: "subscription" }].entries()) {
+      assert.equal((await post({ ...sample, ...context, phone: `+37529123456${index + 8}` })).status, 201);
+    }
+    assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 1);
+  });
+
+  test("rejects malformed, repeated, forged-price, mixed-legacy and subscription item selections without writes", async () => {
+    const item = { productId: "ethiopia-yirgacheffe", quantity: 2 };
+    const invalid: unknown[] = [
+      null, "coffee", {}, [], [null], ["coffee"], [{}], [item, item], Array(5).fill(item),
+      [{ productId: "invented", quantity: 2 }], [{ productId: "subscription", quantity: 2 }],
+      [{ productId: item.productId }],
+      ...[null, "2", false, [], {}, 0, -1, 1.5, 100].map((quantity) => [{ ...item, quantity }]),
+      ...["unitPrice", "totalPrice", "unit_price_kopecks", "total_price_kopecks", "PRIVATE_UNKNOWN_KEY"]
+        .map((key) => [{ ...item, [key]: 1 }]),
+    ];
+    for (const items of invalid) {
+      const response = await post({ ...sample, items });
+      assert.equal(response.status, 400, JSON.stringify(items));
+      const body = await response.json();
+      assert.equal(body.status, "invalid");
+      assert.ok(Object.keys(body.fieldErrors).length);
+      assert.ok(!JSON.stringify(body).includes("PRIVATE_UNKNOWN_KEY"));
+    }
+    for (const context of [{ productId: item.productId }, { quantity: 2 }, { productId: item.productId, quantity: 2 },
+      { productId: "subscription", interest: "subscription" }, { interest: "subscription" }]) {
+      const response = await post({ ...sample, ...context, items: [item] });
+      assert.equal(response.status, 400, JSON.stringify(context));
+      assert.equal((await response.json()).status, "invalid");
+    }
+    assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
+    assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 0);
   });
 
   test("rejects invalid quantities, incompatible contexts and client price fields without writes", async () => {
@@ -228,7 +324,7 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
     assert.equal((await post()).status, 201);
     const client = await getPool().connect();
     const time = "2026-10-18 12:00:00.123456+00";
-    const values = [randomUUID(), time, sample.name, sample.phone, sample.interest, null, null, "{}", null, null];
+    const values = [randomUUID(), time, sample.name, sample.phone, sample.interest, null, null, "{}", null, null, "[]"];
     try {
       await client.query("BEGIN");
       await client.query(phoneLockSql, [sample.phone]);
@@ -282,11 +378,28 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
       assert.deepEqual(await response.json(), { ok: false, status: "error", code: "temporarily_unavailable",
         message: "Не удалось сохранить заявку. Попробуйте ещё раз." });
       assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
+      assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 0);
     } finally { await getPool().query("ALTER TABLE app.notification_outbox DROP CONSTRAINT test_reject"); }
     assert.equal((await post({ ...sample, productId: "ethiopia-yirgacheffe", quantity: 2 })).status, 201);
     assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
     assert.deepEqual((await getPool().query("SELECT quantity, unit_price_kopecks, total_price_kopecks FROM app.leads")).rows[0],
       { quantity: 2, unit_price_kopecks: 3200, total_price_kopecks: 6400 });
+  });
+
+  test("a failing coffee line rolls back every line, the lead and its outbox before a successful retry", async () => {
+    const request = { ...sample, items: [{ productId: "ethiopia-yirgacheffe", quantity: 2 },
+      { productId: "drip-assortment", quantity: 3 }] };
+    await getPool().query("ALTER TABLE app.lead_items ADD CONSTRAINT test_reject_line CHECK (product_id <> 'drip-assortment') NOT VALID");
+    try {
+      const response = await post(request);
+      assert.equal(response.status, 503);
+      assert.equal((await response.json()).code, "temporarily_unavailable");
+      assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
+      assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 0);
+    } finally { await getPool().query("ALTER TABLE app.lead_items DROP CONSTRAINT test_reject_line"); }
+    assert.equal((await post(request)).status, 201);
+    assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
+    assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 2);
   });
 
   test("a database query failure returns a recoverable response without internal details", async () => {
@@ -319,5 +432,18 @@ describe("lead intake through a real Next.js HTTP server and PostgreSQL", { conc
       await assert.rejects(getPool().query(`UPDATE app.leads SET ${update}`));
     }
     assert.equal((await getPool().query("SELECT total_price_kopecks FROM app.leads")).rows[0].total_price_kopecks, 5200);
+    const values = [lead.id, "brazil-cerrado", 2, 2600];
+    const insert = "INSERT INTO app.lead_items (lead_id, product_id, quantity, unit_price_kopecks) VALUES ($1, $2, $3, $4)";
+    await getPool().query(insert, values);
+    await assert.rejects(getPool().query(insert, values));
+    await assert.rejects(getPool().query(insert, [randomUUID(), "ethiopia-yirgacheffe", 1, 3200]));
+    for (const update of ["product_id = 'subscription'", "quantity = NULL", "quantity = 0", "quantity = 100",
+      "unit_price_kopecks = NULL", "unit_price_kopecks = 0", "total_price_kopecks = 1"]) {
+      await assert.rejects(getPool().query(`UPDATE app.lead_items SET ${update}`));
+    }
+    assert.equal((await getPool().query("SELECT total_price_kopecks FROM app.lead_items")).rows[0].total_price_kopecks, 5200);
+    await getPool().query("DELETE FROM app.leads WHERE id = $1", [lead.id]);
+    assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
+    assert.equal((await getPool().query("SELECT count(*)::int AS count FROM app.lead_items")).rows[0].count, 0);
   });
 });

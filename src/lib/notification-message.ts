@@ -1,5 +1,13 @@
 import "server-only";
 import { productLabels, type LeadInput } from "./lead-schema.ts";
+import type { CoffeeId } from "./catalog.ts";
+
+export type NotificationItem = {
+  product_id: CoffeeId;
+  quantity: number;
+  unit_price_kopecks: number;
+  total_price_kopecks: number;
+};
 
 export type NotificationLead = {
   id: string;
@@ -11,6 +19,7 @@ export type NotificationLead = {
   quantity: number | null;
   unit_price_kopecks: number | null;
   total_price_kopecks: number | null;
+  items: NotificationItem[];
   comment: string | null;
   attribution: LeadInput["attribution"];
 };
@@ -34,13 +43,17 @@ export function formatNotification(lead: NotificationLead): string {
     `Имя: ${clip(lead.name, 200)}`, `Телефон: ${lead.phone}`,
     `Интерес: ${interests[lead.interest]}`,
   ];
-  if (lead.product_id) lines.push(`Предложение: ${productLabels[lead.product_id]}`);
-  if (lead.quantity !== null && lead.unit_price_kopecks !== null && lead.total_price_kopecks !== null) {
-    const pack = lead.product_id === "drip-assortment" ? "коробка по 10 дрип-пакетов" : "250 г";
-    const price = (kopecks: number) => `${kopecks / 100} BYN`;
-    lines.push(`Количество: ${lead.quantity} × ${pack}`,
-      `Цена за упаковку: ${price(lead.unit_price_kopecks)}`,
-      `Сумма за кофе: ${price(lead.total_price_kopecks)}`);
+  if (lead.product_id === "subscription") lines.push(`Предложение: ${productLabels.subscription}`);
+  const price = (kopecks: number) => `${kopecks / 100} BYN`;
+  for (const item of lead.items) {
+    const pack = item.product_id === "drip-assortment" ? "коробка по 10 дрип-пакетов" : "250 г";
+    lines.push(`Предложение: ${productLabels[item.product_id]}`,
+      `Количество: ${item.quantity} × ${pack}`,
+      `Цена за упаковку: ${price(item.unit_price_kopecks)}`,
+      `Сумма позиции: ${price(item.total_price_kopecks)}`);
+  }
+  if (lead.items.length) {
+    lines.push(`Сумма за кофе: ${price(lead.items.reduce((sum, item) => sum + item.total_price_kopecks, 0))}`);
   }
   if (lead.comment) lines.push("Комментарий:", ...clip(lead.comment, 1200).split(/\r\n?|\n/).map((line) => `  ${line}`));
   for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",

@@ -40,7 +40,14 @@ export async function claimNotification(preferredLeadId?: string): Promise<Claim
           locked_until = clock_timestamp() + make_interval(secs => $3), lock_token = $2::uuid
         FROM candidate c WHERE o.id = c.id
         RETURNING o.id AS job_id, o.lead_id, o.lock_token, o.attempts
-      ) SELECT l.*, c.job_id, c.lock_token, c.attempts FROM claimed c JOIN app.leads l ON l.id = c.lead_id
+      ) SELECT l.*, c.job_id, c.lock_token, c.attempts,
+          COALESCE((SELECT jsonb_agg(jsonb_build_object(
+            'product_id', i.product_id, 'quantity', i.quantity,
+            'unit_price_kopecks', i.unit_price_kopecks, 'total_price_kopecks', i.total_price_kopecks
+          ) ORDER BY CASE i.product_id WHEN 'ethiopia-yirgacheffe' THEN 1 WHEN 'colombia-huila' THEN 2
+            WHEN 'brazil-cerrado' THEN 3 ELSE 4 END)
+            FROM app.lead_items i WHERE i.lead_id = l.id), '[]'::jsonb) AS items
+        FROM claimed c JOIN app.leads l ON l.id = c.lead_id
     `, [preferredLeadId ?? null, randomUUID(), leaseSeconds]);
     return result.rows[0];
   });

@@ -16,7 +16,18 @@ const form = () => page.getByRole("form", { name: "Заявка на обрат�
 const submit = () => form().getByRole("button", { name: "Оставить заявку", exact: true });
 const feedback = () => page.locator("#form-feedback");
 const card = (name: string) => page.getByRole("article").filter({ has: page.getByRole("heading", { name, exact: true }) });
-const summary = () => form().getByRole("status").filter({ hasText: "Вы выбрали:" });
+const summary = () => form().getByRole("group", { name: "Ваш выбор", exact: true });
+const selectedItems = () => summary().getByRole("list", { name: "Выбранный кофе", exact: true }).getByRole("listitem");
+const catalogSummary = () => page.getByRole("region", { name: "Выбранный кофе", exact: true });
+const products = [
+  ["ethiopia-yirgacheffe", "Эфиопия Иргачеффе"], ["colombia-huila", "Колумбия Уила"],
+  ["brazil-cerrado", "Бразилия Серрадо"], ["drip-assortment", "Дрип-пакеты, ассорти"],
+] as const;
+
+async function savedItems(leadId: string) {
+  return (await getPool().query(`SELECT product_id, quantity, unit_price_kopecks, total_price_kopecks
+    FROM app.lead_items WHERE lead_id = $1 ORDER BY product_id`, [leadId])).rows;
+}
 
 async function counts() {
   return (await getPool().query(`SELECT
@@ -65,7 +76,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     browser = await chromium.launch({ executablePath, args: ["--no-sandbox", "--disable-dev-shm-usage"] });
   });
   beforeEach(async () => {
-    await getPool().query("TRUNCATE app.notification_outbox, app.leads");
+    await getPool().query("TRUNCATE app.notification_outbox, app.lead_items, app.leads");
     context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
     // No font, image, page or script may depend on an external host.
     await context.route("**/*", (route) => new URL(route.request().url()).origin === base ? route.continue() : route.abort("blockedbyclient"));
@@ -148,10 +159,6 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await page.goto(base);
     await page.getByText("Комментарий (необязательно)", { exact: true }).click();
     await page.getByLabel("Ваш комментарий").fill("Нужен помол для фильтра");
-    const products = [
-      ["ethiopia-yirgacheffe", "Эфиопия Иргачеффе"], ["colombia-huila", "Колумбия Уила"],
-      ["brazil-cerrado", "Бразилия Серрадо"], ["drip-assortment", "Дрип-пакеты, ассорти"],
-    ];
     for (const [index, [id, name]] of products.entries()) {
       const phone = `+37529123450${index + 1}`;
       await fill(phone, "Анна");
@@ -159,7 +166,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       await expect(page.getByRole("button", { name: `Выбрано ${name}`, exact: true })).toHaveAttribute("aria-pressed", "true");
       await card(name).getByRole("button", { name: "Перейти к заявке", exact: true }).click();
       await expect(form().getByRole("radio", { name: "Разовый заказ", exact: true })).toBeChecked();
-      await expect(form().getByRole("status").filter({ hasText: "Вы выбрали:" })).toContainText(name);
+      await expect(summary()).toContainText(name);
       await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Анна");
       await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue(phone);
       await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Нужен помол для фильтра");
@@ -170,10 +177,11 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       assert.equal(lead.interest, "one-time");
       assert.equal(lead.quantity, 1);
       assert.equal(lead.comment, "Нужен помол для фильтра");
+      await form().getByRole("button", { name: "Убрать выбранное предложение", exact: true }).click();
     }
     await page.getByRole("button", { name: "Подписка — 54 BYN / месяц", exact: true }).click();
     await expect(form().getByRole("radio", { name: "Подписка", exact: true })).toBeChecked();
-    await expect(form().getByRole("status").filter({ hasText: "Вы выбрали:" })).toContainText("Подписка");
+    await expect(summary()).toContainText("Подписка");
     await page.getByRole("button", { name: "Хочу подписку", exact: true }).click();
     await fill("+375291234505");
     await send(201, saved);
@@ -186,57 +194,90 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     assert.deepEqual(await counts(), { leads: 5, jobs: 5 });
   });
 
-  test("card selection stays visible, replaces one variety, and preserves independent pack drafts and contact values", async () => {
+  test("independent selections keep draft counts, contacts and totals while one variety changes or is removed", async () => {
     await page.goto(base);
     await fill();
     await page.getByText("Комментарий (необязательно)", { exact: true }).click();
     await page.getByLabel("Ваш комментарий").fill("Для фильтра, после 18:00");
     const ethiopia = card("Эфиопия Иргачеффе");
     const colombia = card("Колумбия Уила");
-    const ethiopiaQuantity = ethiopia.getByRole("group", { name: "Количество упаковок: Эфиопия Иргачеффе", exact: true });
-    const colombiaQuantity = colombia.getByRole("group", { name: "Количество упаковок: Колумбия Уила", exact: true });
+    const ethiopiaQuantity = ethiopia.getByRole("group", { name: /Количество упаковок/ });
+    const colombiaQuantity = colombia.getByRole("group", { name: /Количество упаковок/ });
     await expect(ethiopiaQuantity).toHaveText("1");
     await expect(ethiopiaQuantity.getByRole("button", { name: /Уменьшить/ })).toBeDisabled();
     await colombiaQuantity.getByRole("button", { name: /Увеличить/ }).click();
     await expect(colombiaQuantity).toHaveText("2");
     await expect(summary()).toHaveCount(0);
-    await expect(page.getByRole("button", { pressed: true })).toHaveCount(0);
     await ethiopia.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
     await expect(ethiopia.getByRole("button", { name: "Выбрано Эфиопия Иргачеффе", exact: true })).toBeFocused();
-    await expect(ethiopia.getByRole("button", { pressed: true })).toHaveCount(1);
     assert.ok(await ethiopia.evaluate((element) => parseFloat(getComputedStyle(element).outlineWidth) >= 2), "Selected card needs a visible outline.");
-    await expect(summary()).toContainText("1 × 250 г");
     await expect(summary()).toContainText("За кофе: 32 BYN");
-    await expect(summary()).toContainText("Стоимость доставки уточним при звонке.");
+    await expect(catalogSummary()).toContainText("Стоимость доставки уточним при звонке.");
     await ethiopiaQuantity.getByRole("button", { name: /Увеличить/ }).click();
-    await expect(ethiopiaQuantity).toHaveText("2");
     await expect(summary()).toContainText("За кофе: 64 BYN");
     await expect(summary()).toContainText("Доставка по Минску — бесплатно.");
-    await expect(ethiopia.getByRole("status")).toHaveText("Доставка по Минску — бесплатно.");
     await colombiaQuantity.getByRole("button", { name: /Увеличить/ }).click();
     await expect(summary()).toContainText("За кофе: 64 BYN");
     await colombia.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true }).click();
+    await expect(page.getByRole("button", { pressed: true })).toHaveCount(2);
+    await expect(selectedItems()).toHaveCount(2);
+    await expect(selectedItems().filter({ hasText: "Эфиопия Иргачеффе" })).toContainText("2 × 250 г");
+    await expect(selectedItems().filter({ hasText: "Колумбия Уила" })).toContainText("3 × 250 г");
+    await expect(summary()).toContainText("За кофе: 151 BYN");
+    await expect(ethiopia.getByRole("status")).toHaveText("Всего за кофе: 151 BYN");
+    await expect(colombia.getByRole("status")).toHaveText("Всего за кофе: 151 BYN");
+    await form().getByRole("button", { name: "Увеличить количество: Эфиопия Иргачеффе", exact: true }).click();
+    await expect(ethiopiaQuantity).toHaveText("3");
+    await expect(colombiaQuantity).toHaveText("3");
+    await expect(summary()).toContainText("За кофе: 183 BYN");
+    await form().getByRole("button", { name: "Убрать Колумбия Уила", exact: true }).click();
     await expect(page.getByRole("button", { pressed: true })).toHaveCount(1);
-    await expect(ethiopia.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true })).toHaveAttribute("aria-pressed", "false");
-    await expect(ethiopia.getByRole("button", { name: "Перейти к заявке", exact: true })).toHaveCount(0);
-    await expect(summary()).toContainText("Колумбия Уила");
-    await expect(summary()).toContainText("3 × 250 г");
+    await expect(selectedItems()).toHaveCount(1);
+    await expect(summary()).toContainText("За кофе: 96 BYN");
+    await expect(colombia.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true })).toHaveAttribute("aria-pressed", "false");
+    await expect(colombiaQuantity).toHaveText("3");
+    await colombia.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true }).click();
+    await ethiopia.getByRole("button", { name: "Выбрано Эфиопия Иргачеффе", exact: true }).click();
     await expect(summary()).toContainText("За кофе: 87 BYN");
-    await colombia.getByRole("button", { name: "Выбрано Колумбия Уила", exact: true }).click();
-    await expect(summary()).toHaveCount(0);
-    await expect(page.getByRole("button", { pressed: true })).toHaveCount(0);
+    await expect(selectedItems()).toHaveCount(1);
+    await expect(colombia.getByRole("button", { pressed: true })).toHaveCount(1);
     await ethiopia.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
     await ethiopia.getByRole("button", { name: "Перейти к заявке", exact: true }).click();
     await expect(page.getByLabel("Телефон", { exact: true })).toBeFocused();
-    await expect(summary()).toContainText("2 × 250 г");
+    await expect(summary()).toContainText("За кофе: 183 BYN");
     await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
     await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
     await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Для фильтра, после 18:00");
     await send(201, saved);
     const lead = await oneDelivered("+375291234567");
-    assert.equal(lead.product_id, "ethiopia-yirgacheffe");
-    assert.equal(lead.quantity, 2);
-    assert.equal(lead.total_price_kopecks, 6400);
+    assert.equal(lead.product_id, null);
+    assert.equal(lead.quantity, null);
+    assert.deepEqual(await savedItems(lead.id), [
+      { product_id: "colombia-huila", quantity: 3, unit_price_kopecks: 2900, total_price_kopecks: 8700 },
+      { product_id: "ethiopia-yirgacheffe", quantity: 3, unit_price_kopecks: 3200, total_price_kopecks: 9600 },
+    ]);
+  });
+
+  test("free delivery uses the combined coffee subtotal and falls back after one line is removed", async () => {
+    await page.goto(base);
+    await page.getByRole("button", { name: "Выбрать Бразилия Серрадо", exact: true }).click();
+    await expect(summary()).toContainText("За кофе: 26 BYN");
+    await expect(catalogSummary()).toContainText("Стоимость доставки уточним при звонке.");
+    await page.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true }).click();
+    await expect(summary()).toContainText("За кофе: 55 BYN");
+    await expect(catalogSummary()).toContainText("Итого: 55 BYN");
+    await expect(catalogSummary()).toContainText("Доставка по Минску — бесплатно.");
+    await expect(selectedItems().filter({ hasText: "Бразилия Серрадо" })).toContainText("26 BYN");
+    await expect(selectedItems().filter({ hasText: "Колумбия Уила" })).toContainText("29 BYN");
+    await form().getByRole("button", { name: "Убрать Бразилия Серрадо", exact: true }).click();
+    await expect(summary()).toContainText("За кофе: 29 BYN");
+    await expect(catalogSummary()).toContainText("Стоимость доставки уточним при звонке.");
+    await expect(selectedItems()).toHaveCount(1);
+    await expect(card("Колумбия Уила").getByRole("button", { pressed: true })).toHaveCount(1);
+    await form().getByRole("button", { name: "Убрать выбранное предложение", exact: true }).click();
+    await expect(summary()).toHaveCount(0);
+    await expect(catalogSummary()).toHaveCount(0);
+    await expect(page.getByRole("button", { pressed: true })).toHaveCount(0);
   });
 
   test("form and card share the 1–99 pack limits, keyboard controls and drip-box pricing", async () => {
@@ -285,17 +326,28 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     page.on("request", (request) => { if (request.url() === `${base}/api/lead` && request.method() === "POST") requests.push(request.postDataJSON()); });
     await page.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
     await form().getByRole("button", { name: "Увеличить количество: Эфиопия Иргачеффе", exact: true }).click();
+    await page.getByRole("button", { name: "Выбрать Дрип-пакеты, ассорти", exact: true }).click();
+    await page.getByRole("button", { name: "Поможем выбрать кофе", exact: true }).click();
+    await expect(selectedItems()).toHaveCount(2);
+    await page.getByRole("button", { name: "Давайте созвонимся", exact: true }).click();
+    await expect(selectedItems()).toHaveCount(2);
     await form().getByRole("radio", { name: "Вопрос", exact: true }).check();
-    await expect(form().getByRole("status").filter({ hasText: "Вы выбрали:" })).toContainText("Эфиопия Иргачеффе");
+    await expect(summary()).toContainText("Эфиопия Иргачеффе");
     await fill();
     await send(201, saved);
     const question = await oneDelivered("+375291234567");
     assert.equal(question.interest, "question");
-    assert.equal(question.product_id, "ethiopia-yirgacheffe");
-    assert.equal(question.quantity, 2);
-    assert.equal(question.total_price_kopecks, 6400);
+    assert.equal(question.product_id, null);
+    assert.equal(question.quantity, null);
+    assert.deepEqual(requests[0].items, [{ productId: "ethiopia-yirgacheffe", quantity: 2 }, { productId: "drip-assortment", quantity: 1 }]);
+    assert.equal(Object.hasOwn(requests[0], "productId"), false);
+    assert.equal(Object.hasOwn(requests[0], "quantity"), false);
+    assert.deepEqual(await savedItems(question.id), [
+      { product_id: "drip-assortment", quantity: 1, unit_price_kopecks: 1800, total_price_kopecks: 1800 },
+      { product_id: "ethiopia-yirgacheffe", quantity: 2, unit_price_kopecks: 3200, total_price_kopecks: 6400 },
+    ]);
     await form().getByRole("radio", { name: "Подписка", exact: true }).check();
-    await expect(form().getByRole("status").filter({ hasText: "Вы выбрали:" })).toContainText("Подписка");
+    await expect(summary()).toContainText("Подписка");
     await expect(summary()).toContainText("2 × 250 г");
     await expect(form().getByRole("group", { name: /Количество упаковок/ })).toHaveCount(0);
     await expect(page.getByRole("button", { pressed: true })).toHaveCount(0);
@@ -305,11 +357,14 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     assert.equal(subscription.product_id, "subscription");
     assert.equal(subscription.quantity, null);
     assert.equal(Object.hasOwn(requests[1], "quantity"), false);
+    assert.equal(Object.hasOwn(requests[1], "items"), false);
+    assert.equal(requests[1].productId, "subscription");
+    assert.deepEqual(await savedItems(subscription.id), []);
     await form().getByRole("radio", { name: "Разовый заказ", exact: true }).check();
     await expect(form().getByRole("button", { name: "Убрать выбранное предложение" })).toHaveCount(0);
     await page.getByRole("button", { name: "Хочу подписку", exact: true }).click();
     await form().getByRole("radio", { name: "Вопрос", exact: true }).check();
-    await expect(form().getByRole("status").filter({ hasText: "Вы выбрали:" })).toContainText("Подписка");
+    await expect(summary()).toContainText("Подписка");
     await form().getByRole("button", { name: "Убрать выбранное предложение" }).click();
     await expect(form().getByRole("button", { name: "Убрать выбранное предложение" })).toHaveCount(0);
     await expect(form().getByRole("radio", { name: "Вопрос", exact: true })).toBeChecked();
@@ -325,6 +380,19 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     assert.equal(generic.unit_price_kopecks, null);
     assert.equal(generic.total_price_kopecks, null);
     assert.equal(Object.hasOwn(requests[2], "quantity"), false);
+    assert.equal(Object.hasOwn(requests[2], "items"), false);
+    assert.equal(Object.hasOwn(requests[2], "productId"), false);
+    await page.getByRole("button", { name: "Хочу подписку", exact: true }).click();
+    await page.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
+    await expect(summary()).not.toContainText("Подписка");
+    await expect(summary()).toContainText("2 × 250 г");
+    await expect(form().getByRole("radio", { name: "Разовый заказ", exact: true })).toBeChecked();
+    await form().getByRole("button", { name: "Убрать выбранное предложение", exact: true }).click();
+    await expect(summary()).toHaveCount(0);
+    await fill("+375291234566");
+    await send(201, saved);
+    assert.equal(Object.hasOwn(requests[3], "items"), false);
+    assert.equal(Object.hasOwn(requests[3], "productId"), false);
   });
 
   test("entry attribution and referrer survive navigation, a failed network request and a successful retry", async () => {
@@ -334,6 +402,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await page.goto(entry, { referer: referrer });
     await page.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true }).click();
     await card("Колумбия Уила").getByRole("button", { name: /Увеличить количество/ }).click();
+    await page.getByRole("button", { name: "Выбрать Дрип-пакеты, ассорти", exact: true }).click();
     await fill();
     await page.getByText("Комментарий (необязательно)", { exact: true }).click();
     await page.getByLabel("Ваш комментарий").fill("Перезвоните после 18:00");
@@ -346,15 +415,19 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
     await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Перезвоните после 18:00");
     await expect(summary()).toContainText("2 × 250 г");
-    await expect(summary()).toContainText("За кофе: 58 BYN");
+    await expect(summary()).toContainText("За кофе: 76 BYN");
+    await expect(selectedItems()).toHaveCount(2);
     await expect(card("Колумбия Уила").getByRole("button", { pressed: true })).toHaveCount(1);
+    await expect(card("Дрип-пакеты, ассорти").getByRole("button", { pressed: true })).toHaveCount(1);
     assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
     await send(201, saved);
     const lead = await oneDelivered("+375291234567");
     assert.deepEqual(lead.attribution, { ...attribution, landingUrl: entry, referrer });
-    assert.equal(lead.product_id, "colombia-huila");
-    assert.equal(lead.quantity, 2);
-    assert.equal(lead.total_price_kopecks, 5800);
+    assert.equal(lead.product_id, null);
+    assert.deepEqual(await savedItems(lead.id), [
+      { product_id: "colombia-huila", quantity: 2, unit_price_kopecks: 2900, total_price_kopecks: 5800 },
+      { product_id: "drip-assortment", quantity: 1, unit_price_kopecks: 1800, total_price_kopecks: 1800 },
+    ]);
     assert.equal(lead.comment, "Перезвоните после 18:00");
   });
 
@@ -376,6 +449,7 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await fill();
     await page.getByText("Комментарий (необязательно)", { exact: true }).click();
     await page.getByLabel("Ваш комментарий").fill("Сохраните две коробки");
+    await page.getByRole("button", { name: "Выбрать Бразилия Серрадо", exact: true }).click();
     let release!: () => void;
     const gate = new Promise<void>((resolve) => { release = resolve; });
     let requests = 0;
@@ -398,6 +472,8 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       for (const control of await form().getByRole("group", { name: /Количество упаковок/ }).getByRole("button").all()) await expect(control).toBeDisabled();
       for (const control of await form().getByRole("radio").all()) await expect(control).toBeDisabled();
       await expect(form().getByRole("button", { name: "Убрать выбранное предложение" })).toBeDisabled();
+      for (const control of await selectedItems().getByRole("button", { name: /^Убрать / }).all()) await expect(control).toBeDisabled();
+      await expect(catalogSummary().getByRole("button", { name: "Перейти к заявке", exact: true })).toBeDisabled();
       await form().evaluate((element) => { (element as HTMLFormElement).requestSubmit(); (element as HTMLFormElement).requestSubmit(); });
       assert.equal(requests, 1);
       assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
@@ -408,33 +484,40 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
     await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Сохраните две коробки");
     await expect(summary()).toContainText("2 × 10 дрип-пакетов");
-    await expect(summary()).toContainText("За кофе: 36 BYN");
+    await expect(summary()).toContainText("За кофе: 62 BYN");
+    await expect(selectedItems()).toHaveCount(2);
     await expect(card("Дрип-пакеты, ассорти").getByRole("button", { pressed: true })).toHaveCount(1);
     await settled();
     const lead = await oneDelivered("+375291234567");
-    assert.equal(lead.product_id, "drip-assortment");
-    assert.equal(lead.quantity, 2);
-    assert.equal(lead.total_price_kopecks, 3600);
+    assert.equal(lead.product_id, null);
+    const lines = await savedItems(lead.id);
+    assert.deepEqual(lines, [
+      { product_id: "brazil-cerrado", quantity: 1, unit_price_kopecks: 2600, total_price_kopecks: 2600 },
+      { product_id: "drip-assortment", quantity: 2, unit_price_kopecks: 1800, total_price_kopecks: 3600 },
+    ]);
     await send(200, duplicate);
+    assert.deepEqual(await savedItems(lead.id), lines);
     assert.deepEqual(await counts(), { leads: 1, jobs: 1 });
     assert.equal((await oneDelivered("+375291234567")).id, lead.id);
   });
 
-  test("a quantity field error is announced at its controls and correction keeps the selection and entered values", async () => {
+  test("a nested quantity error focuses its selected line and correction keeps every coffee and entered value", async () => {
     await page.goto(base);
+    await page.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
     await page.getByRole("button", { name: "Выбрать Колумбия Уила", exact: true }).click();
     const quantity = form().getByRole("group", { name: "Количество упаковок: Колумбия Уила", exact: true });
     await quantity.getByRole("button", { name: /Увеличить/ }).click();
     await fill();
     const quantityError = "Укажите целое количество от 1 до 99.";
     await page.route("**/api/lead", (route) => route.fulfill({ status: 400, contentType: "application/json",
-      body: JSON.stringify({ ok: false, status: "invalid", message: "Проверьте поля формы.", fieldErrors: { quantity: quantityError } }) }), { times: 1 });
+      body: JSON.stringify({ ok: false, status: "invalid", message: "Проверьте поля формы.", fieldErrors: { "items.1.quantity": quantityError } }) }), { times: 1 });
     await send(400, "Проверьте поля формы.");
     await expect(page.locator("#quantity-error")).toHaveText(quantityError);
     await expect(quantity).toHaveAttribute("aria-describedby", "quantity-error");
     await expect(quantity.getByRole("button", { name: /Уменьшить/ })).toBeFocused();
     await expect(quantity).toHaveText("2");
-    await expect(summary()).toContainText("За кофе: 58 BYN");
+    await expect(summary()).toContainText("За кофе: 90 BYN");
+    await expect(selectedItems()).toHaveCount(2);
     await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Браузерная проверка");
     await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("+375 (29) 123-45-67");
     assert.deepEqual(await counts(), { leads: 0, jobs: 0 });
@@ -443,9 +526,11 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     await expect(card("Колумбия Уила").getByRole("group", { name: /Количество упаковок/ })).toHaveText("3");
     await send(201, saved);
     const lead = await oneDelivered("+375291234567");
-    assert.equal(lead.product_id, "colombia-huila");
-    assert.equal(lead.quantity, 3);
-    assert.equal(lead.total_price_kopecks, 8700);
+    assert.equal(lead.product_id, null);
+    assert.deepEqual(await savedItems(lead.id), [
+      { product_id: "colombia-huila", quantity: 3, unit_price_kopecks: 2900, total_price_kopecks: 8700 },
+      { product_id: "ethiopia-yirgacheffe", quantity: 1, unit_price_kopecks: 3200, total_price_kopecks: 3200 },
+    ]);
   });
 
   test("an actual PostgreSQL transaction failure preserves input, rolls back and permits a retry", async () => {
@@ -496,14 +581,26 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     const external: string[] = [];
     page.on("request", (request) => { if (new URL(request.url()).origin !== base) external.push(request.url()); });
     await page.goto(base);
-    await page.getByRole("button", { name: "Выбрать Эфиопия Иргачеффе", exact: true }).click();
-    await form().getByRole("button", { name: /Увеличить количество/ }).focus();
-    for (let count = 1; count < 99; count++) await page.keyboard.press("Enter");
-    await expect(summary()).toContainText("99 × 250 г");
-    await expect(summary()).toContainText("За кофе: 3168 BYN");
+    for (const [, name] of products) {
+      await page.getByRole("button", { name: `Выбрать ${name}`, exact: true }).click();
+      await form().getByRole("button", { name: `Увеличить количество: ${name}`, exact: true }).focus();
+      for (let count = 1; count < 99; count++) await page.keyboard.press("Enter");
+      await expect(card(name).getByRole("group", { name: /Количество упаковок/ })).toHaveText("99");
+    }
+    await expect(selectedItems()).toHaveCount(4);
+    await expect(selectedItems().filter({ hasText: "Дрип-пакеты, ассорти" })).toContainText("99 × 10 дрип-пакетов");
+    await expect(summary()).toContainText("За кофе: 10395 BYN");
+    await expect(catalogSummary()).toContainText("Итого: 10395 BYN");
+    await fill();
     for (const width of [320, 390, 600, 601, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await page.evaluate(() => document.fonts.ready);
+      await catalogSummary().getByRole("button", { name: "Перейти к заявке", exact: true }).click();
+      const phone = page.getByLabel("Телефон", { exact: true });
+      await expect(phone).toBeFocused();
+      const focusedBounds = await phone.boundingBox();
+      assert.ok(focusedBounds && focusedBounds.y >= 0 && focusedBounds.y + focusedBounds.height <= 900,
+        `Focused contact field is outside the viewport at ${width}: ${JSON.stringify(focusedBounds)}`);
       const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth }));
       assert.ok(dimensions.document <= dimensions.viewport + 1 && dimensions.body <= dimensions.viewport + 1, `Horizontal overflow at ${width}: ${JSON.stringify(dimensions)}`);
       const image = page.getByRole("img", { name: /Чашка кофе/ });
@@ -603,8 +700,24 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     const socialResponse = await context.request.get(new URL(socialUrl.pathname + socialUrl.search, base).href, { timeout: 8_000 });
     assert.equal(socialResponse.status(), 200);
     assert.match(socialResponse.headers()["content-type"], /^image\//);
+    const requests: Record<string, unknown>[] = [];
+    page.on("request", (request) => { if (request.url() === `${base}/api/lead` && request.method() === "POST") requests.push(request.postDataJSON()); });
+    await send(201, saved);
+    const maximum = await oneDelivered("+375291234567");
+    const maximumItems = await savedItems(maximum.id);
+    assert.equal(maximumItems.length, 4);
+    assert.ok(maximumItems.every((item) => item.quantity === 99));
+    assert.equal(maximumItems.reduce((sum, item) => sum + item.total_price_kopecks, 0), 1039500);
+    assert.deepEqual(requests[0].items, products.map(([productId]) => ({ productId, quantity: 99 })));
+    assert.equal(Object.hasOwn(requests[0], "productId"), false);
+    assert.equal(Object.hasOwn(requests[0], "quantity"), false);
+    const accessibilityWithAllItems = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
+    assert.deepEqual(accessibilityWithAllItems.violations.map(({ id, nodes }) => ({ id, targets: nodes.map((node) => node.target) })), []);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(base);
+    await expect(summary()).toHaveCount(0);
+    await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("");
+    await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue("");
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name: "К содержимому", exact: true })).toBeFocused();
     const menu = page.getByLabel("Меню", { exact: true });

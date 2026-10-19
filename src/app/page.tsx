@@ -1,7 +1,7 @@
 import Image from "next/image";
 import coffee from "../../assets/plates/coffee-still-life.png";
 import { products } from "../lib/catalog";
-import { LeadFlow, OfferButton, ProductCard } from "./lead-form";
+import { CatalogSelection, LeadFlow, OfferButton, ProductCard } from "./lead-form";
 import { SiteHeader } from "./site-header";
 import styles from "./page.module.css";
 
@@ -13,6 +13,7 @@ export default function Home() {
         <section className={styles.catalog} id="coffee" aria-labelledby="coffee-heading">
           <h2 id="coffee-heading">Кофе на выбор</h2>
           <div className={styles.productList}>{products.map((product) => <ProductCard productId={product.id} key={product.id} />)}</div>
+          <CatalogSelection />
           <p className={styles.catalogNote}>Не знаете, с чего начать? <OfferButton interest="question" className={styles.textButton}>Поможем выбрать кофе<Arrow /></OfferButton></p>
         </section>
         <section className={styles.subscription} id="subscription" aria-labelledby="subscription-heading">

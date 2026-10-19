@@ -159,6 +159,9 @@ components:
     textColor: "{colors.cocoa}"
     typography: "{typography.selection-copy}"
     padding: "0 0 18px"
+  catalog-selection:
+    textColor: "{colors.cocoa}"
+    padding: "24px 0"
   button-remove-selection:
     backgroundColor: "transparent"
     padding: "10px 0"
@@ -240,12 +243,10 @@ remain as recorded above. [Desktop](../.impeccable/review/coffee-desktop.png) an
 [capture metadata](../.impeccable/review/coffee-capture.json) record the earlier
 card-layout extension before the quantity interaction was added.
 
-The subsequent selection-and-quantity request extends those same cards: the
-selected variety has a cocoa outline and filled checked action, pack controls
-update the displayed coffee subtotal, and the callback panel repeats the choice.
-The selected card stays in view until its separate continuation action is used.
-This scoped addition introduces no new palette, fonts, imagery, or visual world.
-Production captures show the [idle mobile](../.impeccable/review/quantity-mobile-default.png)
+The subsequent selection-and-quantity request added the cocoa selected outline,
+filled checked action, pack controls, and callback summary. The selected card
+stays in view until its separate continuation action is used. Historical
+production captures show the [idle mobile](../.impeccable/review/quantity-mobile-default.png)
 and [desktop](../.impeccable/review/quantity-desktop-default.png) catalogs,
 the selected [mobile](../.impeccable/review/quantity-mobile-catalog.png) and
 [desktop](../.impeccable/review/quantity-desktop-catalog.png) cards, and their
@@ -256,6 +257,27 @@ the selected [mobile](../.impeccable/review/quantity-mobile-catalog.png) and
 [capture metadata](../.impeccable/review/quantity-capture.json) record the selected
 Brazil example at two 250 g packs and 52 BYN. These are local production captures,
 not a new assembled-page approval or release measurement.
+
+The user then requested multiple coffee types in one callback request. Each card
+now toggles independently, retains its own pack count and line subtotal, and shows
+the combined coffee total when selected. A flat catalog summary lists the chosen
+coffees and counts; the callback repeats the full list with per-line controls and
+removal, a combined total, and delivery wording based on that total. This scoped
+merge introduces no new palette, fonts, imagery, or visual world. The earlier
+quantity captures document the previous single-variety behavior. Current local
+production captures show the idle [mobile](../.impeccable/review/multi-mobile-default.png)
+and [desktop](../.impeccable/review/multi-desktop-default.png) catalogs, the selected
+[mobile](../.impeccable/review/multi-mobile-catalog.png) and
+[desktop](../.impeccable/review/multi-desktop-catalog.png) catalogs, the
+[mobile](../.impeccable/review/multi-mobile-form.png) and
+[desktop](../.impeccable/review/multi-desktop-form.png) form summaries, and
+[full mobile](../.impeccable/review/multi-mobile-page.png) and
+[desktop](../.impeccable/review/multi-desktop-page.png) pages. The
+[capture metadata](../.impeccable/review/multi-capture.json) records Colombia at
+one pack, Brazil at two packs, and drip assortment at one box: 99 BYN combined,
+with free Minsk delivery. It also records visible focused contact fields with
+all four types selected across 320–1440px. These captures verify local rendering;
+the original assembled-page approval and release gates remain pending.
 
 **Key Characteristics:**
 
@@ -287,7 +309,8 @@ ramps are synthesized preview strips, not additional colors implemented by the s
   selected-card outline, and pressed product-button fill with cream text.
 - **Soft cocoa** (`muted`): supporting copy, placeholders, and unselected radios.
 - **Warm divider** (`line`): section dividers and product-card footer separators. The catalog's
-  opening divider uses the local lighter value in its source.
+  opening divider uses the local lighter value in its source. The same warm
+  divider separates the combined catalog summary and callback selection rows.
 - **Ethiopia, Colombia, and Brazil surfaces** (`product-ethiopia`,
   `product-colombia`, `product-brazil`): the individual catalog fills. Their
   product association stays consistent; drip assortment uses warm cream.
@@ -336,9 +359,13 @@ records both licenses, conversion details, and image provenance.
   screens. Outlined product-selection buttons retain their 16px product-action role.
 - **Prices**: product prices use the 32px product-price role, weight 600, tabular
   numerals, and no wrapping. Their BYN suffix uses 0.65em at weight 400.
-  The selected form subtotal uses the 24px selection-total role; quantity counts
+  The form uses the bold selection-total role for its combined total; the catalog
+  total uses the same size at regular weight. Quantity counts
   use the 18px quantity-value role and tabular numerals. Selected-offer copy uses
-  the 16px selection-copy role with 1.45 leading; delivery copy reduces to 14px.
+  the 16px selection-copy role with 1.45 leading. Form line information uses
+  16px with 1.3 leading and tabular line prices; its pack description and delivery
+  copy reduce to 14px. The catalog summary heading uses 24px at weight 600, and
+  its list uses 16px with 1.5 leading.
   The subscription price uses weight 700 and
   `clamp(46px, 7vw, 72px)`, overridden to 52px on small screens.
 
@@ -361,27 +388,36 @@ content gap and `clamp(22px, 3vw, 32px)` padding. Its order block has automatic
 top margin; the pack label and quantity control sit opposite one another with
 a 12px gap and 18px space below. The wrapping price/action row uses a 12px gap,
 a 1px warm divider, and 20px top padding. Selected-card continuation copy begins
-18px below that row. The subscription uses a 1.1fr / 1fr grid;
+18px below that row. The combined catalog summary begins 28px after the grid,
+with 24px vertical padding, top and bottom dividers, two equal columns, and a
+24px gap. Its list begins 12px below the heading, with 6px between subsequent
+rows; its continuation button begins 16px after the total and delivery text.
+The subscription uses a 1.1fr / 1fr grid;
 story and delivery use equal columns, with
 40px and 60px gaps respectively. The page mixes proportional section margins
 with local pixel spacing; it does not implement an assumed universal spacing grid.
 
 At widths up to 600px, the catalog uses one column, a 14px gap, and 22px space
-after its heading. Subscription, story, and delivery also stack into single
-columns. The callback uses 18px 14px padding. Product names retain their 16ch
+after its heading. The combined catalog summary stacks with a 14px gap, and
+callback selection-row information wraps with an 8px gap. Subscription, story,
+and delivery also stack into single columns. The callback uses 18px 14px padding.
+Product names retain their 16ch
 maximum; details wrap naturally. Radio labels and product footers wrap, and the
 footer wraps with its final action on a full line. At 601px and above, the interest
 group has a local -16px top adjustment. At 1120px and above, the headline top
 margin is 6% and the still life gains 32px above it.
 
 Anchors have a 24px scroll offset; the callback adds a 35px block scroll margin.
-Product selection stays on the card. Its separate «Перейти к заявке» action,
-subscription actions, and help actions scroll the shared callback panel to its
-start and focus the next contact field while preserving entered values. The
-selected-offer summary sits before the contact fields, separated by a warm
-divider and 18px bottom padding; its quantity control and removal action use a
-12px top margin and 16px gap. Reduced-motion preference changes that movement
-to instant and disables smooth document scrolling.
+Product selection stays on the card. The separate «Перейти к заявке» actions
+on selected cards and the combined summary, subscription actions, and help
+actions open the shared callback panel while preserving entered values. The
+next contact field receives focus; when the selection list is taller than the
+viewport, that field scrolls into view. The selected-offer summary sits before
+the contact fields, separated by a warm divider and 18px bottom padding. Its
+flat list has 16px vertical row padding and bottom dividers; each row
+places the quantity control and removal action together with a 12px top margin
+and 16px gap. Reduced-motion preference changes movement to instant and disables
+smooth document scrolling.
 
 ## Elevation & Depth
 
@@ -427,8 +463,9 @@ type. They center the label and inline arrow with a 12px gap. Enabled hover chan
 the fill to cocoa and text to cream over 180ms ease-out for both properties.
 The pressed state uses the same cocoa fill and cream text, changes the visible
 label to «Выбрано», and replaces the arrow with a check mark. `aria-pressed`
-exposes the selection; pressing again clears it without scrolling. They share
-the global keyboard-focus, disabled, and reduced-motion treatments.
+exposes each card's independent selection; pressing again removes only that
+coffee without scrolling. They share the global keyboard-focus, disabled, and
+reduced-motion treatments.
 
 Underlined help and delivery actions have transparent backgrounds, a 44px minimum
 height, and a deep-orange hover color. The selected-card continuation fills its
@@ -449,11 +486,15 @@ price/action row. Pack size and per-pack price share the 14px supporting line.
 The 32px price is the current coffee subtotal; its secondary line states pack
 count and size, such as «2 × 250 г» or «2 × 10 дрип-пакетов». Names, tasting notes,
 pack sizes, and prices remain HTML from the shared catalog. Each «Выбрать» action
-includes the product name in its accessible label and selects one variety with
-one-time interest. The cocoa card outline, filled «Выбрано» button, check mark,
-and delivery hint give immediate feedback in place. Only the selected card
-shows «Перейти к заявке». A new selection replaces the previous variety; the
-subscription retains its fixed monthly offer. The footer is a tonal closing band.
+includes the product name in its accessible label and adds that coffee with
+one-time interest. Multiple cards can be selected together. The cocoa outline,
+filled «Выбрано» button, check mark, and combined «Всего за кофе» amount give
+immediate feedback in place. Each selected card shows «Перейти к заявке», which
+preserves the whole selection. The flat «Ваш кофе» summary below the grid lists
+all selected names and pack descriptions, then shows «Итого», combined delivery
+information, and the same continuation. It has warm horizontal dividers rather
+than a nested card surface. Selecting the subscription clears the coffee list
+and retains its fixed monthly offer. The footer is a tonal closing band.
 
 ### Inputs / Fields
 
@@ -470,18 +511,26 @@ stroke and orange center with a deep-orange edge. Radio labels have a minimum
 
 The optional comment is a tonal native disclosure with plus and chevron SVGs.
 Its chevron turns 180 degrees when open; its textarea resizes vertically.
-Selected offer context is a structured summary before the contact fields, with
-the product name on its own bold line, pack count and size, a larger bold
-«За кофе» subtotal, and muted delivery information. Below 50 BYN, the form
-explains that the manager will confirm the delivery charge; at 50 BYN or more it
-states that Minsk delivery is free. The summary repeats the shared quantity
-control beside an underlined «Убрать» action with a 44px minimum height. The
-fixed subscription summary has no quantity control. It remains plain form
-content rather than a pill or badge.
+Selected offer context is a structured group named «Ваш выбор» before the
+contact fields. Each coffee has a flat list row with a bold name, pack count and
+size, tabular line price, the shared quantity control, and an underlined
+«Убрать» action with a 44px minimum height. Removing a row preserves the other
+coffees. A larger bold «За кофе» total and muted delivery information follow
+the list. Below a combined 50 BYN, the form explains that the manager will
+confirm the delivery charge; at 50 BYN or more it states that Minsk delivery is
+free. «Очистить выбор» removes the entire coffee context. Changing interest to
+«Вопрос» preserves the list; choosing «Подписка» clears it and shows the fixed
+subscription summary without quantity controls. The summary remains plain form
+content with divider rows rather than nested cards, pills, or badges.
+
+Item validation errors share a nearby error message associated with the quantity
+groups; after the error state commits, focus returns to the relevant enabled
+quantity button or the status region. Contact-field errors retain their existing
+inline messages and focus behavior.
 
 ### Pack quantity control
 
-A compact outlined group repeats in each card and the selected-product summary.
+A compact outlined group repeats in each card and each selected-coffee row.
 The minus and plus buttons have 44px square targets, transparent fills, and a
 cream hover fill when enabled. A centered 18px tabular count has a 30px minimum
 width. The count is bounded from 1 to 99; the unavailable boundary button uses a
@@ -489,8 +538,9 @@ default cursor and 0.4 opacity. Submission disables the controls with the same
 treatment. Icons are inline 18px outline SVGs. Each group and button names its
 product accessibly, the count announces changes politely and atomically, and
 keyboard focus uses the global deep-orange outline. Card and summary controls
-share the same count. Quantity changes update the subtotal and delivery hint
-without selecting a different variety or moving the page.
+share the same count for that coffee. Quantity changes update its line subtotal,
+the combined coffee total, and delivery wording without changing the selected
+coffee types or moving the page.
 
 ### Feedback
 
@@ -529,7 +579,9 @@ Pliant with real rendered text; its provenance belongs in [asset sources](assets
 - **Do** honor reduced motion for scrolling and interaction transitions.
 - **Do** keep each coffee in its own flat warm-toned card with the shared callback selection behavior.
 - **Do** show selection in place with the cocoa outline, checked «Выбрано» action, and a separate continuation to the form.
-- **Do** keep pack counts, coffee subtotals, and delivery wording consistent between the card and form.
+- **Do** keep each coffee's pack count and line subtotal consistent between its card and form row.
+- **Do** show the combined coffee total and base delivery wording on that total in the catalog and form.
+- **Do** keep multi-coffee summaries flat, with warm dividers and per-line removal that preserves the other choices.
 
 ### Don't:
 

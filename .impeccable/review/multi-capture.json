@@ -1,0 +1,54 @@
+{
+  "url": "http://127.0.0.1:3001",
+  "capturedAt": "2026-10-19T07:58:16.839Z",
+  "browser": "155.0.8059.39",
+  "buildId": "Kmi4xnLtpQ7VihW4ftPm1",
+  "captures": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "pressed": 3,
+      "selectionText": "Вы выбрали:\n\nКолумбия Уила\n\n1 × 250 г\n\n29 BYN\n1\nУбрать\nБразилия Серрадо\n\n2 × 250 г\n\n52 BYN\n2\nУбрать\nДрип-пакеты, ассорти\n\n1 × 10 дрип-пакетов\n\n18 BYN\n1\nУбрать\nЗа кофе: 99 BYN\nДоставка по Минску — бесплатно.\nОчистить выбор",
+      "scrollWidth": 390,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "pressed": 3,
+      "selectionText": "Вы выбрали:\n\nКолумбия Уила\n\n1 × 250 г\n\n29 BYN\n1\nУбрать\nБразилия Серрадо\n\n2 × 250 г\n\n52 BYN\n2\nУбрать\nДрип-пакеты, ассорти\n\n1 × 10 дрип-пакетов\n\n18 BYN\n1\nУбрать\nЗа кофе: 99 BYN\nДоставка по Минску — бесплатно.\nОчистить выбор",
+      "scrollWidth": 1440,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    }
+  ],
+  "allFourFocus": [
+    {
+      "width": 320,
+      "visible": true
+    },
+    {
+      "width": 390,
+      "visible": true
+    },
+    {
+      "width": 600,
+      "visible": true
+    },
+    {
+      "width": 601,
+      "visible": true
+    },
+    {
+      "width": 768,
+      "visible": true
+    },
+    {
+      "width": 1440,
+      "visible": true
+    }
+  ]
+}

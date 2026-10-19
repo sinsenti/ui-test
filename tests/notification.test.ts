@@ -45,7 +45,7 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
     base = process.env.TEST_APP_URL!;
     assert.equal(new URL(base).hostname, "127.0.0.1");
   });
-  beforeEach(async () => { await getPool().query("TRUNCATE app.notification_outbox, app.leads"); });
+  beforeEach(async () => { await getPool().query("TRUNCATE app.notification_outbox, app.lead_items, app.leads"); });
   after(closePool);
 
   test("a new lead is promptly delivered via after(), and duplicates retain one sent job", async () => {
@@ -64,6 +64,7 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
     const lead: NotificationLead = { id: randomUUID(), accepted_at: new Date("2026-10-18T12:00:00Z"),
       ...contact, name: "😀".repeat(100), product_id: "brazil-cerrado",
       quantity: 2, unit_price_kopecks: 2600, total_price_kopecks: 5200,
+      items: [{ product_id: "brazil-cerrado", quantity: 2, unit_price_kopecks: 2600, total_price_kopecks: 5200 }],
       comment: "<b>Тест</b> _текст_\nID: fake\u202e" + "😀".repeat(2000),
       attribution: { utm_campaign: "a".repeat(256), landingUrl: "https://example.com/" + "z".repeat(2000) } };
     const message = formatNotification(lead);
@@ -78,18 +79,54 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
   test("notification quantities use real packaging and stored prices while other contexts keep their copy", () => {
     const lead: NotificationLead = { id: randomUUID(), accepted_at: new Date("2026-10-18T12:00:00Z"),
       ...contact, product_id: "ethiopia-yirgacheffe", quantity: 2, unit_price_kopecks: 3200,
-      total_price_kopecks: 6400, comment: null, attribution: {} };
+      total_price_kopecks: 6400, comment: null, attribution: {},
+      items: [{ product_id: "ethiopia-yirgacheffe", quantity: 2, unit_price_kopecks: 3200, total_price_kopecks: 6400 }] };
     const coffee = formatNotification(lead);
-    assert.ok(coffee.includes("Количество: 2 × 250 г\nЦена за упаковку: 32 BYN\nСумма за кофе: 64 BYN"));
-    const drip = formatNotification({ ...lead, product_id: "drip-assortment", unit_price_kopecks: 1700, total_price_kopecks: 3400 });
+    assert.ok(coffee.includes("Количество: 2 × 250 г\nЦена за упаковку: 32 BYN\nСумма позиции: 64 BYN\nСумма за кофе: 64 BYN"));
+    const drip = formatNotification({ ...lead, product_id: "drip-assortment", unit_price_kopecks: 1700, total_price_kopecks: 3400,
+      items: [{ product_id: "drip-assortment", quantity: 2, unit_price_kopecks: 1700, total_price_kopecks: 3400 }] });
     assert.ok(drip.includes("Количество: 2 × коробка по 10 дрип-пакетов"));
-    assert.ok(drip.includes("Цена за упаковку: 17 BYN\nСумма за кофе: 34 BYN"), "Stored snapshot takes precedence over the current catalog price.");
+    assert.ok(drip.includes("Цена за упаковку: 17 BYN\nСумма позиции: 34 BYN\nСумма за кофе: 34 BYN"), "Stored snapshot takes precedence over the current catalog price.");
     for (const product_id of [null, "subscription"] as const) {
       const message = formatNotification({ ...lead, product_id, interest: "question", quantity: null,
-        unit_price_kopecks: null, total_price_kopecks: null });
+        unit_price_kopecks: null, total_price_kopecks: null, items: [] });
       assert.ok(!message.includes("Количество:") && !message.includes("Цена за упаковку:") && !message.includes("Сумма за кофе:"));
     }
     assert.ok(!coffee.includes("Доставка:"));
+  });
+
+  test("one claim sends the full saved coffee list and combined subtotal before clipping optional text", async () => {
+    const [id] = await seed();
+    // Deliberately different from current catalog prices; notification reads snapshots.
+    await getPool().query(`INSERT INTO app.lead_items (lead_id, product_id, quantity, unit_price_kopecks) VALUES
+      ($1, 'ethiopia-yirgacheffe', 1, 3100), ($1, 'colombia-huila', 2, 2750),
+      ($1, 'brazil-cerrado', 3, 2400), ($1, 'drip-assortment', 4, 1700)`, [id]);
+    await getPool().query("UPDATE app.leads SET comment = $1, attribution = $2", ["😀".repeat(1000),
+      JSON.stringify({ utm_campaign: "a".repeat(256), landingUrl: "https://example.com/" + "z".repeat(2000) })]);
+    const claim = (await claimNotification(id))!;
+    assert.equal(claim.id, id);
+    assert.equal(claim.items.length, 4);
+    assert.equal(claim.product_id, null);
+    assert.equal(claim.total_price_kopecks, null);
+    assert.deepEqual(claim.items, [
+      { product_id: "ethiopia-yirgacheffe", quantity: 1, unit_price_kopecks: 3100, total_price_kopecks: 3100 },
+      { product_id: "colombia-huila", quantity: 2, unit_price_kopecks: 2750, total_price_kopecks: 5500 },
+      { product_id: "brazil-cerrado", quantity: 3, unit_price_kopecks: 2400, total_price_kopecks: 7200 },
+      { product_id: "drip-assortment", quantity: 4, unit_price_kopecks: 1700, total_price_kopecks: 6800 },
+    ]);
+    const message = formatNotification(claim);
+    assert.ok(message.length <= 3900 && message.isWellFormed());
+    for (const name of ["Эфиопия Иргачеффе", "Колумбия Уила", "Бразилия Серрадо", "Дрип-пакеты, ассорти"]) {
+      assert.ok(message.includes(name));
+    }
+    assert.ok(message.includes("Количество: 2 × 250 г\nЦена за упаковку: 27.5 BYN\nСумма позиции: 55 BYN"));
+    assert.ok(message.includes("Количество: 4 × коробка по 10 дрип-пакетов\nЦена за упаковку: 17 BYN\nСумма позиции: 68 BYN"));
+    assert.ok(message.includes("Сумма за кофе: 226 BYN"));
+    assert.ok(message.indexOf("Сумма за кофе: 226 BYN") < message.indexOf("Комментарий:"));
+    assert.equal(await claimNotification(id), undefined, "Four lines still belong to one claimed job.");
+    assert.equal(await completeNotification(claim, { kind: "sent" }), true);
+    assert.equal((await drainNotifications()).attempted, 0);
+    assert.equal((await job(id)).attempts, 1);
   });
 
   test("concurrent workers claim each job once, honor preference, and stop at three per drain", async () => {
@@ -159,7 +196,7 @@ describe("durable notifications with isolated PostgreSQL and no external sends",
     assert.equal(await retryFailedNotification(id), "not_retryable");
     await getPool().query("UPDATE app.notification_outbox SET next_attempt_at = clock_timestamp()");
     assert.equal((await drainNotifications(undefined, mockTransport("transient-once"))).sent, 1);
-    await getPool().query("TRUNCATE app.notification_outbox, app.leads");
+    await getPool().query("TRUNCATE app.notification_outbox, app.lead_items, app.leads");
     const [throttled] = await seed(3);
     const result = await drainNotifications(undefined, async () => ({ kind: "retry", error: "throttled", retryAfter: 7200 }));
     assert.equal(result.attempted, 1);

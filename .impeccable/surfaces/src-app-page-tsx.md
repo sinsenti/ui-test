@@ -35,4 +35,8 @@ The user then requested clear selection feedback, pack quantities and prices.
 Keep selection on the card with a visible pressed state, a shared +/− pack
 control and updated subtotal. A separate «Перейти к заявке» action opens the
 form, which repeats the chosen variety, quantity, subtotal and truthful delivery
-information. One variety per request; subscription remains the fixed offer.
+information. The later user request supersedes the single-variety limit: several
+coffees can stay selected together, each with its own pack count and removal.
+The catalog and form repeat the complete list and combined coffee total; delivery
+uses that sum. Subscription remains a separate fixed offer and clears the coffee
+list when selected.

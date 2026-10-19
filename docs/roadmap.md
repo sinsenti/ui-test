@@ -186,7 +186,9 @@ companion, then independently scored resolved with a ship verdict for that fix.
 Quantity follow-up (2026-10-19): the user requested visible selection feedback,
 pack counts and totals. Selection now stays on the card with a pressed state;
 separate continuation opens the callback form. Shared pack controls and subtotals
-stay synchronized, with one variety per request and the fixed subscription intact.
+stay synchronized. At that stage requests contained one variety; the subsequent
+multi-selection extension below supersedes that limit. The fixed subscription
+remains intact.
 Migration `1792281602000` adds validated quantity, a server-owned unit-price
 snapshot and a database-generated subtotal. Notifications use that saved snapshot.
 Lint, types and production build passed. Independent isolated testing passed
@@ -198,6 +200,23 @@ material defect; source-derived design records and current
 [quantity captures](development.md#visual-and-performance-evidence) are updated.
 Local `db:up`, `db:migrate` and `db:check` passed. No real Telegram, cloud or
 deployed performance verification is claimed; F4 opening approval remains pending.
+
+Multiple-coffee follow-up (2026-10-19): selecting another variety now keeps the
+existing choices. Card and form quantities/removal controls remain independent;
+a combined catalog summary and callback list show all lines and their total.
+Free delivery uses the combined amount. The fixed subscription stays separate.
+Migration `1792281603000` adds canonical saved line items and backfills existing
+snapshots; rollback refuses unrepresentable multi-item requests. The atomic
+acceptance transaction and one notification carry the complete list and saved
+prices, while legacy scalar requests remain supported. Lint, types and production
+build passed; independent isolated testing passed 47/47 checks, including all four
+coffees at 99 packs, six-width layout/focus checks, strict API validation, complete
+snapshot persistence, concurrency/duplicate invariants, rollback/backfill and
+notification aggregation. Current [multi-selection captures](development.md#visual-and-performance-evidence)
+show the same three coffees totaling 99 BYN in catalog and form. Independent
+source/data/UI review found no material defect. Local `db:up`, `db:migrate` and
+`db:check` passed. Broader F4 opening approval and F5 remain unchanged; physical
+devices, other browser engines and real Telegram remain outside this local evidence.
 
 Work to do:
 
@@ -213,6 +232,8 @@ Work to do:
 - [x] Extend the catalog with individual warm-toned product cards as requested.
 - [x] Show visible selection, editable pack quantity and matching card/form totals;
   persist quantity and trusted prices and include them in local notifications.
+- [x] Allow multiple coffee types together, independent line removal, combined
+  pricing/delivery, and complete persisted and notified item lists.
 - [x] Give product and subscription actions equal useful access to one shared
   form; preselect interest and preserve relevant product context.
 - [x] Build labeled name/phone/interest fields and optional comment, phone help,
