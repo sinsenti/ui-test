@@ -170,6 +170,19 @@ and cannot prove missing elements; a matching-viewport comparison is retained
 separately. Final phase closure depends on accepting the rendered page or
 requesting form-spacing changes. F4 is not marked complete and F5 has not begun.
 
+Catalog follow-up (2026-10-19): the user requested an individual box for each
+coffee offer. The four offers now use flat warm-toned cards, two columns above
+600px and a single column at 600px and below, with unchanged facts, prices and
+shared callback selection. Lint, types and the production build passed. The
+expanded disposable-PostgreSQL suite passed all 34 tests, including ten browser
+groups covering saved product context, input retention, and card bounds at
+320/390/600/601/768/1440px. Independent production probes found no external
+requests and zero axe violations at 601px; code/visual review found no material
+runtime defect. Separate [capture evidence](development.md#visual-and-performance-evidence)
+records this refinement; the earlier Lighthouse result predates it. The scoped
+review's design-record finding was resolved in `docs/DESIGN.md` and its machine
+companion, then independently scored resolved with a ship verdict for that fix.
+
 Work to do:
 
 - [x] Use the local Impeccable skill and the approved original composition.
@@ -181,6 +194,7 @@ Work to do:
   than rendering the whole page as one raster mockup.
 - [x] Add all required content: freshness/story, four products with correct
   prices, subscription, Friday delivery, pickup address/hours, and contacts.
+- [x] Extend the catalog with individual warm-toned product cards as requested.
 - [x] Give product and subscription actions equal useful access to one shared
   form; preselect interest and preserve relevant product context.
 - [x] Build labeled name/phone/interest fields and optional comment, phone help,

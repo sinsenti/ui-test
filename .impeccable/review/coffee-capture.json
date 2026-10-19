@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:3001",
+  "capturedAt": "2026-10-19T07:00:57.177Z",
+  "browser": "155.0.8059.39",
+  "buildId": "7ZA2JLhrP8JuOAErbI3vU",
+  "captures": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "catalogBox": {
+        "x": 25.34375,
+        "y": 1023.765625,
+        "width": 339.3125,
+        "height": 1343.65625
+      },
+      "scrollWidth": 390,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "catalogBox": {
+        "x": 232.796875,
+        "y": 2049.34375,
+        "width": 974.40625,
+        "height": 845.5625
+      },
+      "scrollWidth": 1440,
+      "loadedFonts": 2,
+      "imageLoaded": true
+    }
+  ]
+}

@@ -127,6 +127,11 @@ can be explored later. The user approved the generated production still life and
 build plan before assembly. Font licenses and generation provenance live in
 [asset sources](assets.md).
 
+The user subsequently requested an individual box for each offered coffee.
+The catalog uses four separate warm-toned product cards, with the existing
+names, tasting notes, pack sizes, prices, and shared callback selection. This
+extends the cosy-pack direction; the opening composition remains the baseline.
+
 ## Evidence on Hand
 
 The client is fictional; the following are supplied assignment facts, not

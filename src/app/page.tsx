@@ -12,9 +12,9 @@ export default function Home() {
       <LeadFlow afterForm={<>
         <section className={styles.catalog} id="coffee" aria-labelledby="coffee-heading">
           <h2 id="coffee-heading">Кофе на выбор</h2>
-          <div className={styles.productList}>{products.map((product) => <article className={styles.product} key={product.id}>
-            <div><h3>{product.name}</h3><p className={styles.tasting}>{product.notes}</p><p className={styles.productDetail}>{product.detail} · {product.size}</p></div>
-            <div className={styles.productAction}><p className={styles.price}>{product.price} <span>BYN</span></p><OfferButton interest="one-time" productId={product.id} className={styles.choose}>Выбрать<span className={styles.srOnly}> {product.name}</span><Arrow /></OfferButton></div>
+          <div className={styles.productList}>{products.map((product) => <article className={`${styles.product} ${styles[product.id]}`} key={product.id}>
+            <div><h3>{product.name}</h3><p className={styles.productSize}>{product.size}</p><p className={styles.tasting}>{product.notes}</p><p className={styles.productDetail}>{product.detail}</p></div>
+            <div className={styles.productAction}><p className={styles.price}>{product.price} <span>BYN</span></p><OfferButton interest="one-time" productId={product.id} className={styles.productButton}>Выбрать<span className={styles.srOnly}> {product.name}</span><Arrow /></OfferButton></div>
           </article>)}</div>
           <p className={styles.catalogNote}>Не знаете, с чего начать? <OfferButton interest="question" className={styles.textButton}>Поможем выбрать кофе<Arrow /></OfferButton></p>
         </section>

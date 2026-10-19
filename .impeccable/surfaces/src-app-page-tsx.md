@@ -22,3 +22,11 @@ FIRST VIEWPORT: Mobile follows the approved vertical path: wordmark and menu, bo
 FORM: User-selected “Your morning table”, original cosy-pack.png. No new concept-seed roll was run for F4: this implementation began directly from the existing user-pinned approved comp (`build-phase start --comp`, direction null). Offer selection moves to the shared form and retains entered values; reduced motion removes smooth movement.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+
+## Catalog extension
+
+The user requested individual boxes for the four coffee offers. Keep the
+surrounding composition and shared callback behavior. Use flat warm-toned cards
+in two columns on wider screens and one on phones, with clear product facts,
+prices and dedicated selection buttons. This authorizes the catalog component
+change; it does not record assembled-page approval or replace the opening comp.

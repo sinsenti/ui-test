@@ -222,7 +222,17 @@ The latter two are full-page images. `capture.json` records actual dimensions,
 browser version, font/image completion, and overflow. Compare at the original
 comp's viewport; mobile uses larger readable controls and phone help.
 
-Measured on 2026-10-19 (local date), using the production application at
+The subsequent user-requested coffee-card refinement has separate production
+captures: [mobile catalog](../.impeccable/review/coffee-mobile.png),
+[desktop catalog](../.impeccable/review/coffee-desktop.png), and full-page
+[mobile](../.impeccable/review/coffee-mobile-page.png) and
+[desktop](../.impeccable/review/coffee-desktop-page.png) renders.
+[Capture metadata](../.impeccable/review/coffee-capture.json) records the actual
+build, viewport, browser, and local asset loading. These preserve the earlier
+opening-comparison evidence rather than replacing it.
+
+Measured before that catalog refinement on 2026-10-19 (local date), using the
+production application at
 `http://127.0.0.1:3001`, Lighthouse 13.5.0 / headless Chrome 155:
 
 | Category or metric | Measured result |

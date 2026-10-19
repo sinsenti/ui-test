@@ -54,15 +54,21 @@
 .catalog, .story, .delivery { margin: 4% var(--gutter) 0; padding-top: 3%; border-top: 1px solid var(--line); }
 .catalog { margin-top: 3.2%; padding-top: 2.3%; border-top-color: #e0cabe; }
 .catalog h2, .story h2, .delivery h2, .subscription h2 { font-size: clamp(28px, 5.6vw, 54px); line-height: 1.06; letter-spacing: -.03em; font-weight: 700; }
-.productList { margin-top: 4px; }
-.product { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 28px; border-bottom: 1px solid var(--line); }
-.product:first-child { padding-top: 6px; }
-.product h3 { font-size: clamp(20px, 3.7vw, 32px); font-weight: 500; line-height: 1.2; letter-spacing: -.025em; }
-.tasting { color: var(--muted); font-size: clamp(16px, 2.2vw, 20px); margin-top: 9px; }
-.productDetail { color: var(--muted); font-size: 14px; margin-top: 6px; line-height: 1.4; }
-.productAction { text-align: right; flex-shrink: 0; }
-.price { font-size: clamp(22px, 4vw, 32px); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.productList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.product { display: flex; flex-direction: column; gap: 28px; padding: clamp(22px, 3vw, 32px); border-radius: 16px; background: var(--cream); }
+.ethiopia-yirgacheffe { background: #f8e7b7; }
+.colombia-huila { background: #f3d4c4; }
+.brazil-cerrado { background: #eddbc6; }
+.drip-assortment { background: var(--cream); }
+.product h3 { max-width: 16ch; font-size: clamp(24px, 3vw, 32px); font-weight: 600; line-height: 1.12; letter-spacing: -.025em; text-wrap: balance; }
+.productSize { margin-top: 8px; color: var(--muted); font-size: 14px; }
+.tasting { font-size: clamp(19px, 2.2vw, 23px); line-height: 1.25; margin-top: 28px; }
+.productDetail { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.45; }
+.productAction { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); }
+.price { font-size: 32px; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
 .price span { font-size: .65em; font-weight: 400; }
+.productButton { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 11px 16px; border: 1px solid var(--cocoa); border-radius: 12px; background: transparent; color: var(--cocoa); font-size: 16px; transition: background 180ms ease-out, color 180ms ease-out; }
+.productButton:hover:not(:disabled) { background: var(--cocoa); color: var(--cream); }
 .choose, .textButton { display: inline-flex; align-items: center; gap: 12px; background: transparent; text-decoration: underline; text-underline-offset: .2em; padding: 12px 0; min-height: 44px; font-size: 16px; }
 .choose:hover, .textButton:hover, .footer a:hover { color: var(--orange-dark); }
 .catalogNote { margin-top: 18px; font-size: 16px; color: var(--muted); line-height: 1.5; }
@@ -103,10 +109,9 @@
   .radioRow { gap: 2px 10px; }
   .radioRow label { gap: 6px; }
   .catalog { margin-top: 24px; padding-top: 18px; }
-  .product { align-items: flex-start; gap: 10px; padding-block: 22px; }
-  .product h3 { max-width: 15ch; }
+  .productList { grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
+  .product h3 { font-size: 28px; }
   .choose { gap: 6px; font-size: 14px; }
-  .productDetail { max-width: 24ch; }
   .catalogNote .textButton { display: flex; }
   .subscription { grid-template-columns: 1fr; gap: 28px; border-radius: 28px; padding: 28px 20px; margin-top: 38px; }
   .subscriptionIntro > p { font-size: 17px; }

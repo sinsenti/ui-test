@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-18T22:12:23Z",
+  "generatedAt": "2026-10-19T07:08:20Z",
   "title": "Design System: Kvarta",
   "extensions": {
     "colorMeta": {
@@ -213,6 +213,21 @@
           "oklch(83.57% 0.03245 58.38)",
           "oklch(95.00% 0.03245 58.38)"
         ]
+      },
+      "product-ethiopia": {
+        "role": "neutral",
+        "displayName": "Ethiopia card",
+        "canonical": "#f8e7b7"
+      },
+      "product-colombia": {
+        "role": "neutral",
+        "displayName": "Colombia card",
+        "canonical": "#f3d4c4"
+      },
+      "product-brazil": {
+        "role": "neutral",
+        "displayName": "Brazil card",
+        "canonical": "#eddbc6"
       }
     },
     "typographyMeta": {
@@ -226,7 +241,7 @@
       },
       "title": {
         "displayName": "Product title",
-        "purpose": "Medium-weight product h3 names."
+        "purpose": "Weight-600 product h3 names, balanced within 16ch; 28px at 600px and below."
       },
       "body": {
         "displayName": "Editorial body",
@@ -243,6 +258,26 @@
       "action": {
         "displayName": "Filled action",
         "purpose": "Callback submit; subscription action uses the local 21px override."
+      },
+      "product-size": {
+        "displayName": "Product pack size",
+        "purpose": "Muted pack-size copy below the product name."
+      },
+      "product-tasting": {
+        "displayName": "Product tasting notes",
+        "purpose": "Prominent tasting notes inside each catalog card."
+      },
+      "product-detail": {
+        "displayName": "Product detail",
+        "purpose": "Muted supporting detail with 1.45 leading."
+      },
+      "product-price": {
+        "displayName": "Product price",
+        "purpose": "Tabular, non-wrapping BYN price; currency suffix is 0.65em at weight 400."
+      },
+      "product-action": {
+        "displayName": "Product selection",
+        "purpose": "Outlined coffee-selection action; retained at 16px on small screens."
       }
     },
     "shadows": [
@@ -272,6 +307,11 @@
         "name": "comment-chevron-open",
         "value": "rotate(180deg)",
         "purpose": "Native disclosure open state; no animated transition is defined."
+      },
+      {
+        "name": "product-selection-hover",
+        "value": "background 180ms ease-out, color 180ms ease-out",
+        "purpose": "Enabled outlined product-selection buttons; disabled by reduced-motion preference."
       }
     ],
     "breakpoints": [
@@ -302,7 +342,7 @@
       "name": "Underlined action",
       "kind": "button",
       "refersTo": "button-text",
-      "description": "Product, advice, and delivery actions return to the shared callback form.",
+      "description": "Advice and delivery actions return to the shared callback form.",
       "html": "<button class=\"ds-text-action\" type=\"button\">Поможем выбрать кофе<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button>",
       "css": ".ds-text-action { font-family: var(--font-text, Pliant), sans-serif; color: var(--cocoa, #2b0c09); display: inline-flex; align-items: center; gap: 12px; background: transparent; border: 0; text-decoration: underline; text-underline-offset: .2em; padding: 12px 0; min-height: 44px; font-size: 16px; cursor: pointer; } .ds-text-action:hover { color: var(--orange-dark, #b63d0b); } .ds-text-action:disabled { cursor: wait; opacity: .62; } .ds-text-action:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-text-action svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }"
     },
@@ -353,16 +393,32 @@
       "description": "Flat warm panel; two columns become one at the existing 600px breakpoint.",
       "html": "<section class=\"ds-subscription\"><div class=\"ds-subscription-intro\"><h2>Чтобы кофе<br>был дома.</h2><p>Две пачки по 250 г каждый месяц.<br>На ваши утренние чашки и тёплые паузы.</p></div><div class=\"ds-subscription-offer\"><p class=\"ds-subscription-price\">54 <span>BYN / месяц</span></p><p>Доставка по Минску включена.</p><button type=\"button\" class=\"ds-subscription-action\">Хочу подписку<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button><p class=\"ds-subscription-small\">Состав подписки обсудим, когда перезвоним.</p></div></section>",
       "css": ".ds-subscription { font-family: var(--font-text, Pliant), sans-serif; background: #f5d9c3; color: var(--cocoa, #2b0c09); border-radius: 36px; padding: 5% 3%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; } .ds-subscription h2 { margin: 0; font-size: clamp(28px, 5.6vw, 54px); line-height: 1.06; letter-spacing: -.03em; font-weight: 700; } .ds-subscription-intro > p { margin: 20px 0 0; font-size: 19px; line-height: 1.45; } .ds-subscription-offer { align-self: center; } .ds-subscription-price { margin: 0; font-size: clamp(46px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.035em; white-space: nowrap; font-variant-numeric: tabular-nums; } .ds-subscription-price span { font-size: 18px; font-weight: 400; letter-spacing: -.01em; } .ds-subscription-offer > p:nth-child(2) { margin: 10px 0 0; font-size: 17px; } .ds-subscription-action { font-family: var(--font-text, Pliant), sans-serif; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; margin-top: 24px; border: 0; border-radius: 14px; padding: 16px 22px; background: var(--orange, #f86725); color: var(--cocoa, #2b0c09); font-size: 21px; font-weight: 700; min-height: 48px; cursor: pointer; transition: background 180ms ease-out; } .ds-subscription-action:hover:not(:disabled) { background: #ff7c3e; } .ds-subscription-action:disabled { cursor: wait; opacity: .62; } .ds-subscription-small { color: var(--muted, #795240); margin: 14px 0 0; font-size: 14px; line-height: 1.5; } .ds-subscription-action:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-subscription-action svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } @media (max-width: 600px) { .ds-subscription { grid-template-columns: 1fr; gap: 28px; border-radius: 28px; padding: 28px 20px; } .ds-subscription-intro > p { font-size: 17px; } .ds-subscription-price { font-size: 52px; } } @media (prefers-reduced-motion: reduce) { .ds-subscription-action { transition: none; } }"
+    },
+    {
+      "name": "Product selection action",
+      "kind": "button",
+      "refersTo": "button-product",
+      "description": "Outlined coffee-selection button from src/app/page.module.css; product context and one-time interest are handled by OfferButton in src/app/lead-form.tsx.",
+      "html": "<button type=\"button\" class=\"ds-product-button\">Выбрать<span class=\"ds-product-sr-only\"> Эфиопия Иргачеффе</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button>",
+      "css": ".ds-product-button { font-family: var(--font-text, Pliant), sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 11px 16px; border: 1px solid var(--cocoa, #2b0c09); border-radius: 12px; background: transparent; color: var(--cocoa, #2b0c09); font-size: 16px; cursor: pointer; transition: background 180ms ease-out, color 180ms ease-out; } .ds-product-button:hover:not(:disabled) { background: var(--cocoa, #2b0c09); color: var(--cream, #fff8f0); } .ds-product-button:disabled { cursor: wait; opacity: .62; } .ds-product-button:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-product-button svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } .ds-product-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } @media (prefers-reduced-motion: reduce) { .ds-product-button { transition: none; } }"
+    },
+    {
+      "name": "Coffee catalog cards",
+      "kind": "card",
+      "refersTo": "product-card",
+      "description": "Four flat warm-toned articles from src/app/page.tsx and page.module.css, with shared src/lib/catalog.ts facts; two columns above 600px and one at 600px and below. Preview buttons show visual states; application callback handlers remain in OfferButton.",
+      "html": "<div class=\"ds-product-list\"><article class=\"ds-product-card ds-ethiopia-yirgacheffe\"><div><h3>Эфиопия Иргачеффе</h3><p class=\"ds-product-size\">250 г</p><p class=\"ds-product-tasting\">Цветы и бергамот</p><p class=\"ds-product-detail\">Светлая обжарка</p></div><div class=\"ds-product-action\"><p class=\"ds-product-price\">32 <span>BYN</span></p><button type=\"button\" class=\"ds-product-button\">Выбрать<span class=\"ds-product-sr-only\"> Эфиопия Иргачеффе</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button></div></article><article class=\"ds-product-card ds-colombia-huila\"><div><h3>Колумбия Уила</h3><p class=\"ds-product-size\">250 г</p><p class=\"ds-product-tasting\">Карамель и красное яблоко</p><p class=\"ds-product-detail\">Для вашего кофейного утра</p></div><div class=\"ds-product-action\"><p class=\"ds-product-price\">29 <span>BYN</span></p><button type=\"button\" class=\"ds-product-button\">Выбрать<span class=\"ds-product-sr-only\"> Колумбия Уила</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button></div></article><article class=\"ds-product-card ds-brazil-cerrado\"><div><h3>Бразилия Серрадо</h3><p class=\"ds-product-size\">250 г</p><p class=\"ds-product-tasting\">Орехи и шоколад</p><p class=\"ds-product-detail\">Хороша для эспрессо</p></div><div class=\"ds-product-action\"><p class=\"ds-product-price\">26 <span>BYN</span></p><button type=\"button\" class=\"ds-product-button\">Выбрать<span class=\"ds-product-sr-only\"> Бразилия Серрадо</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button></div></article><article class=\"ds-product-card ds-drip-assortment\"><div><h3>Дрип-пакеты, ассорти</h3><p class=\"ds-product-size\">10 штук</p><p class=\"ds-product-tasting\">Любимый кофе — где угодно</p><p class=\"ds-product-detail\">Нужны только чашка и горячая вода</p></div><div class=\"ds-product-action\"><p class=\"ds-product-price\">18 <span>BYN</span></p><button type=\"button\" class=\"ds-product-button\">Выбрать<span class=\"ds-product-sr-only\"> Дрип-пакеты, ассорти</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" /></svg></button></div></article></div>",
+      "css": ".ds-product-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; } .ds-product-card { font-family: var(--font-text, Pliant), sans-serif; color: var(--cocoa, #2b0c09); display: flex; flex-direction: column; gap: 28px; padding: clamp(22px, 3vw, 32px); border-radius: 16px; background: var(--cream, #fff8f0); } .ds-ethiopia-yirgacheffe { background: #f8e7b7; } .ds-colombia-huila { background: #f3d4c4; } .ds-brazil-cerrado { background: #eddbc6; } .ds-drip-assortment { background: var(--cream, #fff8f0); } .ds-product-card h3 { margin: 0; max-width: 16ch; font-size: clamp(24px, 3vw, 32px); font-weight: 600; line-height: 1.12; letter-spacing: -.025em; text-wrap: balance; } .ds-product-card p { margin: 0; } .ds-product-card .ds-product-size { margin-top: 8px; color: var(--muted, #795240); font-size: 14px; } .ds-product-card .ds-product-tasting { font-size: clamp(19px, 2.2vw, 23px); line-height: 1.25; margin-top: 28px; } .ds-product-card .ds-product-detail { color: var(--muted, #795240); font-size: 14px; margin-top: 8px; line-height: 1.45; } .ds-product-action { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line, #d8b9a5); } .ds-product-price { font-size: 32px; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -.02em; } .ds-product-price span { font-size: .65em; font-weight: 400; } .ds-product-button { font-family: var(--font-text, Pliant), sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 11px 16px; border: 1px solid var(--cocoa, #2b0c09); border-radius: 12px; background: transparent; color: var(--cocoa, #2b0c09); font-size: 16px; cursor: pointer; transition: background 180ms ease-out, color 180ms ease-out; } .ds-product-button:hover:not(:disabled) { background: var(--cocoa, #2b0c09); color: var(--cream, #fff8f0); } .ds-product-button:disabled { cursor: wait; opacity: .62; } .ds-product-button:focus-visible { outline: 3px solid var(--orange-dark, #b63d0b); outline-offset: 5px; } .ds-product-button svg { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } .ds-product-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } @media (prefers-reduced-motion: reduce) { .ds-product-button { transition: none; } } @media (max-width: 600px) { .ds-product-list { grid-template-columns: 1fr; gap: 14px; margin-top: 22px; } .ds-product-card h3 { font-size: 28px; } }"
     }
   ],
   "narrative": {
     "northStar": "Your morning table",
-    "overview": "The user-selected [original cosy-pack composition](../.impeccable/mocks/decision/cosy-pack.png)\nestablishes a warm, plainspoken world: peach paper, cream panels, cocoa text,\norange actions, and a coffee bag and ceramic cup arranged as one organic still\nlife. Broad Cyrillic lettering and compact sans-serif copy make the invitation\ndirect and familiar.\n\nThis document records the implemented local landing page, extracted from\n[global styles](../src/app/globals.css), [page styles](../src/app/page.module.css),\nand the [page](../src/app/page.tsx), [form](../src/app/lead-form.tsx), and\n[header](../src/app/site-header.tsx). The still life and build plan were approved;\nuser approval of the assembled first viewport remains pending. This record does\nnot mark F4 complete. The [roadmap](roadmap.md) owns completion status.",
+    "overview": "The user-selected [original cosy-pack composition](../.impeccable/mocks/decision/cosy-pack.png)\nestablishes a warm, plainspoken world: peach paper, cream panels, cocoa text,\norange actions, and a coffee bag and ceramic cup arranged as one organic still\nlife. Broad Cyrillic lettering and compact sans-serif copy make the invitation\ndirect and familiar.\n\nThis document records the implemented local landing page, extracted from\n[global styles](../src/app/globals.css), [page styles](../src/app/page.module.css),\nand the [page](../src/app/page.tsx), [form](../src/app/lead-form.tsx), and\n[header](../src/app/site-header.tsx). The still life and build plan were approved;\nuser approval of the assembled first viewport remains pending. This record does\nnot mark F4 complete. The [roadmap](roadmap.md) owns completion status.\n\nThe user's later request for an individual box for each coffee extends the local\ncatalog with four warm-toned cards. The [surface brief](../.impeccable/surfaces/src-app-page-tsx.md)\nrecords that scope. This merges the implemented card component into the existing\nworld; the original opening composition and its pending assembled-page approval\nremain as recorded above. [Desktop](../.impeccable/review/coffee-desktop.png) and\n[mobile](../.impeccable/review/coffee-mobile.png) catalog captures, their\n[full-page desktop](../.impeccable/review/coffee-desktop-page.png) and\n[mobile](../.impeccable/review/coffee-mobile-page.png) counterparts, and\n[capture metadata](../.impeccable/review/coffee-capture.json) show this extension.",
     "keyCharacteristics": [
       "Warm peach and cream surfaces with cocoa text and orange actions.",
       "Broad geometric Cyrillic wordmarks and tightly stacked sans-serif headings.",
       "One complete organic coffee still life with a transparent exterior.",
-      "Rounded callback controls, flat editorial product rows, and restrained motion."
+      "Rounded callback controls, flat warm-toned product cards, and restrained motion."
     ],
     "rules": [
       {
@@ -387,13 +443,14 @@
       "Do use Pliant for readable Cyrillic interface text and the supplied Unbounded subset for «КВАРТА».",
       "Do keep the organic still life complete and serve imagery and fonts locally.",
       "Do retain inline feedback and entered values through recoverable form failures.",
-      "Do honor reduced motion for scrolling and interaction transitions."
+      "Do honor reduced motion for scrolling and interaction transitions.",
+      "Do keep each coffee in its own flat warm-toned card with the shared callback selection behavior."
     ],
     "donts": [
       "Don't replace the approved original composition with the unselected serif experiment.",
       "Don't make decorative section dividers stand in for text-field borders.",
       "Don't rasterize headings, product facts, or controls into the hero image.",
-      "Don't add card shadows to ordinary panels or promote catalog rows into enclosed cards without a new design decision.",
+      "Don't add shadows to the flat catalog cards or ordinary panels.",
       "Don't treat this implementation record as assembled-hero approval or release completion."
     ]
   }

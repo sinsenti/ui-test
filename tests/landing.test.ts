@@ -133,18 +133,27 @@ describe("responsive landing and real browser callback flow with isolated Postgr
 
   test("all four products and both subscription actions reach the shared form with compatible saved context", async () => {
     await page.goto(base);
+    await page.getByText("Комментарий (необязательно)", { exact: true }).click();
+    await page.getByLabel("Ваш комментарий").fill("Нужен помол для фильтра");
     const products = [
       ["ethiopia-yirgacheffe", "Эфиопия Иргачеффе"], ["colombia-huila", "Колумбия Уила"],
       ["brazil-cerrado", "Бразилия Серрадо"], ["drip-assortment", "Дрип-пакеты, ассорти"],
     ];
     for (const [index, [id, name]] of products.entries()) {
+      const phone = `+37529123450${index + 1}`;
+      await fill(phone, "Анна");
       await page.getByRole("button", { name: `Выбрать ${name}`, exact: true }).click();
       await expect(form().getByRole("radio", { name: "Разовый заказ", exact: true })).toBeChecked();
       await expect(form().getByRole("status").filter({ hasText: "Вы выбрали:" })).toContainText(name);
-      const phone = `+37529123450${index + 1}`;
-      await fill(phone);
+      await expect(page.getByLabel("Имя", { exact: true })).toHaveValue("Анна");
+      await expect(page.getByLabel("Телефон", { exact: true })).toHaveValue(phone);
+      await expect(page.getByLabel("Ваш комментарий")).toHaveValue("Нужен помол для фильтра");
+      await expect(page.getByLabel("Телефон", { exact: true })).toBeFocused();
       await send(201, saved);
-      assert.equal((await oneDelivered(phone)).product_id, id);
+      const lead = await oneDelivered(phone);
+      assert.equal(lead.product_id, id);
+      assert.equal(lead.interest, "one-time");
+      assert.equal(lead.comment, "Нужен помол для фильтра");
     }
     await page.getByRole("button", { name: "Подписка — 54 BYN / месяц", exact: true }).click();
     await expect(form().getByRole("radio", { name: "Подписка", exact: true })).toBeChecked();
@@ -302,18 +311,22 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     const external: string[] = [];
     page.on("request", (request) => { if (new URL(request.url()).origin !== base) external.push(request.url()); });
     await page.goto(base);
-    for (const width of [320, 390, 768, 1440]) {
+    for (const width of [320, 390, 600, 601, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await page.evaluate(() => document.fonts.ready);
       const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth }));
       assert.ok(dimensions.document <= dimensions.viewport + 1 && dimensions.body <= dimensions.viewport + 1, `Horizontal overflow at ${width}: ${JSON.stringify(dimensions)}`);
       const image = page.getByRole("img", { name: /Чашка кофе/ });
       await expect(image).toBeVisible();
-      await expect.poll(() => image.evaluate((element) => {
-        const image = element as HTMLImageElement;
-        return image.complete && image.naturalWidth > 0;
-      }), { timeout: 8_000, message: `Responsive image failed to load at ${width} px` }).toBe(true);
-      const imageUrl = await image.evaluate((element) => (element as HTMLImageElement).currentSrc);
+      let imageUrl = "";
+      await expect.poll(async () => {
+        const loaded = await image.evaluate((element) => {
+          const image = element as HTMLImageElement;
+          return { complete: image.complete, naturalWidth: image.naturalWidth, currentSrc: image.currentSrc };
+        });
+        imageUrl = loaded.currentSrc;
+        return loaded.complete && loaded.naturalWidth > 0 && imageUrl.length > 0;
+      }, { timeout: 8_000, message: `Responsive image failed to load at ${width} px` }).toBe(true);
       assert.equal(new URL(imageUrl).origin, base);
       const optimizedImage = await context.request.get(imageUrl, { timeout: 8_000 });
       assert.equal(optimizedImage.status(), 200, `Image optimizer failed at ${width} px`);
@@ -324,6 +337,29 @@ describe("responsive landing and real browser callback flow with isolated Postgr
       await expect(submit()).toBeVisible();
       for (const control of [submit(), page.getByLabel("Имя", { exact: true }), page.getByLabel("Телефон", { exact: true }), page.getByRole("button", { name: "Хочу подписку", exact: true })]) {
         assert.ok((await control.boundingBox())!.height >= 44, `Main touch target shorter than 44 px at ${width}`);
+      }
+      const cards = page.getByRole("region", { name: "Кофе на выбор", exact: true }).getByRole("article");
+      assert.equal(await cards.count(), 4);
+      const boxes = await cards.evaluateAll((elements) => elements.map((element) => {
+        const box = element.getBoundingClientRect();
+        return { x: box.x, y: box.y, right: box.right, bottom: box.bottom };
+      }));
+      if (width <= 600) {
+        assert.ok(Math.abs(boxes[0].x - boxes[1].x) <= 1 && boxes[0].bottom < boxes[1].y, `Cards must stack at ${width}`);
+      } else {
+        assert.ok(Math.abs(boxes[0].y - boxes[1].y) <= 1 && boxes[0].right < boxes[1].x, `Cards must form two columns at ${width}`);
+      }
+      for (const [index, card] of (await cards.all()).entries()) {
+        const bounds = boxes[index];
+        assert.ok(bounds.x >= 0 && bounds.right <= width + 1, `Card leaves viewport at ${width}`);
+        const button = await card.getByRole("button").boundingBox();
+        assert.ok(button && button.width >= 44 && button.height >= 44, `Coffee action target is too small at ${width}`);
+        const clipped = await card.locator("h3, p, button").evaluateAll((elements) => elements.filter((element) => {
+          const box = element.getBoundingClientRect();
+          const card = element.closest("article")!.getBoundingClientRect();
+          return box.left < card.left - 1 || box.right > card.right + 1 || box.top < card.top - 1 || box.bottom > card.bottom + 1 || element.scrollWidth > element.clientWidth + 1;
+        }).map((element) => element.textContent));
+        assert.deepEqual(clipped, [], `Clipped coffee card content at ${width}`);
       }
       await page.screenshot({ path: `/tmp/kvarta-landing-${width}.png`, fullPage: true });
     }
@@ -341,9 +377,16 @@ describe("responsive landing and real browser callback flow with isolated Postgr
     assert.equal(fonts.scroll, "auto");
     assert.ok(fonts.transition.split(",").every((value) => parseFloat(value) === 0));
     assert.deepEqual(external, []);
-    for (const [name, price] of [["Эфиопия Иргачеффе", "32 BYN"], ["Колумбия Уила", "29 BYN"], ["Бразилия Серрадо", "26 BYN"], ["Дрип-пакеты, ассорти", "18 BYN"]]) {
+    for (const [name, price, size, notes] of [
+      ["Эфиопия Иргачеффе", "32 BYN", "250 г", "Цветы и бергамот"],
+      ["Колумбия Уила", "29 BYN", "250 г", "Карамель и красное яблоко"],
+      ["Бразилия Серрадо", "26 BYN", "250 г", "Орехи и шоколад"],
+      ["Дрип-пакеты, ассорти", "18 BYN", "10 штук", "Любимый кофе — где угодно"],
+    ]) {
       const article = page.getByRole("article").filter({ has: page.getByRole("heading", { name, exact: true }) });
       await expect(article).toContainText(price);
+      await expect(article).toContainText(size);
+      await expect(article).toContainText(notes);
     }
     await expect(page.getByText("Минск, ул. Короля, 9", { exact: true })).toBeVisible();
     await expect(page.getByText("Пн–пт · 08:00–20:00Сб–вс · 10:00–18:00", { exact: true })).toBeVisible();
