@@ -13,7 +13,7 @@ Mode: Persuade. Russian-speaking visitors in Minsk choose coffee or a subscripti
 
 THESIS: A familiar morning table makes fresh local coffee inviting. Preserve the user's selected original cosy-pack composition rather than reopening visual options.
 
-OWN-WORLD: Peach #FCEDE3, warm cream, deep cocoa and warm orange. Broad geometric Cyrillic sans, rounded form controls and one complete organic still-life plate.
+OWN-WORLD: White page ground, peach #FCEDE3 and warm cream supporting surfaces, lighter honey/apricot/oat cards, deep cocoa and warm orange. Broad geometric Cyrillic sans, rounded form controls and one complete organic still-life plate. Thin amber freehand paths add warmth around the image and in section margins.
 
 STORY: See the coffee, understand the Thursday roast and Friday delivery, compare the four products or monthly subscription, and leave a request in one shared form.
 
@@ -48,3 +48,15 @@ On 2026-10-19 the user reviewed the current interface and stated:
 The assembled interface is accepted; preserve the current composition and
 multi-coffee behavior. This conversational approval does not fabricate an HTML
 capture receipt or an automated pixel-gate pass, and does not verify deployment.
+
+## Approved linework and white canvas
+
+On 2026-10-19 the user approved the local orange-linework preview: «regarding
+current changes: they look good to me, let's add them», and requested «let's make
+white background back» with possible supporting color changes. Preserve that
+line geometry and the accepted composition, restore a white page ground, and use
+lighter warm card and panel fills. This later instruction supersedes the original
+comp's peach canvas. Ornament stays static, hidden from assistive technology and
+non-interactive; section anchoring keeps it clear when selections/comments grow.
+This approval authorizes the refinement and its commit, not deployment or closure
+of historical full-comp pixel gates.

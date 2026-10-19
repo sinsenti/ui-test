@@ -16,7 +16,8 @@ in [AGENTS.md](../AGENTS.md).
 | F5 | Cloud connection, release, and submission | In progress — PostgreSQL 18 alignment; Vercel/Telegram pending | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
-approved design. Vercel + Neon and Docker PostgreSQL for offline development
+approved composition, extended by the user's white-canvas and orange-linework
+direction recorded in [Design](DESIGN.md). Vercel + Neon and Docker PostgreSQL for offline development
 are decided. Telegram is required. Cloud account setup and the real bot connection
 remain the final feature. The landing page connects to the lead API; notification
 checks use an offline simulator for local verification.
@@ -294,6 +295,19 @@ and independent browser checks passed at six widths and actual 200% Chromium
 zoom, including selection, quantities and form handoff without submitting a lead.
 Independent review passed the scoped refinement. See
 [capture and check evidence](development.md#visual-and-performance-evidence).
+
+White-canvas and linework refinement (2026-10-19): the user approved the full-page
+orange paths and requested a white background with supporting color changes.
+The accepted composition now uses white, lighter warm product cards, a peach
+subscription panel and a pale warm footer. Section-anchored paths stay decorative
+as selections/comments expand. The shared control border was darkened after an
+independent check found a 2.970:1 boundary on the oat card; its final minimum is
+3.134:1. Lint, types, an isolated Next.js webpack production build and independent
+Chromium checks at six widths passed; phone/desktop interactions and axe checks
+passed without a lead submission. Independent review returned `ship` for this
+scoped refinement with no material findings. See the [current visual evidence](development.md#visual-and-performance-evidence).
+No new performance measurement, backend or deployed-service verification is
+claimed by this UI change.
 
 ## F5 — Cloud connection, release, and submission
 

@@ -1,7 +1,8 @@
 ---
 name: Kvarta
-description: Warm peach, geometric Cyrillic typography, and a familiar morning table.
+description: White canvas, warm pastel surfaces, orange linework, and a familiar morning table.
 colors:
+  canvas: "#ffffff"
   peach: "#fcede3"
   cream: "#fff8f0"
   cocoa: "#2b0c09"
@@ -9,16 +10,18 @@ colors:
   orange: "#f86725"
   orange-dark: "#b63d0b"
   line: "#d8b9a5"
-  control-line: "#9c7b67"
+  control-line: "#987764"
   error: "#a12c1d"
   orange-hover: "#ff7c3e"
-  comment-surface: "#f8e9de"
-  feedback-surface: "#f5e6d6"
-  subscription-surface: "#f5d9c3"
-  footer-surface: "#f5dfcf"
-  product-ethiopia: "#f8e7b7"
-  product-colombia: "#f3d4c4"
-  product-brazil: "#eddbc6"
+  linework: "#e99826"
+  catalog-line: "#e0cabe"
+  comment-surface: "#fceddf"
+  feedback-surface: "#fce7d6"
+  subscription-surface: "#fcede3"
+  footer-surface: "#fff3e9"
+  product-ethiopia: "#fff0c2"
+  product-colombia: "#fbe1d3"
+  product-brazil: "#f1dfcc"
 typography:
   display:
     fontFamily: "var(--font-text), sans-serif"
@@ -221,10 +224,25 @@ components:
 **Creative North Star: "Your morning table"**
 
 The user-selected [original cosy-pack composition](../.impeccable/mocks/decision/cosy-pack.png)
-establishes a warm, plainspoken world: peach paper, cream panels, cocoa text,
+establishes a warm, plainspoken world: cream panels, cocoa text,
 orange actions, and a coffee bag and ceramic cup arranged as one organic still
 life. Broad Cyrillic lettering and compact sans-serif copy make the invitation
 direct and familiar.
+
+On 2026-10-19 the user approved the page-wide orange linework and requested a
+return to a white canvas with supporting color refinements. The current page
+uses that white ground, lighter honey/apricot/oat cards, a peach subscription
+panel and a pale warm footer. The original reference remains the composition
+baseline; its peach page ground is historical. The approved linework is static
+vector geometry, with larger flourishes around the still life and quieter curves
+in the margins of every lower section.
+
+Current local production captures show the [mobile](../.impeccable/review/white-linework-mobile.png)
+and [desktop](../.impeccable/review/white-linework-desktop.png) page; their
+[capture metadata](../.impeccable/review/white-linework-capture.json) records loaded
+assets and exact source hashes. [Independent checks](../.impeccable/review/white-linework-checks.json)
+cover six widths, contrast and the existing interactions. The captures below
+document earlier stages and retain their original palettes.
 
 This document records the implemented local landing page, extracted from
 [global styles](../src/app/globals.css), [page styles](../src/app/page.module.css),
@@ -268,8 +286,8 @@ the combined coffee total when selected. A flat catalog summary lists the chosen
 coffees and counts; the callback repeats the full list with per-line controls and
 removal, a combined total, and delivery wording based on that total. This scoped
 merge introduces no new palette, fonts, imagery, or visual world. The earlier
-quantity captures document the previous single-variety behavior. Current local
-production captures show the idle [mobile](../.impeccable/review/multi-mobile-default.png)
+quantity captures document the previous single-variety behavior. Production
+captures of that extension show the idle [mobile](../.impeccable/review/multi-mobile-default.png)
 and [desktop](../.impeccable/review/multi-desktop-default.png) catalogs, the selected
 [mobile](../.impeccable/review/multi-mobile-catalog.png) and
 [desktop](../.impeccable/review/multi-desktop-catalog.png) catalogs, the
@@ -286,14 +304,15 @@ verification remain release work.
 
 **Key Characteristics:**
 
-- Warm peach and cream surfaces with cocoa text and orange actions.
+- White canvas with warm pastel surfaces, cocoa text and orange actions.
+- Thin orange linework around the still life and along the page margins.
 - Broad geometric Cyrillic wordmarks and tightly stacked sans-serif headings.
 - One complete organic coffee still life with a transparent exterior.
 - Rounded callback controls, flat warm-toned product cards, and restrained motion.
 
 ## Colors
 
-The palette stays within warm peach, cream, coffee brown, and orange; token values
+The palette pairs white with warm peach, cream, honey, coffee brown and orange; token values
 in the frontmatter are the normative extracted values. The companion's tonal
 ramps are synthesized preview strips, not additional colors implemented by the site.
 
@@ -304,17 +323,21 @@ ramps are synthesized preview strips, not additional colors implemented by the s
 - **Orange hover** (`orange-hover`): enabled filled-button hover background.
 - **Deep orange** (`orange-dark`): underlined-action hover, caret, checked-radio
   inner stroke, and the global keyboard focus outline.
+- **Amber linework** (`linework`): purely decorative freehand paths, separate
+  from the stronger orange action fill.
 
 ### Neutral
 
-- **Peach canvas** (`peach`): the page ground and menu-link hover fill.
+- **White canvas** (`canvas`): the page ground and scrollbar track.
+- **Peach accent** (`peach`): menu-link hover fill; the subscription surface uses
+  the same hue under its own semantic token.
 - **Warm cream** (`cream`): the callback panel, navigation popover, skip link, and
   drip-assortment card.
 - **Deep cocoa** (`cocoa`): primary text, icons, action text, selected-radio stroke,
   selected-card outline, and pressed product-button fill with cream text.
 - **Soft cocoa** (`muted`): supporting copy, placeholders, and unselected radios.
 - **Warm divider** (`line`): section dividers and product-card footer separators. The catalog's
-  opening divider uses the local lighter value in its source. The same warm
+  opening divider uses the lighter `catalog-line` token. The same warm
   divider separates the combined catalog summary and callback selection rows.
 - **Ethiopia, Colombia, and Brazil surfaces** (`product-ethiopia`,
   `product-colombia`, `product-brazil`): the individual catalog fills. Their
@@ -453,6 +476,12 @@ transparency. Preserve the whole plate; a rectangular crop or CSS blob behind
 partial objects would change the approved visual material. Other icons are
 simple inline outline SVGs with rounded strokes.
 
+The page-wide orange paths are decorative SVG geometry with a fixed 1.6px
+non-scaling stroke. The hero drawing is anchored to its image wrapper; lower
+drawings extend through the existing section gutters and stretch with content.
+Local stacking contexts keep the strokes behind content. Every drawing is
+hidden from assistive technology, unfocusable and unable to intercept input.
+
 ## Components
 
 ### Buttons
@@ -587,6 +616,8 @@ Pliant with real rendered text; its provenance belongs in [asset sources](assets
 ### Do:
 
 - **Do** preserve the user-selected peach, cream, cocoa, and orange world.
+- **Do** keep the white page canvas and use peach and cream for supporting surfaces.
+- **Do** preserve the approved orange line geometry and keep it hidden from assistive technology and non-interactive.
 - **Do** keep persistent labels, dedicated control borders, and visible keyboard focus.
 - **Do** use Pliant for readable Cyrillic interface text and the supplied Unbounded subset for «КВАРТА».
 - **Do** keep the organic still life complete and serve imagery and fonts locally.

@@ -1,0 +1,90 @@
+{
+  "captured": "2026-10-19T14:40:34.439Z",
+  "build": "Isolated Next.js16.4.2 --webpack production build; no environment files copied",
+  "browser": "151.0.7922.34",
+  "sourceHashes": {
+    "src/app/globals.css": "35fc6c8fe8aab29b282097a00e3973c6d2d94252beb3733339b357eab1204927",
+    "src/app/page.tsx": "404a7fd17df76a66346e4660f4e327e5f548d3523aecdec02cabb198b9670315",
+    "src/app/page.module.css": "06bc55897beb39fc6bb8ec994fc5c4a8d0f718d8ad5792fc706562fe2182e52a",
+    "src/app/page-linework.tsx": "47b19035bf346b0bb82ef372795d83762120c8128c1605b0f980c3987a62a1fa",
+    "src/app/lead-form.tsx": "576ba23c43dbf5d28cfa9c92f18720bf60539b0c3243ae3ea509ce8a5590af31"
+  },
+  "captures": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "url": "http://127.0.0.1:3002/",
+      "background": "rgb(255, 255, 255)",
+      "scrollWidth": 390,
+      "photoLoaded": true,
+      "decorations": 8,
+      "tokens": {
+        "canvas": "#ffffff",
+        "cream": "#fff8f0",
+        "peach": "#fcede3",
+        "linework": "#e99826",
+        "control-line": "#987764",
+        "product-ethiopia": "#fff0c2",
+        "product-colombia": "#fbe1d3",
+        "product-brazil": "#f1dfcc",
+        "subscription-surface": "#fcede3",
+        "footer-surface": "#fff3e9"
+      }
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "status": 200,
+      "url": "http://127.0.0.1:3002/",
+      "background": "rgb(255, 255, 255)",
+      "scrollWidth": 1440,
+      "photoLoaded": true,
+      "decorations": 8,
+      "tokens": {
+        "canvas": "#ffffff",
+        "cream": "#fff8f0",
+        "peach": "#fcede3",
+        "linework": "#e99826",
+        "control-line": "#987764",
+        "product-ethiopia": "#fff0c2",
+        "product-colombia": "#fbe1d3",
+        "product-brazil": "#f1dfcc",
+        "subscription-surface": "#fcede3",
+        "footer-surface": "#fff3e9"
+      }
+    }
+  ],
+  "errors": [],
+  "detector": {
+    "primary": 0,
+    "advisories": 18
+  },
+  "limits": [
+    "Local Chromium renders only; no lead submission, backend or real Telegram verification, performance audit or deployment.",
+    "Metadata is from this browser capture; historical Impeccable full-comp gates are not changed."
+  ],
+  "documentation": {
+    "checked": "2026-10-19T14:45:06.308Z",
+    "localLinks": 110,
+    "missing": [],
+    "colorTokens": 20,
+    "mismatches": [],
+    "sourceHashes": {
+      "docs/DESIGN.md": "7985dd5ef19bd800b341564962cb338fb5983697dada398e77019fbbe80a7017",
+      "docs/PRODUCT.md": "3b85f40ffe488605447d76c192fdd6c125ffe98607438f7470f4cf53debec274",
+      "docs/roadmap.md": "47972aeade44dfc9ff2e0ffb9f31a737c83007caf9629c6c857e192252eb9506",
+      "docs/development.md": "21f71cb01f1dfbf290181d64927c8b0d0531ffbecea5e07abe26d6fe74f2f2f8",
+      "AGENTS.md": "f1e5355e966e8ff4bdbc1ffb7cf4bb8c52aa6c3ebd9738c0a40d7504a27ff773",
+      ".impeccable/design.json": "4728d1d15468994c268f653be403dbb47ee757bccc4e4bae426dd4ee9fe4879d",
+      ".impeccable/surfaces/src-app-page-tsx.md": "2dc0174883c2dc11d284c14f4cc21bfd9b1c06fbf8c5c31d997628d2dd21aefb"
+    },
+    "note": "Documentation prose and design narrative were updated after independent runtime/color checks; runtime and token values did not change."
+  },
+  "review": {
+    "disposition": "ship",
+    "scope": "White canvas, warm supporting palette and approved whole-page linework; no material findings. Historical comp gates and deployment remain outside this verdict."
+  }
+}

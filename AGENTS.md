@@ -17,7 +17,9 @@
   assets keep their existing paths.
 - The approved design baseline is
   `.impeccable/mocks/decision/cosy-pack.png`. Preserve it when implementing UI;
-  use the local Impeccable skill for frontend work.
+  use the local Impeccable skill for frontend work. Later user decisions recorded
+  in `docs/PRODUCT.md` and `docs/DESIGN.md` extend this composition, including the
+  white page canvas and approved orange linework; do not restore its older ground.
 
 ## Feature workflow
 

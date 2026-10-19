@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState
 import { captureAttribution, type Attribution } from "../lib/attribution";
 import { getProduct, maxQuantity, packDescription, productName, products, type CoffeeId, type Interest, type ProductId } from "../lib/catalog";
 import { formatPhoneInput, phoneInputPosition } from "../lib/phone-input";
+import { MarginLines } from "./page-linework";
 import styles from "./page.module.css";
 
 type Choice = { interest: Interest; productId?: ProductId };
@@ -179,6 +180,7 @@ export function LeadFlow({ children, afterForm }: { children: ReactNode; afterFo
   const total = selectedProducts.reduce((sum, product) => sum + product.price * quantity(product.id), 0);
   const selectionError = errors.quantity ?? errors.items ?? Object.entries(errors).find(([key]) => key.startsWith("items."))?.[1];
   const callback = <form ref={form} id="callback" className={styles.form} onSubmit={submit} method="post" action="/api/lead" noValidate aria-label="Заявка на обратный звонок" aria-busy={pending}>
+    <MarginLines area="form" />
     <fieldset disabled={pending} className={styles.fields}>
       {(choice.productId || selectedProducts.length > 0) && <div className={styles.selectionSummary} role="group" aria-label="Ваш выбор">
         <p className={styles.selected}>Вы выбрали: {choice.productId && <strong>{productName(choice.productId)}</strong>}</p>

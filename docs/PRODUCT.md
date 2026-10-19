@@ -117,12 +117,14 @@ asks for a distinctive design for this particular roastery without premium gloss
 or a generic generated appearance. A text wordmark is allowed. The user wants
 the local Impeccable skill to guide the UI work.
 
-The latest user direction is a warmer, cozier design with more visual forms.
-Use the suggested peach `#FCEDE3` alongside warm cream and warm-tone accents;
-the previous white-only direction is superseded. Add purposeful rounded or
-organic shapes and inviting coffee imagery. Avoid a dry, austere, form-dominated
-opening. Retain readable controls and the typography reference below, with a
-gentler hierarchy and warmer overall expression.
+The latest user direction retains the cozy composition while restoring a white
+page background. Use the suggested peach `#FCEDE3` for warm supporting surfaces,
+alongside cream, lighter honey/apricot/oat coffee cards and warm orange accents.
+The user approved thin freehand orange linework around the hero and throughout
+the page on 2026-10-19, then requested this white canvas and supporting palette
+refinement. Keep the lines decorative and clear of text and controls. Retain
+purposeful rounded or organic shapes, inviting coffee imagery and the typography
+reference below. Avoid a dry, austere, form-dominated opening.
 
 Typography reference: [assets/screen.png](../assets/screen.png), supplied by the
 user. Use its broad, bold geometric wordmark character and compact, tightly stacked plain sans-serif
@@ -137,8 +139,9 @@ The user selected [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png)
 cup inside a large organic oval, followed by the offers and rounded callback
 panel. The user subsequently confirmed the original `cosy-pack.png` as the design
 to keep, including its original headline direction. The serif experiment is
-unselected. Use the original as the approved baseline; further design additions
-can be explored later. The user approved the generated production still life and
+unselected. Use the original as the composition baseline; the later white-canvas
+and linework decision above supersedes its peach page ground. The user approved
+the generated production still life and
 build plan before assembly. Font licenses and generation provenance live in
 [asset sources](assets.md).
 

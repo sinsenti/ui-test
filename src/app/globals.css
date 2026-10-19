@@ -1,18 +1,29 @@
 :root {
   color-scheme: light;
+  --canvas: #ffffff;
   --peach: #fcede3;
   --cream: #fff8f0;
   --cocoa: #2b0c09;
   --muted: #795240;
   --orange: #f86725;
   --orange-dark: #b63d0b;
+  --orange-hover: #ff7c3e;
+  --linework: #e99826;
   --line: #d8b9a5;
-  --control-line: #9c7b67;
+  --catalog-line: #e0cabe;
+  --control-line: #987764;
   --error: #a12c1d;
+  --comment-surface: #fceddf;
+  --feedback-surface: #fce7d6;
+  --subscription-surface: #fcede3;
+  --footer-surface: #fff3e9;
+  --product-ethiopia: #fff0c2;
+  --product-colombia: #fbe1d3;
+  --product-brazil: #f1dfcc;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 24px; scrollbar-color: var(--muted) var(--peach); }
-body { margin: 0; background: var(--peach); color: var(--cocoa); font-family: var(--font-text), sans-serif; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; scrollbar-color: var(--muted) var(--canvas); }
+body { margin: 0; background: var(--canvas); color: var(--cocoa); font-family: var(--font-text), sans-serif; -webkit-font-smoothing: antialiased; }
 button, input, textarea { font: inherit; }
 button, a, input, textarea, summary { -webkit-tap-highlight-color: #f8672533; }
 button, a { color: inherit; }

@@ -294,6 +294,23 @@ Do not make future builds run migrations or send real notifications.
 
 ## Visual and performance evidence
 
+The latest white-canvas and orange-linework refinement has local production
+[mobile](../.impeccable/review/white-linework-mobile.png) and
+[desktop](../.impeccable/review/white-linework-desktop.png) captures, with
+[source/viewport metadata](../.impeccable/review/white-linework-capture.json) and
+[independent browser evidence](../.impeccable/review/white-linework-checks.json).
+The approved line geometry is unchanged; lighter warm surfaces use the shared
+palette tokens. Lint, typecheck and an isolated `next build --webpack` passed.
+Browser checks covered 320, 390, 600, 601, 768 and 1440px; phone/desktop selection,
+quantity, menu, focus, comment and phone-entry checks passed. Tested text contrast
+was at least 5.225:1 and meaningful control/focus boundaries at least 3.134:1.
+Axe found zero violations at 390/1440px; browser errors and POST requests were
+zero. Independent finish review returned `ship` for this scoped refinement, with
+no material findings. Error/feedback color checks used CSS probes without creating a real lead.
+These checks did not contact PostgreSQL/Telegram, measure Lighthouse again, or
+verify deployment. The isolated build fixture used no environment files and left
+the developer's `.next` output untouched.
+
 The later coffee-title spacing refinement adds `word-spacing: .1em` only to
 product-card headings, preserving Pliant, sizes, tracking, text and wrapping.
 Fresh [mobile](../.impeccable/review/spacing-mobile.png) and
