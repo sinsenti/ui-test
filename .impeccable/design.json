@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T09:07:30.409082Z",
+  "generatedAt": "2026-10-19T13:41:07.541932Z",
   "title": "Design System: Kvarta",
   "extensions": {
     "colorMeta": {
@@ -241,7 +241,7 @@
       },
       "title": {
         "displayName": "Product title",
-        "purpose": "Weight-600 product h3 names, balanced within 16ch; 28px at 600px and below."
+        "purpose": "Weight-600 product h3 names, balanced within 16ch; 28px at 600px and below. Word spacing is 0.1em so country and variety remain distinct."
       },
       "body": {
         "displayName": "Editorial body",

@@ -1,0 +1,202 @@
+[
+  {
+    "name": "desktop",
+    "width": 1440,
+    "titles": [
+      {
+        "text": "Эфиопия Иргачеффе",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "32px",
+        "weight": "600",
+        "tracking": "-0.8px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 4.015625,
+        "sameLine": true,
+        "titleHeight": 35.828125
+      },
+      {
+        "text": "Колумбия Уила",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "32px",
+        "weight": "600",
+        "tracking": "-0.8px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 4.015625,
+        "sameLine": true,
+        "titleHeight": 35.828125
+      },
+      {
+        "text": "Бразилия Серрадо",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "32px",
+        "weight": "600",
+        "tracking": "-0.8px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 4.015625,
+        "sameLine": true,
+        "titleHeight": 35.828125
+      },
+      {
+        "text": "Дрип-пакеты, ассорти",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "32px",
+        "weight": "600",
+        "tracking": "-0.8px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 0,
+        "sameLine": false,
+        "titleHeight": 71.65625
+      }
+    ]
+  },
+  {
+    "name": "mobile",
+    "width": 390,
+    "titles": [
+      {
+        "text": "Эфиопия Иргачеффе",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.515625,
+        "sameLine": true,
+        "titleHeight": 31.359375
+      },
+      {
+        "text": "Колумбия Уила",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.515625,
+        "sameLine": true,
+        "titleHeight": 31.359375
+      },
+      {
+        "text": "Бразилия Серрадо",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.515625,
+        "sameLine": true,
+        "titleHeight": 31.359375
+      },
+      {
+        "text": "Дрип-пакеты, ассорти",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 0,
+        "sameLine": false,
+        "titleHeight": 62.71875
+      }
+    ]
+  },
+  {
+    "name": "narrow",
+    "width": 320,
+    "titles": [
+      {
+        "text": "Эфиопия Иргачеффе",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 0,
+        "sameLine": false,
+        "titleHeight": 62.71875
+      },
+      {
+        "text": "Колумбия Уила",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.515625,
+        "sameLine": true,
+        "titleHeight": 31.359375
+      },
+      {
+        "text": "Бразилия Серрадо",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 0,
+        "sameLine": false,
+        "titleHeight": 62.71875
+      },
+      {
+        "text": "Дрип-пакеты, ассорти",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "28px",
+        "weight": "600",
+        "tracking": "-0.7px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 0,
+        "sameLine": false,
+        "titleHeight": 62.71875
+      }
+    ]
+  },
+  {
+    "name": "tablet",
+    "width": 768,
+    "titles": [
+      {
+        "text": "Эфиопия Иргачеффе",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "24px",
+        "weight": "600",
+        "tracking": "-0.6px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.015625,
+        "sameLine": true,
+        "titleHeight": 26.875
+      },
+      {
+        "text": "Колумбия Уила",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "24px",
+        "weight": "600",
+        "tracking": "-0.6px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.015625,
+        "sameLine": true,
+        "titleHeight": 26.875
+      },
+      {
+        "text": "Бразилия Серрадо",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "24px",
+        "weight": "600",
+        "tracking": "-0.6px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 3.015625,
+        "sameLine": true,
+        "titleHeight": 26.875
+      },
+      {
+        "text": "Дрип-пакеты, ассорти",
+        "font": "textFont, \"textFont Fallback\", sans-serif",
+        "size": "24px",
+        "weight": "600",
+        "tracking": "-0.6px",
+        "wordSpacing": "0px",
+        "spaceAdvance": 0,
+        "sameLine": false,
+        "titleHeight": 53.75
+      }
+    ]
+  }
+]

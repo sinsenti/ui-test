@@ -288,6 +288,13 @@ Acceptance criteria:
   final responsive renders are visually inspected. Lighthouse results are measured,
   recorded with conditions, and used to fix material issues; do not invent a score.
 
+The later coffee-title spacing refinement preserves the approved fonts and copy
+while separating country and variety with `word-spacing: .1em`. Production build
+and independent browser checks passed at six widths and actual 200% Chromium
+zoom, including selection, quantities and form handoff without submitting a lead.
+Independent review passed the scoped refinement. See
+[capture and check evidence](development.md#visual-and-performance-evidence).
+
 ## F5 — Cloud connection, release, and submission
 
 Outcome: the reviewed app is available at a live URL, stores leads durably, and

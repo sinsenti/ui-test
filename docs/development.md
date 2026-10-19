@@ -294,6 +294,22 @@ Do not make future builds run migrations or send real notifications.
 
 ## Visual and performance evidence
 
+The later coffee-title spacing refinement adds `word-spacing: .1em` only to
+product-card headings, preserving Pliant, sizes, tracking, text and wrapping.
+Fresh [mobile](../.impeccable/review/spacing-mobile.png) and
+[desktop](../.impeccable/review/spacing-desktop.png) catalog captures and their
+[metadata](../.impeccable/review/spacing-capture.json) show the change. The measured
+space in «Эфиопия Иргачеффе» increased from 3.52 to 6.31 px on mobile and 4.02
+to 7.22 px on desktop. Both captures loaded two local fonts and the image without
+overflow or page errors; neither submitted a request. The production build passed.
+[Independent browser checks](../.impeccable/review/spacing-checks.json) passed at
+320/390/600/601/768/1440 px and actual Chromium 200% browser zoom, including
+keyboard selection, quantity updates and form handoff. No requests were submitted.
+These checks use Chromium; other browser engines and physical devices were not checked.
+The [typography scan](../.impeccable/review/spacing-detector.json) retains 16 existing
+advisories about unchanged font sizes outside the product-title rule.
+
+
 The later user-requested quantity wording and phone-entry refinement is captured
 in the [mobile form](../.impeccable/review/phone-mobile-form.png),
 [desktop form](../.impeccable/review/phone-desktop-form.png), and

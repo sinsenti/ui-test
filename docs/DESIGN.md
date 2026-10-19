@@ -39,6 +39,7 @@ typography:
     fontWeight: 600
     lineHeight: 1.12
     letterSpacing: "-0.025em"
+    wordSpacing: "0.1em"
   body:
     fontFamily: "var(--font-text), sans-serif"
     fontSize: "19px"

@@ -1,0 +1,59 @@
+{
+  "capturedAt": "2026-10-19T13:42:01.157Z",
+  "url": "http://127.0.0.1:3001",
+  "buildID": "eKzimXRNHmWK2GV79dHmw",
+  "browser": "151.0.7922.34",
+  "files": {
+    "src/app/page.module.css": "f022d93d373f494bd45661a694c567901b8b88234df31a26ecddb8fce153624f",
+    "src/app/lead-form.tsx": "b1fac61ec44c271ecee0c12277578c74a752ee96519693471959cec883108bac",
+    "src/lib/catalog.ts": "2a5700b2537ef5e2f26b3fa07f0b1133517ead92393b4ebe4356f6493c6e8c37"
+  },
+  "captures": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "file": ".impeccable/review/spacing-desktop.png",
+      "clip": {
+        "x": 232.796875,
+        "y": 2049.34375,
+        "width": 974.40625,
+        "height": 995.5625
+      },
+      "fontSize": "32px",
+      "wordSpacing": "3.2px",
+      "spaceAdvance": 7.21875,
+      "loadedFonts": 2,
+      "imageLoaded": true,
+      "overflow": false,
+      "active": "BODY",
+      "scrollY": 0,
+      "skipBottom": -11.5,
+      "sha256": "2f688f3e56333c03cd9603cbb18d626e241a4ff2b75da1b3b40b67e46466ee0c"
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "file": ".impeccable/review/spacing-mobile.png",
+      "clip": {
+        "x": 25.34375,
+        "y": 1023.765625,
+        "width": 339.3125,
+        "height": 1643.65625
+      },
+      "fontSize": "28px",
+      "wordSpacing": "2.8px",
+      "spaceAdvance": 6.3125,
+      "loadedFonts": 2,
+      "imageLoaded": true,
+      "overflow": false,
+      "active": "BODY",
+      "scrollY": 0,
+      "skipBottom": -11.5,
+      "sha256": "bc0048e8727deed7a07bebbea5821131798a125e63761834d942ee62a984223b"
+    }
+  ],
+  "errors": [],
+  "submissions": 0
+}

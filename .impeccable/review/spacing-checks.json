@@ -1,0 +1,1786 @@
+{
+  "role": "independent tester",
+  "task": "Coffee-title word spacing",
+  "startedAt": "2026-10-19T13:44:11.272Z",
+  "command": "node features/spacing-check.mjs",
+  "url": "http://127.0.0.1:3001",
+  "executablePath": "/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
+  "buildId": "eKzimXRNHmWK2GV79dHmw",
+  "gitHead": "5944f570bbbd688f802aec48907eab9c9adcc0d7",
+  "sourceFingerprint": {
+    "src/app/page.module.css": "f022d93d373f494bd45661a694c567901b8b88234df31a26ecddb8fce153624f",
+    "src/app/lead-form.tsx": "b1fac61ec44c271ecee0c12277578c74a752ee96519693471959cec883108bac",
+    "src/lib/catalog.ts": "2a5700b2537ef5e2f26b3fa07f0b1133517ead92393b4ebe4356f6493c6e8c37",
+    "src/app/layout.tsx": "c6bcf373405a620085b93cf3546f71edfc90ef2324446178521413e604953d36"
+  },
+  "checks": [
+    {
+      "label": "320px",
+      "status": "pass",
+      "initial": {
+        "viewport": {
+          "width": 320,
+          "height": 900,
+          "outerWidth": 500,
+          "outerHeight": 900,
+          "dpr": 1,
+          "visualViewport": {
+            "width": 320,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 320,
+        "pageScrollWidth": 320,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 62.71875,
+            "firstRects": [
+              {
+                "x": 42.796875,
+                "y": 1149.015625,
+                "width": 120.75,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 42.796875,
+                "y": 1180.375,
+                "width": 151,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 20.796875,
+              "right": 299.203125,
+              "width": 278.40625
+            },
+            "titleClientWidth": 234,
+            "titleScrollWidth": 234,
+            "cardClientWidth": 278,
+            "cardScrollWidth": 278
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 42.796875,
+                "y": 1546.78125,
+                "width": 131.125,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 180.203125,
+                "y": 1546.78125,
+                "width": 67.25,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 20.796875,
+              "right": 299.203125,
+              "width": 278.40625
+            },
+            "titleClientWidth": 234,
+            "titleScrollWidth": 234,
+            "cardClientWidth": 278,
+            "cardScrollWidth": 278
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 62.71875,
+            "firstRects": [
+              {
+                "x": 42.796875,
+                "y": 1936.9375,
+                "width": 129.609375,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 42.796875,
+                "y": 1968.296875,
+                "width": 121.671875,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 20.796875,
+              "right": 299.203125,
+              "width": 278.40625
+            },
+            "titleClientWidth": 234,
+            "titleScrollWidth": 234,
+            "cardClientWidth": 278,
+            "cardScrollWidth": 278
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 62.71875,
+            "firstRects": [
+              {
+                "x": 42.796875,
+                "y": 2334.703125,
+                "width": 188.4375,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 42.796875,
+                "y": 2366.0625,
+                "width": 111.59375,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 20.796875,
+              "right": 299.203125,
+              "width": 278.40625
+            },
+            "titleClientWidth": 234,
+            "titleScrollWidth": 234,
+            "cardClientWidth": 278,
+            "cardScrollWidth": 278
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=640&q=75",
+            "complete": true,
+            "naturalWidth": 320,
+            "naturalHeight": 220
+          }
+        ],
+        "gridColumns": "278.406px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 524.578125,
+          "bottom": 570.578125,
+          "viewportHeight": 900,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 320,
+        "finalPageClientWidth": 320
+      }
+    },
+    {
+      "label": "390px",
+      "status": "pass",
+      "initial": {
+        "viewport": {
+          "width": 390,
+          "height": 900,
+          "outerWidth": 500,
+          "outerHeight": 900,
+          "dpr": 1,
+          "visualViewport": {
+            "width": 390,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 390,
+        "pageScrollWidth": 390,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 47.34375,
+                "y": 1114.4375,
+                "width": 120.75,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 174.375,
+                "y": 1114.4375,
+                "width": 151,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 25.34375,
+              "right": 364.65625,
+              "width": 339.3125
+            },
+            "titleClientWidth": 295,
+            "titleScrollWidth": 295,
+            "cardClientWidth": 339,
+            "cardScrollWidth": 339
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 47.34375,
+                "y": 1480.84375,
+                "width": 131.125,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 184.75,
+                "y": 1480.84375,
+                "width": 67.25,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 25.34375,
+              "right": 364.65625,
+              "width": 339.3125
+            },
+            "titleClientWidth": 295,
+            "titleScrollWidth": 295,
+            "cardClientWidth": 339,
+            "cardScrollWidth": 339
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 47.34375,
+                "y": 1847.25,
+                "width": 129.609375,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 183.234375,
+                "y": 1847.25,
+                "width": 121.6875,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 25.34375,
+              "right": 364.65625,
+              "width": 339.3125
+            },
+            "titleClientWidth": 295,
+            "titleScrollWidth": 295,
+            "cardClientWidth": 339,
+            "cardScrollWidth": 339
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 62.71875,
+            "firstRects": [
+              {
+                "x": 47.34375,
+                "y": 2213.65625,
+                "width": 188.4375,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 47.34375,
+                "y": 2245.015625,
+                "width": 111.59375,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 25.34375,
+              "right": 364.65625,
+              "width": 339.3125
+            },
+            "titleClientWidth": 295,
+            "titleScrollWidth": 295,
+            "cardClientWidth": 339,
+            "cardScrollWidth": 339
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "error",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=640&q=75",
+            "complete": true,
+            "naturalWidth": 390,
+            "naturalHeight": 268
+          }
+        ],
+        "gridColumns": "339.312px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 524,
+          "bottom": 570,
+          "viewportHeight": 900,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 390,
+        "finalPageClientWidth": 390
+      }
+    },
+    {
+      "label": "600px",
+      "status": "pass",
+      "initial": {
+        "viewport": {
+          "width": 600,
+          "height": 900,
+          "outerWidth": 600,
+          "outerHeight": 900,
+          "dpr": 1,
+          "visualViewport": {
+            "width": 600,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 600,
+        "pageScrollWidth": 600,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 61,
+                "y": 1368.1875,
+                "width": 120.75,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 188.03125,
+                "y": 1368.1875,
+                "width": 151,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 39,
+              "right": 561,
+              "width": 522
+            },
+            "titleClientWidth": 303,
+            "titleScrollWidth": 303,
+            "cardClientWidth": 522,
+            "cardScrollWidth": 522
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 61,
+                "y": 1734.59375,
+                "width": 131.125,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 198.40625,
+                "y": 1734.59375,
+                "width": 67.25,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 39,
+              "right": 561,
+              "width": 522
+            },
+            "titleClientWidth": 303,
+            "titleScrollWidth": 303,
+            "cardClientWidth": 522,
+            "cardScrollWidth": 522
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 6.3125,
+            "sameLine": true,
+            "titleHeight": 31.359375,
+            "firstRects": [
+              {
+                "x": 61,
+                "y": 2101,
+                "width": 129.609375,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 196.890625,
+                "y": 2101,
+                "width": 121.6875,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 39,
+              "right": 561,
+              "width": 522
+            },
+            "titleClientWidth": 303,
+            "titleScrollWidth": 303,
+            "cardClientWidth": 522,
+            "cardScrollWidth": 522
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "28px",
+            "weight": "600",
+            "tracking": "-0.7px",
+            "wordSpacing": "2.8px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "302.849px",
+            "lineHeight": "31.36px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 62.71875,
+            "firstRects": [
+              {
+                "x": 61,
+                "y": 2467.40625,
+                "width": 188.4375,
+                "height": 34
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 61,
+                "y": 2498.765625,
+                "width": 111.59375,
+                "height": 34
+              }
+            ],
+            "cardBounds": {
+              "left": 39,
+              "right": 561,
+              "width": 522
+            },
+            "titleClientWidth": 303,
+            "titleScrollWidth": 303,
+            "cardClientWidth": 522,
+            "cardScrollWidth": 522
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "error",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=640&q=75",
+            "complete": true,
+            "naturalWidth": 599,
+            "naturalHeight": 413
+          }
+        ],
+        "gridColumns": "522px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 525.140625,
+          "bottom": 571.140625,
+          "viewportHeight": 900,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 600,
+        "finalPageClientWidth": 600
+      }
+    },
+    {
+      "label": "601px",
+      "status": "pass",
+      "initial": {
+        "viewport": {
+          "width": 601,
+          "height": 900,
+          "outerWidth": 601,
+          "outerHeight": 900,
+          "dpr": 1,
+          "visualViewport": {
+            "width": 601,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 601,
+        "pageScrollWidth": 601,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 53.75,
+            "firstRects": [
+              {
+                "x": 61.0625,
+                "y": 1374.171875,
+                "width": 103.5,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 61.0625,
+                "y": 1401.046875,
+                "width": 129.421875,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 39.0625,
+              "right": 291.5,
+              "width": 252.4375
+            },
+            "titleClientWidth": 208,
+            "titleScrollWidth": 208,
+            "cardClientWidth": 252,
+            "cardScrollWidth": 252
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.421875,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 331.5,
+                "y": 1374.171875,
+                "width": 112.390625,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 449.28125,
+                "y": 1374.171875,
+                "width": 57.640625,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 309.5,
+              "right": 561.9375,
+              "width": 252.4375
+            },
+            "titleClientWidth": 208,
+            "titleScrollWidth": 208,
+            "cardClientWidth": 252,
+            "cardScrollWidth": 252
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 53.75,
+            "firstRects": [
+              {
+                "x": 61.0625,
+                "y": 1826.96875,
+                "width": 111.09375,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 61.0625,
+                "y": 1853.84375,
+                "width": 104.28125,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 39.0625,
+              "right": 291.5,
+              "width": 252.4375
+            },
+            "titleClientWidth": 208,
+            "titleScrollWidth": 208,
+            "cardClientWidth": 252,
+            "cardScrollWidth": 252
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 53.75,
+            "firstRects": [
+              {
+                "x": 331.5,
+                "y": 1826.96875,
+                "width": 161.515625,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 331.5,
+                "y": 1853.84375,
+                "width": 95.65625,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 309.5,
+              "right": 561.9375,
+              "width": 252.4375
+            },
+            "titleClientWidth": 208,
+            "titleScrollWidth": 208,
+            "cardClientWidth": 252,
+            "cardScrollWidth": 252
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "error",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=640&q=75",
+            "complete": true,
+            "naturalWidth": 601,
+            "naturalHeight": 414
+          }
+        ],
+        "gridColumns": "252.438px 252.438px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 523.703125,
+          "bottom": 569.703125,
+          "viewportHeight": 900,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 601,
+        "finalPageClientWidth": 601
+      }
+    },
+    {
+      "label": "768px",
+      "status": "pass",
+      "initial": {
+        "viewport": {
+          "width": 768,
+          "height": 900,
+          "outerWidth": 768,
+          "outerHeight": 900,
+          "dpr": 1,
+          "visualViewport": {
+            "width": 768,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 768,
+        "pageScrollWidth": 768,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.40625,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 72.9375,
+                "y": 1676.15625,
+                "width": 103.5,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 181.8125,
+                "y": 1676.15625,
+                "width": 129.4375,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 49.90625,
+              "right": 375,
+              "width": 325.09375
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 325,
+            "cardScrollWidth": 325
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.421875,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 416.03125,
+                "y": 1676.15625,
+                "width": 112.390625,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 533.8125,
+                "y": 1676.15625,
+                "width": 57.640625,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 393,
+              "right": 718.09375,
+              "width": 325.09375
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 325,
+            "cardScrollWidth": 325
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.421875,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 72.9375,
+                "y": 2044.140625,
+                "width": 111.09375,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 189.421875,
+                "y": 2044.140625,
+                "width": 104.296875,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 49.90625,
+              "right": 375,
+              "width": 325.09375
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 325,
+            "cardScrollWidth": 325
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.583px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 53.75,
+            "firstRects": [
+              {
+                "x": 416.03125,
+                "y": 2044.140625,
+                "width": 161.515625,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 416.03125,
+                "y": 2071.015625,
+                "width": 95.65625,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 393,
+              "right": 718.09375,
+              "width": 325.09375
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 325,
+            "cardScrollWidth": 325
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=828&q=75",
+            "complete": true,
+            "naturalWidth": 768,
+            "naturalHeight": 528
+          }
+        ],
+        "gridColumns": "325.094px 325.094px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 534.40625,
+          "bottom": 583.40625,
+          "viewportHeight": 900,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 768,
+        "finalPageClientWidth": 768
+      }
+    },
+    {
+      "label": "1440px",
+      "status": "pass",
+      "initial": {
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "outerWidth": 1440,
+          "outerHeight": 900,
+          "dpr": 1,
+          "visualViewport": {
+            "width": 1440,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 1440,
+        "pageScrollWidth": 1440,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "32px",
+            "weight": "600",
+            "tracking": "-0.8px",
+            "wordSpacing": "3.2px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "346.113px",
+            "lineHeight": "35.84px",
+            "spaceAdvance": 7.21875,
+            "sameLine": true,
+            "titleHeight": 35.828125,
+            "firstRects": [
+              {
+                "x": 264.796875,
+                "y": 2191.328125,
+                "width": 137.984375,
+                "height": 38
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 409.96875,
+                "y": 2191.328125,
+                "width": 172.578125,
+                "height": 38
+              }
+            ],
+            "cardBounds": {
+              "left": 232.796875,
+              "right": 711,
+              "width": 478.203125
+            },
+            "titleClientWidth": 346,
+            "titleScrollWidth": 346,
+            "cardClientWidth": 478,
+            "cardScrollWidth": 478
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "32px",
+            "weight": "600",
+            "tracking": "-0.8px",
+            "wordSpacing": "3.2px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "346.113px",
+            "lineHeight": "35.84px",
+            "spaceAdvance": 7.203125,
+            "sameLine": true,
+            "titleHeight": 35.828125,
+            "firstRects": [
+              {
+                "x": 761,
+                "y": 2191.328125,
+                "width": 149.859375,
+                "height": 38
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 918.03125,
+                "y": 2191.328125,
+                "width": 76.859375,
+                "height": 38
+              }
+            ],
+            "cardBounds": {
+              "left": 729,
+              "right": 1207.203125,
+              "width": 478.203125
+            },
+            "titleClientWidth": 346,
+            "titleScrollWidth": 346,
+            "cardClientWidth": 478,
+            "cardScrollWidth": 478
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "32px",
+            "weight": "600",
+            "tracking": "-0.8px",
+            "wordSpacing": "3.2px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "346.113px",
+            "lineHeight": "35.84px",
+            "spaceAdvance": 7.21875,
+            "sameLine": true,
+            "titleHeight": 35.828125,
+            "firstRects": [
+              {
+                "x": 264.796875,
+                "y": 2591.203125,
+                "width": 148.125,
+                "height": 38
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 420.109375,
+                "y": 2591.203125,
+                "width": 139.046875,
+                "height": 38
+              }
+            ],
+            "cardBounds": {
+              "left": 232.796875,
+              "right": 711,
+              "width": 478.203125
+            },
+            "titleClientWidth": 346,
+            "titleScrollWidth": 346,
+            "cardClientWidth": 478,
+            "cardScrollWidth": 478
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "32px",
+            "weight": "600",
+            "tracking": "-0.8px",
+            "wordSpacing": "3.2px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "346.113px",
+            "lineHeight": "35.84px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 71.65625,
+            "firstRects": [
+              {
+                "x": 761,
+                "y": 2591.203125,
+                "width": 215.359375,
+                "height": 38
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 761,
+                "y": 2627.03125,
+                "width": 127.53125,
+                "height": 38
+              }
+            ],
+            "cardBounds": {
+              "left": 729,
+              "right": 1207.203125,
+              "width": 478.203125
+            },
+            "titleClientWidth": 346,
+            "titleScrollWidth": 346,
+            "cardClientWidth": 478,
+            "cardScrollWidth": 478
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=1200&q=75",
+            "complete": true,
+            "naturalWidth": 1120,
+            "naturalHeight": 771
+          }
+        ],
+        "gridColumns": "478.203px 478.203px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 550.90625,
+          "bottom": 603.90625,
+          "viewportHeight": 900,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 1440,
+        "finalPageClientWidth": 1440
+      }
+    },
+    {
+      "label": "200% browser zoom",
+      "status": "pass",
+      "method": "temporary local extension chrome.tabs.setZoom(tabId, 2)",
+      "zoom": {
+        "tabId": 1460531536,
+        "zoom": 2
+      },
+      "beforeViewport": {
+        "width": 1440,
+        "height": 913,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 1,
+        "visualViewport": {
+          "width": 1440,
+          "scale": 1
+        }
+      },
+      "initial": {
+        "viewport": {
+          "width": 720,
+          "height": 456,
+          "outerWidth": 1440,
+          "outerHeight": 1000,
+          "dpr": 2,
+          "visualViewport": {
+            "width": 720,
+            "scale": 1
+          }
+        },
+        "pageClientWidth": 720,
+        "pageScrollWidth": 720,
+        "titles": [
+          {
+            "text": "Эфиопия Иргачеффе",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.584px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.40625,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 68.796875,
+                "y": 1585.9609375,
+                "width": 103.4921875,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 177.6796875,
+                "y": 1585.9609375,
+                "width": 129.421875,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 46.796875,
+              "right": 351,
+              "width": 304.203125
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 304,
+            "cardScrollWidth": 304
+          },
+          {
+            "text": "Колумбия Уила",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.584px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.40625,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 391,
+                "y": 1585.9609375,
+                "width": 112.390625,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 508.78125,
+                "y": 1585.9609375,
+                "width": 57.6328125,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 369,
+              "right": 673.203125,
+              "width": 304.203125
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 304,
+            "cardScrollWidth": 304
+          },
+          {
+            "text": "Бразилия Серрадо",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.584px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 5.40625,
+            "sameLine": true,
+            "titleHeight": 26.875,
+            "firstRects": [
+              {
+                "x": 68.796875,
+                "y": 1952.3828125,
+                "width": 111.09375,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 185.28125,
+                "y": 1952.3828125,
+                "width": 104.2890625,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 46.796875,
+              "right": 351,
+              "width": 304.203125
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 304,
+            "cardScrollWidth": 304
+          },
+          {
+            "text": "Дрип-пакеты, ассорти",
+            "font": "textFont, \"textFont Fallback\", sans-serif",
+            "size": "24px",
+            "weight": "600",
+            "tracking": "-0.6px",
+            "wordSpacing": "2.4px",
+            "whiteSpace": "normal",
+            "textWrap": "balance",
+            "maxWidth": "259.584px",
+            "lineHeight": "26.88px",
+            "spaceAdvance": 0,
+            "sameLine": false,
+            "titleHeight": 53.75,
+            "firstRects": [
+              {
+                "x": 391,
+                "y": 1952.3828125,
+                "width": 161.515625,
+                "height": 29
+              }
+            ],
+            "secondRects": [
+              {
+                "x": 391,
+                "y": 1979.2578125,
+                "width": 95.6484375,
+                "height": 29
+              }
+            ],
+            "cardBounds": {
+              "left": 369,
+              "right": 673.203125,
+              "width": 304.203125
+            },
+            "titleClientWidth": 260,
+            "titleScrollWidth": 260,
+            "cardClientWidth": 304,
+            "cardScrollWidth": 304
+          }
+        ],
+        "fonts": [
+          {
+            "family": "textFont",
+            "status": "loaded",
+            "weight": "100 900"
+          },
+          {
+            "family": "textFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          },
+          {
+            "family": "wordmarkFont",
+            "status": "loaded",
+            "weight": "700"
+          },
+          {
+            "family": "wordmarkFont Fallback",
+            "status": "unloaded",
+            "weight": "normal"
+          }
+        ],
+        "images": [
+          {
+            "url": "http://127.0.0.1:3001/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcoffee-still-life.437grazds8gw8.png&w=1920&q=75",
+            "complete": true,
+            "naturalWidth": 566,
+            "naturalHeight": 390
+          }
+        ],
+        "gridColumns": "304.203px 304.203px"
+      },
+      "interaction": {
+        "methods": [
+          "Space activates Ethiopia selection",
+          "Enter increases Ethiopia quantity to 2",
+          "Tab from enabled minus focuses plus",
+          "Enter selects Colombia",
+          "Enter on continuation focuses visible name field",
+          "Space on form plus increases Colombia quantity to 2"
+        ],
+        "accessibleNamesUnchanged": true,
+        "focus": {
+          "focusVisible": true,
+          "outlineStyle": "solid",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(182, 61, 11)"
+        },
+        "nameField": {
+          "id": "name",
+          "top": 216.5546875,
+          "bottom": 264.0546875,
+          "viewportHeight": 456,
+          "focused": true
+        },
+        "firstTotal": 93,
+        "firstRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила1 × 250 г29 BYN1Убрать"
+        ],
+        "finalTotal": 122,
+        "finalRows": [
+          "Эфиопия Иргачеффе2 × 250 г64 BYN2Убрать",
+          "Колумбия Уила2 × 250 г58 BYN2Убрать"
+        ],
+        "finalPageScrollWidth": 720,
+        "finalPageClientWidth": 720
+      }
+    }
+  ],
+  "errors": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "externalRequests": [],
+  "posts": [],
+  "limits": [
+    "Local production build in headless Chromium only; no physical-device, Firefox, WebKit, deployed-site, database, or Telegram verification.",
+    "Keyboard checks use actual keyboard Enter/Space/Tab after focusing named controls, not a full page traversal.",
+    "Browser zoom uses a temporary local extension calling chrome.tabs.setZoom(tabId, 2); chrome.tabs.getZoom confirms 2, CSS layout viewport halves and DPR doubles. The browser toolbar was not visually inspected.",
+    "No form submission. Existing full integration suite and performance audit were intentionally not rerun for this one-rule CSS refinement."
+  ],
+  "browserVersion": "151.0.7922.34",
+  "finishedAt": "2026-10-19T13:44:21.714Z",
+  "postCount": 0,
+  "passed": true
+}
