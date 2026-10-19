@@ -228,15 +228,18 @@ direct and familiar.
 This document records the implemented local landing page, extracted from
 [global styles](../src/app/globals.css), [page styles](../src/app/page.module.css),
 and the [page](../src/app/page.tsx), [form](../src/app/lead-form.tsx), and
-[header](../src/app/site-header.tsx). The still life and build plan were approved;
-user approval of the assembled first viewport remains pending. This record does
-not mark F4 complete. The [roadmap](roadmap.md) owns completion status.
+[header](../src/app/site-header.tsx). The still life and build plan were approved.
+On 2026-10-19, after the multi-coffee extension, the user approved the current
+assembled interface: «i check interface, everything is fine now».
+The [roadmap](roadmap.md) owns completion status; deployment verification remains
+a separate release step.
 
 The user's later request for an individual box for each coffee extends the local
 catalog with four warm-toned cards. The [surface brief](../.impeccable/surfaces/src-app-page-tsx.md)
 records that scope. This merges the implemented card component into the existing
-world; the original opening composition and its pending assembled-page approval
-remain as recorded above. [Desktop](../.impeccable/review/coffee-desktop.png) and
+world; the original opening composition remains the baseline. At that stage,
+assembled-page approval was still pending; the later acceptance is recorded above.
+[Desktop](../.impeccable/review/coffee-desktop.png) and
 [mobile](../.impeccable/review/coffee-mobile.png) catalog captures, their
 [full-page desktop](../.impeccable/review/coffee-desktop-page.png) and
 [mobile](../.impeccable/review/coffee-mobile-page.png) counterparts, and
@@ -277,7 +280,8 @@ and [desktop](../.impeccable/review/multi-desktop-default.png) catalogs, the sel
 one pack, Brazil at two packs, and drip assortment at one box: 99 BYN combined,
 with free Minsk delivery. It also records visible focused contact fields with
 all four types selected across 320–1440px. These captures verify local rendering;
-the original assembled-page approval and release gates remain pending.
+the user has since approved the assembled interface. Cloud and deployed-service
+verification remain release work.
 
 **Key Characteristics:**
 
@@ -589,4 +593,4 @@ Pliant with real rendered text; its provenance belongs in [asset sources](assets
 - **Don't** make decorative section dividers stand in for text-field borders.
 - **Don't** rasterize headings, product facts, or controls into the hero image.
 - **Don't** add shadows to the flat catalog cards or ordinary panels.
-- **Don't** treat this implementation record as assembled-hero approval or release completion.
+- **Don't** treat local interface approval or lab results as deployed release verification.

@@ -40,3 +40,11 @@ coffees can stay selected together, each with its own pack count and removal.
 The catalog and form repeat the complete list and combined coffee total; delivery
 uses that sum. Subscription remains a separate fixed offer and clears the coffee
 list when selected.
+
+## Interface acceptance
+
+On 2026-10-19 the user reviewed the current interface and stated:
+«i check interface, everything is fine now. run Fresh performance check».
+The assembled interface is accepted; preserve the current composition and
+multi-coffee behavior. This conversational approval does not fabricate an HTML
+capture receipt or an automated pixel-gate pass, and does not verify deployment.

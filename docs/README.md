@@ -6,7 +6,7 @@ the next feature, dependencies, and observable completion criteria.
 | Document | Purpose |
 | --- | --- |
 | [Product](PRODUCT.md) | Agreed scope, audience, business facts, design direction, and constraints. |
-| [Design system](DESIGN.md) | Implemented visual tokens, typography, layout, components, states, and pending assembled-hero approval. |
+| [Design system](DESIGN.md) | Implemented visual tokens, typography, layout, components, states, and recorded interface approval. |
 | [Original brief](kvarta-brief.md) | Preserved assignment text. Later user decisions in the product document take precedence. |
 | [Architecture](architecture.md) | Selected stack, data ownership, request flow, Telegram reliability, and environment boundaries. |
 | [Lead and notification APIs](api.md) | Request fields, limits, responses, duplicate behavior, and authenticated drain/retry contracts. |
@@ -24,8 +24,9 @@ does not preserve symbolic links, restore this link before using Impeccable.
 The root `DESIGN.md` is likewise a relative symbolic link to
 `docs/DESIGN.md`, which records the implemented visual system. Edit its content
 under `docs/`; `.impeccable/design.json` is the companion for design tooling.
-The design record does not replace the roadmap's completion gates or the user's
-pending review of the assembled first viewport.
+The design record does not replace the roadmap's completion gates or deployed
+verification. The user's assembled-interface approval is recorded in the product
+and design documents.
 
 Approved mockups, their original prompts, and selection metadata stay in
 `.impeccable/`; the typography reference stays in `assets/`. Their existing paths

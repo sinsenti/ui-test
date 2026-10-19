@@ -1,0 +1,348 @@
+{
+  "measuredAt": "2026-10-19T08:38:17.980Z",
+  "sourceCommit": "0a9602fce319b74b62128bd3f0626ce06edfdd03",
+  "buildId": "Kmi4xnLtpQ7VihW4ftPm1",
+  "url": "http://127.0.0.1:3001",
+  "method": "Three sequential mobile runs and one desktop run; Lighthouse creates a fresh browser profile for each run; warm local Next.js production server; no app changes between runs. Mobile score and metric medians are computed independently; original reports retain exact per-run values.",
+  "interfaceApproval": {
+    "source": "User conversation",
+    "date": "2026-10-19",
+    "quote": "i check interface, everything is fine now. run Fresh performance check"
+  },
+  "mobileMedians": {
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "agentic-browsing": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 908.3143,
+      "largest-contentful-paint": 2258.3143,
+      "total-blocking-time": 32.5,
+      "cumulative-layout-shift": 0,
+      "speed-index": 908.3143
+    }
+  },
+  "representativeMobile": "performance-mobile-1",
+  "runs": [
+    {
+      "name": "performance-mobile-1",
+      "reportJson": "performance-mobile-1.report.json",
+      "reportHtml": "performance-mobile-1.report.html",
+      "fetchTime": "2026-10-19T08:36:15.666Z",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 908.3143,
+        "largest-contentful-paint": 2258.3143,
+        "total-blocking-time": 32.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 908.3143
+      },
+      "warnings": [],
+      "formFactor": "mobile",
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttlingMethod": "simulate",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "benchmarkIndex": 3010.5,
+      "diagnostics": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "displayValue": "Est savings of 55 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 150
+          }
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript",
+          "displayValue": "Est savings of 14 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "metricSavings": {
+            "LCP": 0
+          }
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "displayValue": "Est savings of 260 ms",
+          "metricSavings": {
+            "FCP": 250,
+            "LCP": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "performance-mobile-2",
+      "reportJson": "performance-mobile-2.report.json",
+      "reportHtml": "performance-mobile-2.report.html",
+      "fetchTime": "2026-10-19T08:37:16.737Z",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 906.4602,
+        "largest-contentful-paint": 2256.4602,
+        "total-blocking-time": 29,
+        "cumulative-layout-shift": 0,
+        "speed-index": 906.4602
+      },
+      "warnings": [],
+      "formFactor": "mobile",
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttlingMethod": "simulate",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2981.5,
+      "diagnostics": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "displayValue": "Est savings of 55 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 150
+          }
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript",
+          "displayValue": "Est savings of 14 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "metricSavings": {
+            "LCP": 0
+          }
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "displayValue": "Est savings of 260 ms",
+          "metricSavings": {
+            "FCP": 250,
+            "LCP": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "performance-mobile-3",
+      "reportJson": "performance-mobile-3.report.json",
+      "reportHtml": "performance-mobile-3.report.html",
+      "fetchTime": "2026-10-19T08:37:27.365Z",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 909.2059999999999,
+        "largest-contentful-paint": 2673.809,
+        "total-blocking-time": 60,
+        "cumulative-layout-shift": 0,
+        "speed-index": 909.2059999999999
+      },
+      "warnings": [],
+      "formFactor": "mobile",
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttlingMethod": "simulate",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "benchmarkIndex": 3107,
+      "diagnostics": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "displayValue": "Est savings of 55 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 250
+          }
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript",
+          "displayValue": "Est savings of 14 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 100
+          }
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "metricSavings": {
+            "LCP": 0
+          }
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "displayValue": "Est savings of 250 ms",
+          "metricSavings": {
+            "FCP": 250,
+            "LCP": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "performance-desktop",
+      "reportJson": "performance-desktop.report.json",
+      "reportHtml": "performance-desktop.report.html",
+      "fetchTime": "2026-10-19T08:37:38.026Z",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100,
+        "agentic-browsing": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 248.35449999999997,
+        "largest-contentful-paint": 608.3545,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 248.35449999999997
+      },
+      "warnings": [],
+      "formFactor": "desktop",
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "throttlingMethod": "simulate",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2895.5,
+      "diagnostics": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "displayValue": "Est savings of 55 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 50
+          }
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "displayValue": "Est savings of 15 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript",
+          "displayValue": "Est savings of 14 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "metricSavings": {
+            "LCP": 0
+          }
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "displayValue": "Est savings of 70 ms",
+          "metricSavings": {
+            "FCP": 50,
+            "LCP": 0
+          }
+        }
+      ]
+    }
+  ]
+}

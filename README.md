@@ -6,6 +6,10 @@ notification delivery passed independent testing and review. The worker includes
 an offline simulator, leases, backoff, and protected recovery. The responsive
 landing page uses the approved cosy design with local imagery/fonts and one
 shared callback form.
+The user has approved the interface. The current build's local Lighthouse
+performance is 99 mobile (median of three runs) and 100 desktop; all four runs
+scored 100 for accessibility, best practices and SEO. See the
+[measurement conditions and reports](docs/development.md#visual-and-performance-evidence).
 Vercel + Neon setup comes last.
 
 ## Run locally

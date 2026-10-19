@@ -257,9 +257,40 @@ matching [mobile form](../.impeccable/review/multi-mobile-form.png) and
 [Multi-selection metadata](../.impeccable/review/multi-capture.json) records three
 coffees totaling 99 BYN and verifies a visible focused contact field with all four
 selected at six widths. The earlier quantity captures show the former single-item
-behavior, and remain historical evidence.
+behavior, and remain historical evidence. On 2026-10-19 the user reviewed and
+approved the current assembled interface before requesting a fresh performance
+measurement.
 
-Measured before that catalog refinement on 2026-10-19 (local date), using the
+Fresh results on source commit `0a9602f`, build `Kmi4xnLtpQ7VihW4ftPm1`, from
+`http://127.0.0.1:3001` using Lighthouse 13.5.0 and headless Chrome 155:
+
+| Category or metric | Mobile: median of three runs | Desktop: one run |
+| --- | --- | --- |
+| Performance | 99 (runs: 99, 99, 97) | 100 |
+| Accessibility / best practices / SEO | 100 / 100 / 100 | 100 / 100 / 100 |
+| FCP / LCP | 0.91 s / 2.26 s | 0.25 s / 0.61 s |
+| Total blocking time | 32.5 ms | 0 ms |
+| Cumulative layout shift | 0 | 0 |
+
+Runs were sequential against the same warm local production server; each used
+a fresh Lighthouse browser profile. Mobile used 412 × 823 at DPR 1.75, simulated
+150 ms RTT / 1.6 Mbps and 4× CPU slowdown. Desktop used the Lighthouse desktop
+preset: 1350 × 940 at DPR 1, simulated 40 ms RTT / 10 Mbps and 1× CPU. All four
+runs completed without warnings or runtime errors. Individual mobile LCP values
+were 2.258, 2.256 and 2.674 seconds; the third run exceeded 2.5 seconds. Medians
+for scores and metrics are computed independently, not selected from the best run.
+
+The [summary and exact conditions](../.impeccable/review/performance-summary.json)
+identify every original JSON/HTML report, the source commit and build. View the
+[representative mobile report](../.impeccable/review/performance-mobile-1.report.html)
+or [desktop report](../.impeccable/review/performance-desktop.report.html).
+Remaining initial-load suggestions include about 55 KiB of unused JavaScript,
+14 KiB of legacy JavaScript and 250–260 ms of mobile render-blocking estimates.
+These estimates are not additive. No application changes were made for this
+measurement. This is local initial-navigation lab evidence, not real-user data,
+interaction latency or a deployed-site score; repeat on the public URL in F5.
+
+Historical measurement before the catalog refinements on 2026-10-19 (local date), using the
 production application at
 `http://127.0.0.1:3001`, Lighthouse 13.5.0 / headless Chrome 155:
 

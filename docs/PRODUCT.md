@@ -143,6 +143,11 @@ The catalog uses four separate warm-toned product cards, with the existing
 names, tasting notes, pack sizes, prices, and shared callback selection. This
 extends the cosy-pack direction; the opening composition remains the baseline.
 
+After the multi-coffee flow was implemented, the user approved the current
+assembled interface on 2026-10-19: «i check interface, everything is fine now».
+Keep that accepted interface as the current visual reference. This acceptance
+does not configure cloud services or verify a public deployment.
+
 ## Evidence on Hand
 
 The client is fictional; the following are supplied assignment facts, not

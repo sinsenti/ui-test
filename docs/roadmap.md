@@ -12,7 +12,7 @@ in [AGENTS.md](../AGENTS.md).
 | F1 | Local application and database foundation | Done — `f44feb7` | None |
 | F2 | Reliable lead intake | Done — `f06ad9c` | F1 |
 | F3 | Required Telegram delivery | Done — local evidence below | F2 and its atomic outbox |
-| F4 | Complete responsive landing page | Implemented — assembled-page approval pending | F2–F3 for end-to-end local verification |
+| F4 | Complete responsive landing page | Verified locally — interface approved; fresh performance evidence below | F2–F3 for end-to-end local verification |
 | F5 | Cloud connection, release, and submission | Planned | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
@@ -147,7 +147,7 @@ those remain explicit F4/F5 gates. Detailed role evidence stays in the conversat
 Outcome: visitors understand the offer on a phone and can submit a callback
 request through the real locally tested endpoint.
 
-Implementation in progress (2026-10-19): the original comp has a measured region
+Implementation and local verification (2026-10-19): the original comp has a measured region
 map and font comparison proofs under `.impeccable/build/`. The user approved the
 local production still life and plan before assembly; see [asset sources](assets.md).
 The responsive page and shared callback form are implemented. Independent
@@ -160,15 +160,15 @@ Mobile Lighthouse measured 96 performance and 100 accessibility/best practices/S
 LCP 2.7 s, TBT 90 ms, CLS 0; conditions and original reports are in
 [development](development.md#visual-and-performance-evidence).
 
-The Impeccable hero comparison is 79% at the reference viewport, with phone/radio
-control drift after three attempts. The prescribed assembled-page user review
-remains pending; plate/plan approval is already complete. The static review
-capture rejected the real Next.js TSX entry (`pinned snapshot requires its HTML
-entry`), so no receipt or automated pass has been fabricated. Current production
-captures are valid. The raw desktop full-page comparison has mismatched scaling
-and cannot prove missing elements; a matching-viewport comparison is retained
-separately. Final phase closure depends on accepting the rendered page or
-requesting form-spacing changes. F4 is not marked complete and F5 has not begun.
+The historical Impeccable hero comparison was 79% at the reference viewport,
+with phone/radio drift after three attempts. The static review capture rejected
+the real Next.js TSX entry (`pinned snapshot requires its HTML entry`); no browser
+receipt or automated pixel-gate pass has been fabricated. Its old phase state
+still records that failed automated workflow. The raw desktop comparison used
+mismatched scaling and cannot prove missing elements. Later valid production
+captures and independent reviews cover the implemented interface. The user has
+now accepted that interface explicitly, as recorded below; do not request the
+same approval again. F5 has not begun.
 
 Catalog follow-up (2026-10-19): the user requested an individual box for each
 coffee offer. The four offers now use flat warm-toned cards, two columns above
@@ -199,7 +199,8 @@ the full suite rerun successfully. Independent source/data/UI review found no
 material defect; source-derived design records and current
 [quantity captures](development.md#visual-and-performance-evidence) are updated.
 Local `db:up`, `db:migrate` and `db:check` passed. No real Telegram, cloud or
-deployed performance verification is claimed; F4 opening approval remains pending.
+deployed performance verification is claimed. Interface approval was pending at
+that stage and was subsequently given, as recorded below.
 
 Multiple-coffee follow-up (2026-10-19): selecting another variety now keeps the
 existing choices. Card and form quantities/removal controls remain independent;
@@ -215,8 +216,21 @@ snapshot persistence, concurrency/duplicate invariants, rollback/backfill and
 notification aggregation. Current [multi-selection captures](development.md#visual-and-performance-evidence)
 show the same three coffees totaling 99 BYN in catalog and form. Independent
 source/data/UI review found no material defect. Local `db:up`, `db:migrate` and
-`db:check` passed. Broader F4 opening approval and F5 remain unchanged; physical
-devices, other browser engines and real Telegram remain outside this local evidence.
+`db:check` passed. Physical devices, other browser engines and real Telegram remain
+outside this local evidence; subsequent interface acceptance is recorded below.
+
+Current interface acceptance and fresh performance (2026-10-19): the user stated
+«i check interface, everything is fine now. run Fresh performance check» after
+reviewing the multi-coffee interface. Lighthouse measured source `0a9602f`, build
+`Kmi4xnLtpQ7VihW4ftPm1`, with three sequential mobile runs (99, 99, 97; median 99)
+and one desktop run (100). Accessibility, best practices and SEO were 100 in all
+four. Median mobile LCP was 2.258 s, TBT 32.5 ms and CLS 0; individual LCP ranged
+2.256–2.674 s. The [conditions and original reports](development.md#visual-and-performance-evidence)
+preserve all results and remaining optimization suggestions. Application code
+was unchanged; the existing 47-test passing result and independent runtime
+reviews still apply. These are local lab measurements, not deployed or real-user
+performance. The requested interface acceptance and fresh measurement are complete;
+cloud setup, real Telegram and public-URL verification remain F5.
 
 Work to do:
 
@@ -244,7 +258,7 @@ Work to do:
   restrained and respect reduced-motion preferences.
 - [x] Verify keyboard/focus/error announcements, contrast, touch targets,
   responsive layouts, image/font loading, and browser form behavior.
-- [ ] Run local end-to-end checks and a mobile performance pass; complete visual,
+- [x] Run local end-to-end checks and a mobile performance pass; complete visual,
   test, and independent code review before moving to cloud setup.
 
 Acceptance criteria:
