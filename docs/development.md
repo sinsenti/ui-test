@@ -1,8 +1,8 @@
 # Local development
 
 These commands describe the landing page, [lead API](api.md), and local
-notification delivery. Cloud release remains planned. The
-[roadmap](roadmap.md) records what is still planned.
+notification delivery. Cloud release is in progress; Vercel and real Telegram
+verification remain pending. The [roadmap](roadmap.md) records what is still planned.
 
 ## First setup
 
@@ -20,7 +20,7 @@ npm run dev
 
 Copy the example only on initial setup; preserve an existing `.env.local`.
 Open http://127.0.0.1:3000 for the landing page and its real local callback form.
-The database is PostgreSQL 17 on `127.0.0.1:54329`, bound only to loopback.
+The database is PostgreSQL 18 on `127.0.0.1:54329`, bound only to loopback.
 Credentials in Compose and `.env.example` are local examples, not production secrets.
 
 The first package install and Docker image pull require internet. After those
@@ -53,8 +53,9 @@ the database configuration.
 | `npm run check` | Run lint, typecheck, API/database/browser tests, and production build. |
 
 Do not add `--volumes` to development database teardown unless you intend to
-erase local data. The named volume is `kvarta_postgres_data`. Recreating the
-application or database container does not normally remove this volume.
+erase local data. The current named volume is `kvarta_postgres18_data`, mounted at
+`/var/lib/postgresql`; PostgreSQL 18 stores its cluster in `18/docker` below it.
+Recreating the application or database container does not normally remove this volume.
 
 Migration `1792281603000` introduces multi-coffee line items. Its down migration
 refuses while any request contains multiple coffees, since the older schema
@@ -63,12 +64,57 @@ For a database containing only singleton/general/subscription requests, it
 projects saved singleton snapshots to the legacy parent before dropping the new
 table. Roll back application code before removing a schema it depends on.
 
+## Upgrading an existing PostgreSQL 17 database
+
+Fresh checkouts start on PostgreSQL 18. An existing PostgreSQL 17 volume cannot
+be opened by PostgreSQL 18. The new Compose file uses a separate volume so the
+old files are not overwritten; starting it alone does not transfer old data.
+
+Before switching an existing installation:
+
+1. Stop Next.js and other database writers. Inventory databases, roles, schemas,
+   migration history and table contents. Keep the previous Compose configuration
+   with `postgres:17-alpine` and `postgres_data:/var/lib/postgresql/data` for recovery.
+2. Create a private logical backup with PostgreSQL 18 `pg_dump` in custom format,
+   using `--quote-all-identifiers`, and save globals with `pg_dumpall --globals-only`.
+   Back up any additional databases/roles found during inventory. Store dumps
+   under an ignored directory such as `features/pg18-upgrade/`, with directory mode
+   `0700` and file mode `0600`; never commit or print their contents.
+3. Start the new Compose configuration with `npm run db:up`. Restore into its
+   freshly initialized `kvarta` database using the PostgreSQL 18 tools:
+
+   ```sh
+   docker compose exec -T db pg_restore --exit-on-error --single-transaction \
+     -U kvarta -d kvarta < features/pg18-upgrade/kvarta-pg17.dump
+   ```
+
+   This assumes only the existing `kvarta` role/database; restore any additional
+   inventoried roles/databases deliberately. Do not restore over a database
+   already containing application tables or ignore restore failures.
+4. Compare complete row digests, migration history, generated subtotals, schema
+   constraints/indexes, ownership/grants and sequence values with the source.
+   Recreate the PostgreSQL 18 container and repeat the read-only checks to prove
+   volume persistence, then run `npm run db:migrate`, `npm run db:check` and
+   `npm run check`. A fully migrated restored database applies zero migrations.
+5. Preserve the original `kvarta_postgres_data` volume. To recover the frozen
+   PostgreSQL 17 state, stop writers and PostgreSQL 18, then use the old Compose
+   configuration and old volume. Once writes resume on 18, switching back would
+   omit those newer changes; preserve them before any rollback.
+
+The actual 2026-10-19 upgrade preserved four leads, five coffee lines, four outbox
+jobs and four migration records, with identical complete state digests before
+export, after restore, and after container recreation. The original volume and
+private logical backups were retained. No application requests were submitted
+during this maintenance. Independent `npm run check` then passed lint, types,
+all 52 disposable-PostgreSQL/API/notification/browser tests and the production
+build on PostgreSQL 18.6. The disposable test resources were removed.
+
 ## Environment variables
 
 | Variable | Current use |
 | --- | --- |
-| `DATABASE_URL` | Server-only application connection to local PostgreSQL. |
-| `DATABASE_URL_DIRECT` | Preferred migration connection; optional locally because migration scripts fall back to `DATABASE_URL`. Required as a separate direct URL in the planned Neon setup. |
+| `DATABASE_URL` | Server-only application connection: Docker locally, pooled Neon URL in production. |
+| `DATABASE_URL_DIRECT` | Preferred migration connection; optional locally because migration scripts fall back to `DATABASE_URL`. Use the separate direct URL for Neon migrations. |
 | `SITE_URL` | Public absolute origin used at build time for social-image metadata. Local default `http://localhost:3000`; set the real HTTPS origin and rebuild at release. Not a secret. |
 | `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` | Optional test-only browser executable override; otherwise use Playwright's installed Chromium. Not used by application code. |
 | `TELEGRAM_TRANSPORT` | `mock` (default) or explicit `telegram`. Real mode requires valid bot/chat settings and never falls back to mock. |
@@ -82,6 +128,38 @@ Keep `.env.local` and real credentials ignored. Commit placeholders only in
 file and overrides inherited database URLs for its child test process. Tests also
 force the successful mock transport, clear bot/chat values, and create an ephemeral
 management secret, so a caller's real Telegram settings cannot leak into the suite.
+
+## Cloud database commands
+
+Keep `.env.local` on Docker. Put private release connections in ignored
+`.env.deploy`, with owner-only file permissions:
+
+```dotenv
+DATABASE_URL="PASTE_NEON_POOLED_URL"
+DATABASE_URL_DIRECT="PASTE_NEON_DIRECT_URL"
+```
+
+Neon's onboarding names the direct URL `DATABASE_URL` and the pooled URL
+`DATABASE_URL_POOLED`; map them to our names above. Keep TLS enabled. This custom
+file is not loaded automatically by Next.js or the existing scripts. After
+verifying the intended environment and backup needs, load it explicitly:
+
+```sh
+node --env-file=.env.deploy scripts/migrate.ts up
+node --env-file=.env.deploy --conditions=react-server scripts/db-check.ts
+```
+
+Shell environment variables still take precedence. Verify the target before
+running these commands; keep migrations separate from builds and requests.
+The check command verifies the connection and core tables, not the whole deployed
+lead flow. Never prefix database or bot credentials with `NEXT_PUBLIC_`.
+
+On 2026-10-19 the four existing migrations were applied to the verified empty
+Neon 18.6 database through the direct connection. A second run applied zero
+migrations, and the application pool check passed using the pooled connection.
+No cloud lead or notification rows were created. Both endpoints passed
+certificate-authorized TLS 1.3 checks. This is database preparation evidence;
+the public application and real Telegram flow still need release verification.
 
 ## Notification operations
 

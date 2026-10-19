@@ -13,7 +13,7 @@ in [AGENTS.md](../AGENTS.md).
 | F2 | Reliable lead intake | Done — `f06ad9c` | F1 |
 | F3 | Required Telegram delivery | Done — local evidence below | F2 and its atomic outbox |
 | F4 | Complete responsive landing page | Verified locally — interface approved; fresh performance evidence below | F2–F3 for end-to-end local verification |
-| F5 | Cloud connection, release, and submission | Planned | F1–F4 passing local checks and review |
+| F5 | Cloud connection, release, and submission | In progress — PostgreSQL 18 alignment; Vercel/Telegram pending | F1–F4 passing local checks and review |
 
 The original [cosy-pack.png](../.impeccable/mocks/decision/cosy-pack.png) is the
 approved design. Vercel + Neon and Docker PostgreSQL for offline development
@@ -31,7 +31,7 @@ Outcome: a fresh checkout can run and verify the app with a persistent local
 database and no cloud account.
 
 - [x] Next.js App Router + TypeScript, Node.js 24/npm, and a semantic placeholder.
-- [x] Docker PostgreSQL 17 on loopback with a persistent named volume.
+- [x] Docker PostgreSQL on loopback with a persistent named volume (initially 17; upgraded to 18 during F5).
 - [x] Server-only lazy `pg` pool and versioned transactional SQL migrations.
 - [x] An isolated temporary database harness with interruption cleanup.
 - [x] Setup commands, lint, types, integration tests, and production build.
@@ -296,9 +296,9 @@ sends a real Telegram notification with safe environment separation.
 Work to do:
 
 - [ ] Execute the [release checklist](release.md) only after local features pass.
-- [ ] Recheck Vercel/Neon free-plan eligibility, storage/compute/cron limits, and
+- [x] Recheck Vercel/Neon free-plan eligibility, storage/compute/cron limits, and
   any constraints that affect this app; do not assume earlier quoted allowances.
-- [ ] Create/configure Vercel and Neon PostgreSQL 17, production and isolated
+- [ ] Create/configure Vercel and Neon PostgreSQL 18, production and isolated
   preview settings, pooled runtime and direct migration connections, and secrets.
 - [ ] Configure the real bot/chat, authenticated retry/recovery, daily cron,
   and operational checks using the implementation from F3.
@@ -317,6 +317,21 @@ stores a synthetic request and sends it to the intended real chat; pending jobs
 survive a deployment; evidence and README describe what was actually verified.
 Submitting the prepared package to the assignment contact remains a user action
 unless the user explicitly asks us to send it.
+
+Release preparation (2026-10-19): the user chose to keep the newly created Neon
+PostgreSQL 18.6 project in Frankfurt and align local/test PostgreSQL to 18. Direct
+and pooled connections passed independent read-only TLS checks. The local 17→18
+logical upgrade preserved every row and schema/sequence inventory across a
+container recreation; the original PostgreSQL 17 volume and private backups remain.
+`vercel.json` now declares Frankfurt and daily recovery, but deployment and
+scheduler execution are unverified. Independent `npm run check` passed all 52
+tests, lint, types and the production build on PostgreSQL 18.6. The four existing
+migrations were applied to the verified empty Neon database, their second run
+applied zero, and the pooled application check passed. No cloud lead or
+notification rows were created. Preview isolation, Vercel deployment, real
+Telegram, live persistence/recovery and the remaining release checks are still
+pending. Independent review passed this database/deployment preparation step;
+F5 is not complete.
 
 ## Decisions and remaining implementation choices
 

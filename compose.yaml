@@ -2,7 +2,7 @@ name: kvarta
 
 services:
   db:
-    image: postgres:17-alpine
+    image: postgres:18-alpine
     environment:
       POSTGRES_USER: kvarta
       POSTGRES_PASSWORD: kvarta_local
@@ -10,7 +10,7 @@ services:
     ports:
       - "127.0.0.1:54329:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres18_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U kvarta -d kvarta"]
       interval: 2s
@@ -18,4 +18,4 @@ services:
       retries: 20
 
 volumes:
-  postgres_data:
+  postgres18_data:

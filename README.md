@@ -1,7 +1,8 @@
 # Кварта
 
 Landing page for a fictional Minsk coffee roastery. The local Next.js + TypeScript
-and Docker PostgreSQL 17 foundation is complete (`f44feb7`). Lead intake and local
+and Docker PostgreSQL foundation is complete (`f44feb7`); the current database
+major is 18, matching Neon. Lead intake and local
 notification delivery passed independent testing and review. The worker includes
 an offline simulator, leases, backoff, and protected recovery. The responsive
 landing page uses the approved cosy design with local imagery/fonts and one
@@ -10,7 +11,8 @@ The user has approved the interface. The current build's local Lighthouse
 performance is 99 mobile (median of three runs) and 100 desktop; all four runs
 scored 100 for accessibility, best practices and SEO. See the
 [measurement conditions and reports](docs/development.md#visual-and-performance-evidence).
-Vercel + Neon setup comes last.
+The final release phase is in progress: Neon connections and migrations are verified, while
+Vercel deployment and real Telegram delivery are still pending.
 
 ## Run locally
 
@@ -31,6 +33,9 @@ subsequent development uses cached local resources. Run `npm run check` for lint
 types, isolated PostgreSQL/API/browser integration tests, and a production build.
 Install Chromium once with `npx playwright install chromium` before the checks.
 `npm run db:down` preserves local data; adding `--volumes` erases it.
+Existing PostgreSQL 17 installations must follow the
+[upgrade procedure](docs/development.md#upgrading-an-existing-postgresql-17-database)
+before starting the new Compose configuration.
 
 ## Documentation
 

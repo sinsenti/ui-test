@@ -1,7 +1,7 @@
 # Used only with a generated, isolated project name by npm run test:db.
 services:
   db:
-    image: postgres:17-alpine
+    image: postgres:18-alpine
     environment:
       POSTGRES_USER: kvarta_test
       POSTGRES_PASSWORD: kvarta_test
@@ -9,7 +9,7 @@ services:
     ports:
       - "127.0.0.1::5432"
     tmpfs:
-      - /var/lib/postgresql/data
+      - /var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U kvarta_test -d kvarta_test"]
       interval: 1s

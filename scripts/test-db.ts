@@ -111,7 +111,7 @@ try {
 } catch {
   console.error(interrupted
     ? "Database tests interrupted; cleaning up the temporary database."
-    : "Integration tests failed to start. Check Docker, dependencies, and the cached postgres:17-alpine image.");
+    : "Integration tests failed to start. Check Docker, dependencies, and the cached postgres:18-alpine image.");
   process.exitCode = 1;
 } finally {
   cleaningUp = true;

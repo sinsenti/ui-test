@@ -1,6 +1,7 @@
 # Release checklist
 
-This is a future checklist for F5, not a record of a configured cloud deployment.
+F5 is in progress. Checked items and results below record actual verification;
+unmarked items are still release work. No Vercel deployment is live yet.
 As of 2026-10-19, the local application, multi-coffee lead intake, and simulated
 notifications are implemented and independently tested. The user approved the
 interface; fresh local Lighthouse results are recorded in
@@ -24,7 +25,7 @@ for environment and reliability decisions.
 
 ## 2. Provider and environment setup
 
-- [ ] Recheck actual Vercel and Neon free-plan limits/eligibility and PostgreSQL 17
+- [x] Recheck actual Vercel and Neon free-plan limits/eligibility and PostgreSQL 18
   support. Earlier quoted free allowances are not a current guarantee.
 - [ ] Create the Vercel application and Neon database only now. Choose compatible
   nearby regions and record the non-secret project/environment mapping here.
@@ -53,9 +54,9 @@ for environment and reliability decisions.
 
 - [ ] Verify the target database/environment explicitly before executing migrations.
   For an existing database, establish a backup/restore option first and record it.
-- [ ] Apply `npm run db:migrate` using the target's direct URL in a controlled
+- [x] Apply `npm run db:migrate` using the target's direct URL in a controlled
   environment. Do not run migrations from a page build or request handler.
-- [ ] Verify migration history and required schema. Keep existing migration files
+- [x] Verify migration history and required schema. Keep existing migration files
   immutable; prefer an additive repair migration for a shared deployed database.
 - [ ] Deploy the reviewed commit and record its SHA and live URL in this checklist.
 - [ ] Confirm the production server can access PostgreSQL and keeps lead/outbox
@@ -113,14 +114,51 @@ the configured service; simulated tests do not satisfy these items.
 The user sends the prepared submission unless they explicitly authorize sending
 it. No submission message is sent as part of this planning task.
 
-## Results to fill at release
+## Database preparation and deployment configuration
+
+Verified on 2026-10-19. The user selected PostgreSQL 18 to match the created Neon
+project. Local development was logically upgraded from 17.11 into a separate
+PostgreSQL 18.6 volume; complete row/schema/sequence state matched after restore
+and container recreation. The PostgreSQL 17 volume and private backups remain.
+Independent `npm run check` passed lint, types, all 52 tests and the production
+build on isolated PostgreSQL 18.6. This does not satisfy public deployment gates.
+
+| Environment | Current mapping and evidence |
+| --- | --- |
+| Local | Docker PostgreSQL 18.6, loopback port 54329, `kvarta_postgres18_data`; original `.env.local` unchanged. |
+| Intended production database | User-created Neon project in AWS Frankfurt, `neondb`, PostgreSQL 18.6; direct and pooled connections independently verified with authorized TLS 1.3. Four migrations applied; reapply zero; application pool check passed. |
+| Preview | Not provisioned; must receive an isolated database and mock/test Telegram settings before use. |
+| Vercel application | Not deployed. `vercel.json` selects `fra1` and `0 5 * * *` for `/api/notifications/drain`; actual scheduled execution remains unverified. |
+| Real Telegram | Not configured or verified. No real message has been sent. |
+
+Private URLs are stored only in ignored `.env.deploy`. It is explicitly loaded
+for release database commands, not substituted into local Docker settings.
+The file also holds a generated `CRON_SECRET` for future protected recovery;
+production must receive that value in Vercel's server-only environment settings.
+The current driver verifies endpoint certificates for the supplied TLS mode;
+its future-major-version SSL alias warning is not proof of channel binding.
+
+`npm audit --omit=dev --json` reported zero known production dependency
+vulnerabilities on 2026-10-19. The local production server was restored on
+port 3001 and returned HTTP 200 after the upgrade; no form was submitted.
+
+Current provider constraints were checked against the official
+[Neon pricing](https://neon.com/pricing), [Vercel Hobby eligibility](https://vercel.com/docs/plans/hobby),
+and [cron limits](https://vercel.com/docs/cron-jobs/usage-and-pricing): Neon Free
+lists 1 GB and 100 CU-hours per project monthly; Hobby is personal/noncommercial
+and scheduled recovery is daily with imprecise timing. Reassess before using this
+fictional assignment for a real business. Each recovery invocation handles at
+most three eligible jobs; accepted/duplicate lead requests also drain bounded
+batches. No real scheduled execution or rapid outage-recovery guarantee is claimed.
+
+## Release results
 
 | Evidence | Actual result |
 | --- | --- |
 | Reviewed/deployed commit | Pending |
 | Production URL and repository access | Pending |
 | Production/preview isolation check | Pending |
-| Applied migration history and persistence check | Pending |
+| Applied migration history and persistence check | Neon PostgreSQL 18.6: four migrations applied via direct connection, reapply zero, pooled application check passed, no business rows; live redeployment persistence pending. |
 | Real Telegram delivery and recovery check | Pending |
 | Scheduler execution evidence | Pending |
 | Deployed mobile Lighthouse report and conditions | Pending |

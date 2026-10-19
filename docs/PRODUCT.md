@@ -11,7 +11,7 @@ web
 Selected: Next.js App Router + TypeScript, Node.js 24/npm, CSS Modules and CSS
 custom properties, standard `pg`, and versioned SQL migrations. Production will
 use Vercel + Neon PostgreSQL. Local development uses host Next.js and Docker
-PostgreSQL 17 with a persistent volume, and must work offline after dependencies
+PostgreSQL 18 with a persistent volume, and must work offline after dependencies
 and images are downloaded. Keep fonts and imagery local.
 
 The local foundation, lead API, and durable notification worker are implemented.

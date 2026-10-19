@@ -1,9 +1,11 @@
 # Architecture
 
-Status as of 2026-10-18: the local foundation, lead intake, and durable notification
-worker and responsive landing page are implemented. Real Telegram verification
-and cloud deployment remain planned. Use the [roadmap](roadmap.md) for verified progress and the
-[product document](PRODUCT.md) for requirements.
+Status as of 2026-10-19: the local foundation, lead intake, durable notification
+worker, and responsive landing page are implemented. Real Telegram verification
+and Vercel deployment remain planned. Neon connectivity and the four database migrations are verified; local, test,
+and production database configurations now target PostgreSQL 18. Use the
+[roadmap](roadmap.md) for verified progress and the [product document](PRODUCT.md)
+for requirements.
 
 ## Stack and boundaries
 
@@ -12,12 +14,12 @@ and cloud deployment remain planned. Use the [roadmap](roadmap.md) for verified 
 | Application | Next.js App Router, TypeScript, Node.js 24, npm | Static landing page and server-side lead/notification APIs. |
 | UI | CSS Modules, CSS custom properties, local Cyrillic fonts and imagery | Implements the approved original `cosy-pack.png`; semantic text and controls over a separate production photograph. |
 | Lead endpoint | `POST /api/lead`, Node.js runtime, Zod, `libphonenumber-js/max` | Implemented; see the [API contract](api.md). |
-| Database | PostgreSQL 17; `pg` with parameterized SQL | Docker and lazy server-only pool implemented. |
+| Database | PostgreSQL 18; `pg` with parameterized SQL | Docker and lazy server-only pool implemented; Neon direct and pooled connectivity verified. |
 | Migrations | Timestamped SQL through stable `node-pg-migrate` | Implemented; `app.leads` and `app.notification_outbox` persist accepted requests/jobs. |
 | Catalog | Typed source content and local assets | `src/lib/catalog.ts`; no catalog database or CMS. |
 | Notifications | PostgreSQL outbox and bounded Telegram delivery worker | Local simulator, transport adapter, leases, retries, and authenticated recovery implemented; real service verification belongs to release. |
 | Verification | Node.js runner, Playwright/axe, disposable PostgreSQL, isolated Next.js server | Migration, API, worker, browser submission/failure, and responsive/accessibility checks. |
-| Hosting | Vercel application + Neon PostgreSQL | Selected; provision only in the final release feature. |
+| Hosting | Vercel application + Neon PostgreSQL | Final release in progress; Neon provisioned, Vercel deployment pending. |
 
 One application serves the page and API. Server components can render the static
 content; client code handles the form and necessary interactions. Database code
@@ -213,10 +215,10 @@ APIs; these links are references, not evidence of a deployed integration.
 
 | Environment | Database | Telegram | Provisioning |
 | --- | --- | --- | --- |
-| Local development | Docker PostgreSQL 17, named volume | Simulated transport | Available now. |
+| Local development | Docker PostgreSQL 18, named volume | Simulated transport | Available now. |
 | Automated database tests | Separate generated Compose project, random loopback port, temporary storage | Forced simulated transport; real adapter uses stubbed fetch | Current harness creates and removes its own resources. |
 | Preview | Separate Neon development/preview branch; never production data | Mock or separate test target | Final release feature. |
-| Production | Neon PostgreSQL 17, persistent lead/outbox tables | Real configured bot/chat | Final release feature. |
+| Production | Neon PostgreSQL 18, persistent lead/outbox tables | Real configured bot/chat | Neon connections and schema verified; application deployment and real delivery pending. |
 
 Runtime uses `DATABASE_URL`; migrations prefer `DATABASE_URL_DIRECT` and fall
 back to the runtime URL locally. At release, use Neon's pooled URL for runtime
@@ -228,3 +230,14 @@ documents exact settings and operating procedures. No real credentials are requi
 
 The [release checklist](release.md) covers migrations, environment separation,
 actual external-service verification, and operating/recovery instructions.
+
+The user selected Neon PostgreSQL 18 after the created project reported 18.6.
+Development and disposable tests now use `postgres:18-alpine`. Its versioned
+data directory lives under `/var/lib/postgresql`; the development volume is
+`kvarta_postgres18_data`. Existing PostgreSQL 17 data was logically restored into
+this separate volume; the original `kvarta_postgres_data` remains available for
+recovery. See the [upgrade procedure](development.md#upgrading-an-existing-postgresql-17-database).
+
+`vercel.json` selects Frankfurt (`fra1`) and schedules authenticated recovery at
+`0 5 * * *` (UTC). The configuration takes effect only after a production
+deployment; no scheduler execution is claimed yet.
